@@ -1,0 +1,106 @@
+/**
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Copyright (C) 2007 BitCtrl Systems GmbH 
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ * Contact Information:<br>
+ * BitCtrl Systems GmbH<br>
+ * Weißenfelser Straße 67<br>
+ * 04229 Leipzig<br>
+ * Phone: +49 341-490670<br>
+ * mailto: info@bitctrl.de
+ */
+
+package de.bsvrz.dua.pllangufd;
+
+import de.bsvrz.dav.daf.main.ResultData;
+
+/**
+ * Diese Klasse repraesentiert das aktuelle Datum eines Umfelddatensensors
+ * mit dem Vergleichswert der Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6, S.108)
+ *  
+ * @author BitCtrl Systems GmbH, Thierfelder
+ *
+ */
+public class VergleichsWertMitAktuellemDatum {  
+	
+	/**
+	 * der Vergleichswert
+	 */
+	private double vergleichsWert = Double.NaN;
+	
+	/**
+	 * aktuelles letztes empfangenes Datum, das zur Ermittlich dieses Vergleichswertes
+	 * herangezogen wurde
+	 */
+	private ResultData aktuellerWert = null;
+	
+	
+	/**
+	 * Standardkonstruktor
+	 * 
+	 * @param aktuellerWert aktuelles letztes empfangenes Datum, das zur Ermittlich
+	 * dieses Vergleichswertes herangezogen wurde 
+	 */
+	public VergleichsWertMitAktuellemDatum(final ResultData aktuellerWert){
+		this.aktuellerWert = aktuellerWert;
+	}
+	
+	
+	/**
+	 * Setzt den Vergleichswert der Pl-Pruefung langzeit UFD
+	 * nach Afo-4.0 (6.6.2.4.7.6, S.108)
+	 * 
+	 * @param vergleichsWert der Vergleichswert
+	 */
+	public final void setVergleichsWert(double vergleichsWert){
+		this.vergleichsWert = vergleichsWert;		
+	}
+	
+	
+	/**
+	 * Erfragt, ob der Vergleichswert schon gesetzt wurde
+	 * 
+	 * @return ob der Vergleichswert schon gesetzt wurde
+	 */
+	public final boolean isValid(){
+		return this.vergleichsWert != Double.NaN;
+	}
+	
+	
+	/**
+	 * Erfragt den Vergleichswert fuer die Pl-Pruefung langzeit UFD 
+	 * 
+	 * @return der Vergleichswert fuer die Pl-Pruefung langzeit UFD
+	 */
+	public final double getVergleichsWert(){
+		return this.vergleichsWert;
+	}
+	
+	
+
+	/**
+	 * Erfragt aktuelles letztes empfangenes Datum, das zur Ermittlich
+	 * dieses Vergleichswertes herangezogen wurde 
+	 * 
+	 * @return aktuelles letztes empfangenes Datum, das zur Ermittlich
+	 * dieses Vergleichswertes herangezogen wurde 
+	 */
+	public final ResultData getAktuellenWert(){
+		return this.aktuellerWert;
+	}
+	
+}

@@ -60,7 +60,7 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	/**
 	 * Messwerthistorie dieses Sensors fuer die letzten 24 Stunden
 	 */
-	private UfdsHistorie hitorie24 = new UfdsHistorie();
+	private HistorischerDatenpuffer<HistorischerUfdsWert> hitorie24 = new HistorischerDatenpuffer<HistorischerUfdsWert>();
 	
 	
 	/**
@@ -71,7 +71,7 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	 * @return eine statische Instanz dieser Klasse
 	 */
 	public static final PlLangUfdSensor getInstanz(final ClientDavInterface dav, 
-												final SystemObject objekt){
+													final SystemObject objekt){
 		if(objekt == null){
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}
@@ -110,9 +110,46 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 			HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
 			this.hitorie24.addDatum(historischerWert);
 			synchronized (this.aktuelleParameter) {
-				if(this.aktuelleParameter.isValid()){
-					this.onlineWert.setVergleichsWert( this.hitorie24.getVergleichsWert(
-							this.aktuelleParameter.getMaxAusfallZeit()) );	
+				if(this.aktuelleParameter.isValid()){					
+					double ergebnis = Double.NaN;
+
+					if(this.hitorie24.getIntervallLaenge() > 0){
+						if(!this.hitorie24.getPufferInhalt().isEmpty()){	
+							long summeD = -1;
+							long summeWmalD = -1;
+							long summeA = -1;
+							for(HistorischerUfdsWert wert:this.hitorie24.getPufferInhalt()){
+								if(wert.getWert().isOk()){
+									if(summeD == -1){
+										summeD = 0;	// Initialisierung
+										summeWmalD = 0;	// Initialisierung
+									}
+									summeD += wert.getT();
+									summeWmalD += wert.getWert().getWert() * wert.getT(); 
+								}
+							}
+							
+							if(summeD >= 0){
+								summeA = this.hitorie24.getIntervallLaenge() - summeD;
+								if(summeA < 0){
+									summeA = 0;
+									
+									/**
+									 * TODO: wieder raus
+									 */
+									throw new RuntimeException("---------------------------"); //$NON-NLS-1$
+								}
+								
+								double anteilAusfall = ((double)summeA) / ((double)this.hitorie24.getIntervallLaenge());
+								
+								if(anteilAusfall <= aktuelleParameter.getMaxAusfallZeit()){
+									ergebnis = ((double)summeWmalD)/((double)summeD);
+								}
+							}
+						}	
+					}
+					
+					this.onlineWert.setVergleichsWert( ergebnis );
 				}				
 			}
 		}

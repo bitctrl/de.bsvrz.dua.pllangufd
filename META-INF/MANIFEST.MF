@@ -5,3 +5,4 @@ Bundle-SymbolicName: de.bsvrz.dua.pllangufd
 Bundle-Version: 1.0.0
 Bundle-Vendor: BitCtrl Systems GmbH
 Require-Bundle: de.bsvrz.sys.funclib.bitctrl
+Export-Package: de.bsvrz.dua.pllangufd

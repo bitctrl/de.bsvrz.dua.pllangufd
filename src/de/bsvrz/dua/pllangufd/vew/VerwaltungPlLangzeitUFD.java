@@ -30,9 +30,9 @@ import java.util.Set;
 
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.dua.pllangufd.fbz.PlLang_Fbz_Sensor;
-import de.bsvrz.dua.pllangufd.na.PlLang_Ns_Sensor;
-import de.bsvrz.dua.pllangufd.rest.PlLang_Ni_Wfd_Lt_Sw_Sensor;
+import de.bsvrz.dua.pllangufd.fbz.PlLang_Fbz_SensorMenge;
+import de.bsvrz.dua.pllangufd.na.PlLang_Ns_SensorMenge;
+import de.bsvrz.dua.pllangufd.rest.PlLang_Ni_Wfd_Lt_Sw_SensorMenge;
 import de.bsvrz.sys.funclib.application.StandardApplicationRunner;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAInitialisierungsException;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
@@ -89,18 +89,18 @@ extends AbstraktVerwaltungsAdapter{
 			for(UmfeldDatenArt datenArt:ni_wfd_sw_lt){
 				DUAUmfeldDatenSensor[] sensoren = this.getSensoren(messStelle, datenArt);
 				if(sensoren[0] != null && sensoren[1] != null && sensoren[2] != null){
-					new PlLang_Ni_Wfd_Lt_Sw_Sensor(sensoren[0], sensoren[1], sensoren[2]);
+					new PlLang_Ni_Wfd_Lt_Sw_SensorMenge(this.verbindung, messStelle, sensoren[0], sensoren[1], sensoren[2]);
 				}
 			}
 			
 			DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle, UmfeldDatenArt.NS);
 			if(sensorenNS[0] != null && sensorenNS[1] != null && sensorenNS[2] != null){
-				new PlLang_Ns_Sensor(sensorenNS[0], sensorenNS[1], sensorenNS[2]);
+				new PlLang_Ns_SensorMenge(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
 			}
 
 			DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle, UmfeldDatenArt.FBZ);
 			if(sensorenFBZ[0] != null && sensorenFBZ[1] != null && sensorenFBZ[2] != null){
-				new PlLang_Fbz_Sensor(sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
+				new PlLang_Fbz_SensorMenge(this.verbindung, messStelle, sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
 			}
 		}
 	}
@@ -127,6 +127,7 @@ extends AbstraktVerwaltungsAdapter{
 		DUAUmfeldDatenSensor sensor = messStelle.getHauptSensor(datenArt);
 		DUAUmfeldDatenSensor sensorVor = null;
 		DUAUmfeldDatenSensor sensorNach = null;
+		
 		if(sensor != null){
 			SystemObject vorgaengerObjekt = sensor.getVorgaenger();   
 			if(vorgaengerObjekt != null){

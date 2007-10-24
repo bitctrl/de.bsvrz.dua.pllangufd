@@ -23,29 +23,23 @@
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
  */
-package de.bsvrz.dua.pllangufd.rest;
 
-import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
+package de.bsvrz.dua.pllangufd.historie;
 
 /**
+ * Allgemeine Schnittstelle zu einem <b>sortierbaren</b> Objekt mit Zeitstempel
  *  
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
-public class PlLang_Ni_Wfd_Lt_Sw_Sensor {
-
+public interface IZeitStempel
+extends Comparable<IZeitStempel>{
+	
 	/**
+	 * Erfragt den aktuellen Zeitstempel dieses Objektes
 	 * 
-	 * @param sensorSelbst
-	 * @param sensorVorgaenger
-	 * @param sensorNachfolger
+	 * @return der aktuelle Zeitstempel dieses Objektes
 	 */
-	public PlLang_Ni_Wfd_Lt_Sw_Sensor(DUAUmfeldDatenSensor sensorSelbst,
-									  DUAUmfeldDatenSensor sensorVorgaenger, 
-									  DUAUmfeldDatenSensor sensorNachfolger){
-		
-	}
-	
-	
-	
+	public long getZeitStempel();
+
 }

@@ -41,6 +41,11 @@ public class VergleichsWertMitAktuellemDatum {
 	 * der Vergleichswert
 	 */
 	private double vergleichsWert = Double.NaN;
+
+	/**
+	 * der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
+	 */
+	private double vergleichsWert24 = Double.NaN;
 	
 	/**
 	 * aktuelles letztes empfangenes Datum, das zur Ermittlich dieses Vergleichswertes
@@ -52,7 +57,7 @@ public class VergleichsWertMitAktuellemDatum {
 	/**
 	 * Standardkonstruktor
 	 * 
-	 * @param aktuellerWert aktuelles letztes empfangenes Datum, das zur Ermittlich
+	 * @param aktuellerWert aktuelles letztes empfangenes Datum, das zur Ermittlung
 	 * dieses Vergleichswertes herangezogen wurde 
 	 */
 	public VergleichsWertMitAktuellemDatum(final ResultData aktuellerWert){
@@ -72,12 +77,36 @@ public class VergleichsWertMitAktuellemDatum {
 	
 	
 	/**
+	 * Setzt den Vergleichswert fuer einen Bezugszeitraum von 24h
+	 * der Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6, S.108)
+	 * 
+	 * @param vergleichsWert24 der Vergleichswert berechnet fuer einen
+	 * Bezugszeitraum von 24h
+	 */
+	public final void setVergleichsWert24(double vergleichsWert24){
+		this.vergleichsWert24 = vergleichsWert24;		
+	}
+	
+	
+	/**
 	 * Erfragt, ob der Vergleichswert schon gesetzt wurde
 	 * 
 	 * @return ob der Vergleichswert schon gesetzt wurde
 	 */
 	public final boolean isValid(){
 		return this.vergleichsWert != Double.NaN;
+	}
+	
+	
+	/**
+	 * Erfragt, ob der Vergleichswert fuer den Bezugszeitraum von 24h 
+	 * schon gesetzt wurde
+	 * 
+	 * @return ob der Vergleichswert fuer den Bezugszeitraum von 24h 
+	 * schon gesetzt wurde
+	 */
+	public final boolean isValid24(){
+		return this.vergleichsWert24 != Double.NaN;
 	}
 	
 	
@@ -90,6 +119,17 @@ public class VergleichsWertMitAktuellemDatum {
 		return this.vergleichsWert;
 	}
 	
+	
+	/**
+	 * Erfragt den Vergleichswert berechnet fuer einen
+	 * Bezugszeitraum von 24h fuer die Pl-Pruefung langzeit UFD 
+	 * 
+	 * @return der Vergleichswert berechnet fuer einen
+	 * Bezugszeitraum von 24h fuer die Pl-Pruefung langzeit UFD
+	 */
+	public final double getVergleichsWert24(){
+		return this.vergleichsWert24;
+	}
 	
 
 	/**

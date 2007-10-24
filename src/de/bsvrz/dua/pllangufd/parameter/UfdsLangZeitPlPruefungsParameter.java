@@ -24,12 +24,13 @@
  * mailto: info@bitctrl.de
  */
 
-package de.bsvrz.dua.pllangufd;
+package de.bsvrz.dua.pllangufd.parameter;
 
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**

@@ -24,7 +24,7 @@
  * mailto: info@bitctrl.de
  */
 
-package de.bsvrz.dua.pllangufd;
+package de.bsvrz.dua.pllangufd.parameter;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -53,7 +53,7 @@ implements ClientReceiverInterface{
 	/**
 	 * aktueller Parametersatz
 	 */
-	private UfdsLangZeitPlPruefungsParameter parameterSatz = new UfdsLangZeitPlPruefungsParameter(null);
+	private UfdsLangZeitPlPruefungsParameter parameterSatz = null;
 	
 	/**
 	 * beobachter dieses Objektes (werden ueber aktuelle Parameter informiert)
@@ -94,7 +94,7 @@ implements ClientReceiverInterface{
 	 */
 	public final synchronized void addListener(final IUniversalAtgUfdsLangzeitPLPruefungListener listener,
 											   final boolean sofortInformieren){
-		if(this.listenerMenge.add(listener)){
+		if(this.listenerMenge.add(listener) && this.parameterSatz != null){
 			listener.aktualisiereParameter(this.parameterSatz);
 		}
 	}
@@ -110,7 +110,7 @@ implements ClientReceiverInterface{
 					synchronized(this){
 						this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(resultat);
 						for(IUniversalAtgUfdsLangzeitPLPruefungListener listener:listenerMenge){
-							listener.aktualisiereParameter(parameterSatz);
+							listener.aktualisiereParameter(this.parameterSatz);
 						}
 					}
 				}

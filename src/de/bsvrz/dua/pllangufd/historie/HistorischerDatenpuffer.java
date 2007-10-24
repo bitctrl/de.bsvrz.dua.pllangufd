@@ -24,21 +24,34 @@
  * mailto: info@bitctrl.de
  */
 
-package de.bsvrz.dua.pllangufd;
+package de.bsvrz.dua.pllangufd.historie;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import de.bsvrz.sys.funclib.debug.Debug;
+
+
 /**
  * Speichert eine Menge von Datensaetzen, die innerhalb eines bestimmten 
- * Intervalls liegen
+ * Intervalls liegen. Dabei gibt das Datum innerhalb dieses Puffers mit dem
+ * aeltesten Zeitstempel den Anfang bzw. das obere Ende des (abgeschlossenen)
+ * Intervalls an, dessen Laenge mit <code>intervallLaenge</code> beschrieben
+ * ist 
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
-public class HistorischerDatenpuffer<G extends IZeitStempel>{
+public class HistorischerDatenpuffer<G extends HistPufferElement>
+implements Iterable<G>{
+	
+	/**
+	 * Debug-Logger
+	 */
+	private static final Debug LOGGER = Debug.getLogger();
 	
 	/**
 	 * nach Zeitstempeln sortierter Datenpuffer
@@ -48,8 +61,8 @@ public class HistorischerDatenpuffer<G extends IZeitStempel>{
 	/**
 	 * aktelle Maximallaenge des Pufferintervalls
 	 */
-	private long intervallLaenge = 0;
-		
+	private long intervallLaenge = Long.MIN_VALUE;
+	
 	
 	/**
 	 * Fuegt ein Datum in diesen Puffer ein und loescht gleichzeitig 
@@ -58,10 +71,16 @@ public class HistorischerDatenpuffer<G extends IZeitStempel>{
 	 * @param datum das Datum
 	 */
 	public final void addDatum(final G datum){
-		synchronized(this){
-			this.puffer.add(datum);
+		if(this.intervallLaenge == Long.MIN_VALUE){
+			LOGGER.error("Der historische Datenpuffer wurde noch nicht mit" + //$NON-NLS-1$
+					" einem maximalen Zeitintervall initialisiert.\n" + //$NON-NLS-1$
+					"Das Datum wird abgewiesen: " + datum); //$NON-NLS-1$
+		}else{
+			synchronized(this){
+				this.puffer.add(datum);
+			}
+			this.aufraeumen();
 		}
-		this.aufraeumen();
 	}
 	
 	
@@ -101,10 +120,10 @@ public class HistorischerDatenpuffer<G extends IZeitStempel>{
 				long aeltesterErlaubterZeitStempel = aktuellsterDatensatz.getZeitStempel() - andereIntervallLaenge;
 				
 				for(G pufferElement:this.puffer){
-					pufferClone.add(pufferElement);
 					if(pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel){
 						break;
 					}
+					pufferClone.add(pufferElement);
 				}
 			}		 
 		}
@@ -152,8 +171,22 @@ public class HistorischerDatenpuffer<G extends IZeitStempel>{
 	 */
 	private final synchronized void aufraeumen(){
 		if(!this.puffer.isEmpty()){
-			G aktuellsterDatensatz = this.puffer.first();
-			long aeltesterErlaubterZeitStempel = aktuellsterDatensatz.getZeitStempel() - this.intervallLaenge;
+			this.setJetzt(this.puffer.first().getZeitStempel());
+		}		 
+	}
+	
+	
+	/**
+	 * Setzt den Jetzt-Zeitpunkt und bereinigt danach den Puffer, so dass nur
+	 * noch Elemente im Puffer sind, deren Datenzeitstempel im Intervall<br>
+	 * <code>[jetzt-intervallMax, jetzt]</code><br>
+	 * liegen
+	 * 
+	 * @param jetzt der Jetzt-Zeitpunkt
+	 */
+	private final synchronized void setJetzt(final long jetzt){
+		if(!this.puffer.isEmpty()){
+			long aeltesterErlaubterZeitStempel = jetzt - this.intervallLaenge;
 			
 			Collection<G> zuLoeschendeElemente = new ArrayList<G>();
 			for(G pufferElement:this.puffer){
@@ -164,6 +197,14 @@ public class HistorischerDatenpuffer<G extends IZeitStempel>{
 			
 			this.puffer.removeAll(zuLoeschendeElemente);
 		}		 
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public Iterator<G> iterator() {
+		return this.puffer.iterator();
 	}
 	
 }

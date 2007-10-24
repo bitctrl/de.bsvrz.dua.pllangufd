@@ -23,10 +23,12 @@
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
  */
-package de.bsvrz.dua.pllangufd;
+package de.bsvrz.dua.pllangufd.na;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
+
+import de.bsvrz.dua.pllangufd.AbstraktEreignis;
 
 /**
  * Bildet die Zustaende des Attributs <code>att.ufdsNiederschlagsArt</code> auf
@@ -35,13 +37,14 @@ import java.util.Map;
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
-public class NiederschlagsEreignis {
+public class NiederschlagsEreignis
+extends AbstraktEreignis{
 
 	/**
 	 * die statischen Instanzen dieser Klasse
 	 */
-	private static Map<Integer, NiederschlagsEreignis> INSTANZEN = new HashMap<Integer, NiederschlagsEreignis>();
-
+	private static Set<NiederschlagsEreignis> INSTANZEN = new HashSet<NiederschlagsEreignis>();
+	
 	public static NiederschlagsEreignis NICHT_ERMITTELBAR = new NiederschlagsEreignis(-3, -1, "nicht ermittelbar");  //$NON-NLS-1$
 
 	public static NiederschlagsEreignis KEIN_NS = new NiederschlagsEreignis(0, 0, "kein Niederschlag");  //$NON-NLS-1$
@@ -74,28 +77,19 @@ public class NiederschlagsEreignis {
 	private NiederschlagsEreignis(final int intervallAnfang, 
 								  final int intervallEnde,
 								  final String name){
+		super(intervallAnfang, intervallEnde);
 		this.name = name;
-		for(int i=intervallAnfang; i<=intervallEnde; i++){
-			INSTANZEN.put(new Integer(i), this);	
-		}
+		INSTANZEN.add(this);	
 	}
 	
 	
 	/**
-	 * Erfragt das Niederschlagsereignis, das mit dem uebergebenen Zustand assoziiert ist
+	 * Erfragt die statischen Instanzen dieser Klasse
 	 * 
-	 * @param zustand ein NS-Zustand 
-	 * @return das Niederschlagsereignis, das mit dem uebergebenen Zustand assoziiert ist
+	 * @return die statischen Instanzen dieser Klasse
 	 */
-	public static final NiederschlagsEreignis getEreignis(int zustand){
-		NiederschlagsEreignis ergebnis = INSTANZEN.get(new Integer(zustand));
-		
-		if(ergebnis == null){
-			throw new RuntimeException("Der Zustand " + zustand + //$NON-NLS-1$
-					" existiert innerhalb von att.ufdsNiederschlagsArt nicht"); //$NON-NLS-1$
-		}
-		
-		return ergebnis;
+	public static final Set<NiederschlagsEreignis> getInstanzen(){
+		return INSTANZEN;
 	}
 
 

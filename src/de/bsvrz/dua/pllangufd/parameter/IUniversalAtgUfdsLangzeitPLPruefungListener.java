@@ -24,22 +24,23 @@
  * mailto: info@bitctrl.de
  */
 
-package de.bsvrz.dua.pllangufd;
+package de.bsvrz.dua.pllangufd.parameter;
+
 
 /**
- * Allgemeine Schnittstelle zu einem <b>sortierbaren</b> Objekt mit Zeitstempel
+ * Hoert auf Aenderungen innerhalb der Parameter-Attributgruppen
+ * <code>atg.ufdsLangzeitPLPrüfungXXX</code>
  *  
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
-public interface IZeitStempel
-extends Comparable<IZeitStempel>{
-	
-	/**
-	 * Erfragt den aktuellen Zeitstempel dieses Objektes
-	 * 
-	 * @return der aktuelle Zeitstempel dieses Objektes
-	 */
-	public long getZeitStempel();
+public interface IUniversalAtgUfdsLangzeitPLPruefungListener {
 
+	/**
+	 * Aktualisiert die Parameter
+	 * 
+	 * @param aktuelleParameter aktuelle Parameter
+	 */
+	public void aktualisiereParameter(UfdsLangZeitPlPruefungsParameter aktuelleParameter);
+	
 }

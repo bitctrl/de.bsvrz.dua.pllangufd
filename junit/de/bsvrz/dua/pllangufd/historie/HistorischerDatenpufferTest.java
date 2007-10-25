@@ -29,9 +29,6 @@ package de.bsvrz.dua.pllangufd.historie;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.bsvrz.dua.pllangufd.historie.HistPufferElement;
-import de.bsvrz.dua.pllangufd.historie.HistorischerDatenpuffer;
-
 /**
  * Testet den historischen Datenpuffer
  * 
@@ -163,5 +160,71 @@ public class HistorischerDatenpufferTest {
 			Assert.assertEquals(werte2[i++], elem.getZeitStempel());
 		}
 	}
+
 	
+	/**
+	 * Testet die Einfuegemethode
+	 */
+	@Test
+	public void testGetTeilMenge()
+	throws Exception{
+		HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
+		
+		Assert.assertEquals(0, puffer.getPufferInhalt().size());
+		Assert.assertEquals(0, puffer.getPufferInhalt(10).size());
+		
+		puffer.setIntervallLaenge(15);
+		puffer.addDatum(new HistPufferElement(10));
+		puffer.addDatum(new HistPufferElement(11));
+		
+		Assert.assertEquals(2, puffer.getTeilMenge(10, 20).size());
+		Assert.assertEquals(1, puffer.getTeilMenge(11, 20).size());
+		Assert.assertEquals(0, puffer.getTeilMenge(12, 20).size());
+
+		long[] werte = new long[]{11, 10};
+		int i=0;
+		for(HistPufferElement elem:puffer.getTeilMenge(9, 20)){
+			Assert.assertEquals(werte[i++], elem.getZeitStempel());
+		}
+
+		puffer.addDatum(new HistPufferElement(20));
+		puffer.addDatum(new HistPufferElement(21));
+
+		Assert.assertEquals(3, puffer.getTeilMenge(10, 20).size());
+		Assert.assertEquals(2, puffer.getTeilMenge(11, 20).size());
+		Assert.assertEquals(1, puffer.getTeilMenge(12, 20).size());
+		Assert.assertEquals(2, puffer.getTeilMenge(12, 21).size());
+		Assert.assertEquals(2, puffer.getTeilMenge(12, 22).size());
+
+		werte = new long[]{20, 11, 10};
+		i=0;
+		for(HistPufferElement elem:puffer.getTeilMenge(10, 20)){
+			Assert.assertEquals(werte[i++], elem.getZeitStempel());
+		}
+
+		werte = new long[]{20, 11};
+		i=0;
+		for(HistPufferElement elem:puffer.getTeilMenge(11, 20)){
+			Assert.assertEquals(werte[i++], elem.getZeitStempel());
+		}
+
+		werte = new long[]{20};
+		i=0;
+		for(HistPufferElement elem:puffer.getTeilMenge(12, 20)){
+			Assert.assertEquals(werte[i++], elem.getZeitStempel());
+		}
+
+		werte = new long[]{21, 20};
+		i=0;
+		for(HistPufferElement elem:puffer.getTeilMenge(12, 21)){
+			Assert.assertEquals(werte[i++], elem.getZeitStempel());
+		}
+
+		werte = new long[]{21, 20};
+		i=0;
+		for(HistPufferElement elem:puffer.getTeilMenge(12, 22)){
+			Assert.assertEquals(werte[i++], elem.getZeitStempel());
+		}
+	}
+
 }

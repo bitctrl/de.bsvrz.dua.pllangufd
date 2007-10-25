@@ -26,9 +26,11 @@
 
 package de.bsvrz.dua.pllangufd.fbz;
 
+import java.util.Set;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
-import de.bsvrz.dua.pllangufd.AbstraktPlLangSensorMenge;
-import de.bsvrz.dua.pllangufd.VergleichsEreignisWerteMitAktuellemDatum;
+import de.bsvrz.dua.pllangufd.AbstraktEreignis;
+import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensorMenge;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 
@@ -42,8 +44,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
  *
  */
 public class PlLang_Fbz_SensorMenge
-extends AbstraktPlLangSensorMenge<VergleichsEreignisWerteMitAktuellemDatum>{
-
+extends AbstraktPlLangEreignisSensorMenge{
 
 	/**
 	 * Standardkonstruktor
@@ -60,19 +61,19 @@ extends AbstraktPlLangSensorMenge<VergleichsEreignisWerteMitAktuellemDatum>{
 								 	 DUAUmfeldDatenSensor sensorVorgaenger, 
 								 	 DUAUmfeldDatenSensor sensorNachfolger){
 		super(dav, messStelle, sensorSelbst, sensorVorgaenger, sensorNachfolger);
-		PlLang_Fbz_Sensor.getInstanz(dav, this.sensorSelbst).addListener(this, true);
+		this.onlineSensor = PlLang_Fbz_Sensor.getInstanz(dav, this.sensorSelbst);
+		onlineSensor.addListener(this, true);
 		PlLang_Fbz_Sensor.getInstanz(dav, this.vorgaengerObj).addListener(this, true);
 		PlLang_Fbz_Sensor.getInstanz(dav, this.nachfolgerObj).addListener(this, true);
 	}
 
-	
+		
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiereDaten(VergleichsEreignisWerteMitAktuellemDatum daten) {
-		synchronized (this) {
-			
-		}		
+	@Override
+	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
+		return FahrBahnZustandsEreignis.getInstanzen();
 	}
 	
 }

@@ -26,11 +26,6 @@
 
 package de.bsvrz.dua.pllangufd;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.SystemObject;
@@ -94,43 +89,5 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 			UfdsLangZeitPlPruefungsParameter aktuelleParameter) {
 		this.aktuelleParameter = aktuelleParameter;	
 	}
-	
-
-	/**
-	 * Erfragt eine Map mit den Vergleichswerten, die in Bezug auf die 
-	 * uebergebenen historischen Werte pro Ereignis (der uebergebenen 
-	 * Ereignisse) ausgerechnet werden koennen
-	 * 
-	 * @param historischeWerte historische Umfelddatenwerte eines bestimmten
-	 * Bezugszeitraums
-	 * @param ereignisse alle Ereignisse, denen die Zustaende innerhalb der
-	 * uebergebenen historischen Werte zugeordnet werden sollen 
-	 * @return eine Menge von (Ereignis, Vergleichswert)-Paaren. Diese Liste
-	 * ist ggf. leer, wenn fuer keines der uebergebenen Ereignisse ein
-	 * Vergleichswert errechnet werden konnte
-	 */
-	protected Map<AbstraktEreignis, Double> getVergleichsWerte(
-												SortedSet<HistorischerUfdsWert> historischeWerte,
-												Set<? extends AbstraktEreignis> ereignisse){
-		Map<AbstraktEreignis, Double> ergebnisse = new HashMap<AbstraktEreignis, Double>();
 		
-		for(HistorischerUfdsWert historischerWert:historischeWerte){
-			if(historischerWert.getWert().isOk()){
-				for(AbstraktEreignis ereignis:ereignisse){
-					if(ereignis.isZustandInEreignis((int)historischerWert.getWert().getWert())){
-						Double ergebnisWert = ergebnisse.get(ereignis);
-						if(ergebnisWert == null){
-							ergebnisse.put(ereignis, new Double(historischerWert.getT()));
-						}else{
-							ergebnisse.put(ereignis, ergebnisWert + new Double(historischerWert.getT()));
-						}
-						break;						
-					}
-				}
-			}
-		}
-		
-		return ergebnisse;
-	}
-	
 }

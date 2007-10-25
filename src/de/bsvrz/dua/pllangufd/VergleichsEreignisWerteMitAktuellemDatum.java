@@ -143,7 +143,7 @@ public class VergleichsEreignisWerteMitAktuellemDatum{
 	 * @return die Vergleichswerte berechnet fuer einen
 	 * Bezugszeitraum von 24h fuer die Pl-Pruefung langzeit UFD
 	 */
-	public final Map<AbstraktEreignis, Double> getVergleichsWert24e(){
+	public final Map<AbstraktEreignis, Double> getVergleichsWerte24(){
 		return this.vergleichsWerte24;
 	}
 
@@ -199,4 +199,9 @@ public class VergleichsEreignisWerteMitAktuellemDatum{
 		return this.aktuellerWert;
 	}
 
+	
+	
+	public final long getAktuelleZeit(){
+		return 0;
+	}
 }

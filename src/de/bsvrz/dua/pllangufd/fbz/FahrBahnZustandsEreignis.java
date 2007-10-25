@@ -104,11 +104,6 @@ extends AbstraktEreignis{
 	 */	
 	public static final FahrBahnZustandsEreignis RAUREIF = 
 		new FahrBahnZustandsEreignis(67, 67, "Raureif"); //$NON-NLS-1$
-
-	/**
-	 * der Name des Niederschlagsereignisses
-	 */
-	private String name = null;
 		
 	
 	/**
@@ -121,10 +116,9 @@ extends AbstraktEreignis{
 	 * @param name der Name des Ereignisses
 	 */
 	private FahrBahnZustandsEreignis(final int intervallAnfang, 
-								  	final int intervallEnde,
-								  	final String name){
-		super(intervallAnfang, intervallEnde);
-		this.name = name;
+								  	 final int intervallEnde,
+								  	 final String name){
+		super(intervallAnfang, intervallEnde, name);
 		INSTANZEN.add(this);	
 	}
 	
@@ -136,15 +130,6 @@ extends AbstraktEreignis{
 	 */
 	public static final Set<FahrBahnZustandsEreignis> getInstanzen(){
 		return INSTANZEN;
-	}
-
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.name;
 	}
 
 }

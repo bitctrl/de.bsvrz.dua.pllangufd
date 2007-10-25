@@ -28,14 +28,12 @@ package de.bsvrz.dua.pllangufd.na;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedSet;
+import java.util.Set;
 
 import de.bsvrz.dav.daf.main.ClientDavInterface;
-import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
-import de.bsvrz.dua.pllangufd.VergleichsEreignisWerteMitAktuellemDatum;
-import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
+import de.bsvrz.dua.pllangufd.AbstraktEreignis;
+import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 
 /**
@@ -46,7 +44,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
  *
  */
 public class PlLang_Ns_Sensor
-extends AbstraktPlLangSensor<VergleichsEreignisWerteMitAktuellemDatum>{
+extends AbstraktPlLangEreignisSensor{
 
 	/**
 	 * statische Instanzen dieser Klasse
@@ -82,36 +80,8 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerteMitAktuellemDatum>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void berechneOnlineWert(ResultData resultat) {
-		this.onlineWert = new VergleichsEreignisWerteMitAktuellemDatum(resultat);
-
-		HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
-		this.hitorie24.addDatum(historischerWert);
-
-		synchronized (this) {
-			/**
-			 * berechne Vergleichswerte fuer parametriertes Vergleichsintervall
-			 */
-			if(this.aktuelleParameter != null && this.aktuelleParameter.isValid()){					
-				SortedSet<HistorischerUfdsWert> historieVergleich = 
-					this.hitorie24.getPufferInhalt(this.aktuelleParameter.getVergleichsIntervall().getMillis());
-				
-				if(!historieVergleich.isEmpty()){
-					this.onlineWert.setVergleichsWerte(
-							getVergleichsWerte(historieVergleich, NiederschlagsEreignis.getInstanzen()));
-				}
-
-
-				/**
-				 * berechne Vergleichswerte fuer letzte 24h
-				 */
-				if(!this.hitorie24.getPufferInhalt().isEmpty()){
-					this.onlineWert.setVergleichsWerte24(
-							getVergleichsWerte(this.hitorie24.getPufferInhalt(),
-									NiederschlagsEreignis.getInstanzen()));
-				}
-			}
-		}
+	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
+		return NiederschlagsEreignis.getInstanzen();
 	}
 	
 }

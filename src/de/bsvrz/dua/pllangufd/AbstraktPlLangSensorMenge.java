@@ -39,7 +39,7 @@ import de.bsvrz.sys.funclib.operatingMessage.MessageType;
 
 
 /**
- * Abstraktes Geruest fuer eine Menge von Sensoren der Art:<br>
+ * Abstraktes Rohgeruest fuer eine Menge von Sensoren der Art:<br>
  * Hauptsensor, Vorgaenger, Nachfolger,<br>
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD 
  * ueberprueft wird
@@ -124,7 +124,9 @@ implements IOnlineUfdSensorListener<G>{
 	/**
 	 * Sendet eine Betriebsmeldung als Warnung an den Operator
 	 * 
+	 * @param objekt das betroffene Systemobjekt
 	 * @param nachricht der Nachrichtentext
+	 * @param zusatz ein Nachrichtenzusatz
 	 */
 	protected final void sendeBetriebsmeldung(SystemObject objekt, String nachricht, String zusatz){
 		MessageSender nachrichtenSender = MessageSender.getInstance();
@@ -133,7 +135,7 @@ implements IOnlineUfdSensorListener<G>{
 				zusatz,
 				MessageGrade.WARNING,
 				objekt,
-				new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Pruefung langzeit UFD"), //$NON-NLS-1$
+				new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
 				nachricht);
 	}
 

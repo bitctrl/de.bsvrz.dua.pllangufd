@@ -28,7 +28,8 @@ package de.bsvrz.dua.pllangufd;
 
 
 /**
- * Ein Ereignis ist eine Kumulation von DAV-Zustaenden
+ * Ein Ereignis ist eine Kumulation von DAV-Zustaenden wie sie innerhalb der
+ * SWE PL-Pruefung langzeit UFD benoetigt wird
  *  
  * @author BitCtrl Systems GmbH, Thierfelder
  *
@@ -46,6 +47,11 @@ public class AbstraktEreignis {
 	 * Zustaende dieses Ereignisses liegen
 	 */
 	public int intervallEnde = 0;
+
+	/**
+	 * der Name des Ereignisses
+	 */
+	private String name = null;
 	
 	
 	/**
@@ -55,13 +61,18 @@ public class AbstraktEreignis {
 	 * Zustaende dieses Ereignisses liegen
 	 * @param intervallEnde Ende des abgeschlossenen Intervalls, innerhalb dem die
 	 * Zustaende dieses Ereignisses liegen
+	 * @param name der Name des Ereignisses
 	 */
-	protected AbstraktEreignis(final int intervallBegin, final int intervallEnde){
+	protected AbstraktEreignis(final int intervallBegin,
+							   final int intervallEnde,
+							   final String name){
 		if(intervallBegin > intervallEnde){
-			throw new IllegalArgumentException("Intervallanfang darf nicht nach Intervallende liegen"); //$NON-NLS-1$
+			throw new IllegalArgumentException(
+					"Intervallanfang darf nicht (echt) nach Intervallende liegen"); //$NON-NLS-1$
 		}
 		this.intervallBegin = intervallBegin;
 		this.intervallEnde = intervallEnde;
+		this.name = name;
 	}
 	
 	
@@ -101,4 +112,13 @@ public class AbstraktEreignis {
 		return this.intervallEnde;
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return this.name;
+	}	
+	
 }

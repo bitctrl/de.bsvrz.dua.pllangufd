@@ -105,6 +105,23 @@ implements Iterable<G>{
 	
 	
 	/**
+	 * Erfragt die Elemente im Puffer, deren Datenzeitstempel im Bereich
+	 * [anfang, ende] liegen
+	 * 
+	 * @param anfang Anfang des abgeschlossenen Intervalls
+	 * @param ende Ende des abgeschlossenen Intervalls
+	 * @return eine (ggf. leere) Menge mit den Elementen im Puffer, deren 
+	 * Datenzeitstempel im Bereich [anfang, ende] liegen
+	 */
+	@SuppressWarnings("unchecked")
+	public final synchronized SortedSet<G> getTeilMenge(long anfang, long ende) {
+		G groesstesElement = (G)new HistPufferElement(anfang - 1);
+		G kleinstesElement = (G)new HistPufferElement(ende);
+		return this.puffer.subSet(kleinstesElement, groesstesElement);
+	}
+	
+	
+	/**
 	 * Erfragt den Teil des Pufferinhalts, der noch innerhalb des durch die
 	 * uebergebene Intervalllange beschriebenen verkuerzten Intervalls liegt
 	 * 
@@ -184,7 +201,7 @@ implements Iterable<G>{
 	 * 
 	 * @param jetzt der Jetzt-Zeitpunkt
 	 */
-	private final synchronized void setJetzt(final long jetzt){
+	public final synchronized void setJetzt(final long jetzt){
 		if(!this.puffer.isEmpty()){
 			long aeltesterErlaubterZeitStempel = jetzt - this.intervallLaenge;
 			

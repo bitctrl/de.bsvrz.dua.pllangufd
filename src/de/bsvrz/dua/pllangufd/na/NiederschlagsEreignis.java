@@ -59,10 +59,6 @@ extends AbstraktEreignis{
 
 	public static NiederschlagsEreignis UNBESTIMMT = new NiederschlagsEreignis(40, 42, "unbestimmter Niederschlag");  //$NON-NLS-1$
 
-	/**
-	 * der Name des Niederschlagsereignisses
-	 */
-	private String name = null;
 		
 	
 	/**
@@ -77,8 +73,7 @@ extends AbstraktEreignis{
 	private NiederschlagsEreignis(final int intervallAnfang, 
 								  final int intervallEnde,
 								  final String name){
-		super(intervallAnfang, intervallEnde);
-		this.name = name;
+		super(intervallAnfang, intervallEnde, name);
 		INSTANZEN.add(this);	
 	}
 	
@@ -90,15 +85,6 @@ extends AbstraktEreignis{
 	 */
 	public static final Set<NiederschlagsEreignis> getInstanzen(){
 		return INSTANZEN;
-	}
-
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.name;
 	}
 
 }

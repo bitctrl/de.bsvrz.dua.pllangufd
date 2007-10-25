@@ -26,10 +26,11 @@
 
 package de.bsvrz.dua.pllangufd.na;
 
+import java.util.Set;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
-import de.bsvrz.dua.pllangufd.AbstraktPlLangSensorMenge;
-import de.bsvrz.dua.pllangufd.VergleichsEreignisWerteMitAktuellemDatum;
-import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
+import de.bsvrz.dua.pllangufd.AbstraktEreignis;
+import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensorMenge;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 
@@ -43,13 +44,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
  *
  */
 public class PlLang_Ns_SensorMenge 
-extends AbstraktPlLangSensorMenge<VergleichsEreignisWerteMitAktuellemDatum>{
-
-	/**
-	 * Sensor mit aktuellen Online- und Parameter-Daten
-	 */
-	private PlLang_Ns_Sensor onlineSensor = null;
-	
+extends AbstraktPlLangEreignisSensorMenge{
 	
 	/**
 	 * Standardkonstruktor
@@ -76,39 +71,9 @@ extends AbstraktPlLangSensorMenge<VergleichsEreignisWerteMitAktuellemDatum>{
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiereDaten(VergleichsEreignisWerteMitAktuellemDatum datum) {
-		synchronized (this) {
-			if(datum != null && datum.getAktuellenWert() != null){
-				if(datum.getAktuellenWert().getObject().equals(this.sensorSelbst)){
-					this.aktuellesSensorDatum = datum;
-				}else
-				if(datum.getAktuellenWert().getObject().equals(this.nachfolgerObj)){
-					this.aktuellesNachfolgerDatum = datum;
-				}else
-				if(datum.getAktuellenWert().getObject().equals(this.vorgaengerObj)){
-					this.aktuellesVorgaengerDatum = datum;
-				}
-			}
-			
-			UfdsLangZeitPlPruefungsParameter parameter = this.onlineSensor.getAktuelleParameter();
-			
-			if(parameter != null && parameter.isValid() && parameter.getMaxAbweichung().isOk()){
-				
-				
-				/****
-				 * 
-				 * TODODO
-				 * 
-				 * 
-				 * 
-				 * 
-				 * 
-				 * 
-				 */
-				
-				
-			}
-		}		
+	@Override
+	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
+		return NiederschlagsEreignis.getInstanzen();
 	}
 	
 }

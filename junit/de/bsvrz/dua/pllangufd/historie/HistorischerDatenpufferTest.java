@@ -159,11 +159,13 @@ public class HistorischerDatenpufferTest {
 		for(HistPufferElement elem:puffer.getPufferInhalt(2)){
 			Assert.assertEquals(werte2[i++], elem.getZeitStempel());
 		}
+		
+		Assert.assertEquals(64, puffer.iterator().next().getZeitStempel());
 	}
 
 	
 	/**
-	 * Testet die Einfuegemethode
+	 * Testet extraktion von Teilmengen
 	 */
 	@Test
 	public void testGetTeilMenge()

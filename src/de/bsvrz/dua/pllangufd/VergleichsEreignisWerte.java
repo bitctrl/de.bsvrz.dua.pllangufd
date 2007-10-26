@@ -29,23 +29,15 @@ package de.bsvrz.dua.pllangufd;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.bsvrz.dav.daf.main.ResultData;
-
 /**
- * Diese Klasse repraesentiert das aktuelle Datum eines Umfelddatensensors
- * mit einer Menge von Vergleichswerten der Pl-Pruefung langzeit UFD nach 
- * Afo-4.0 (6.6.2.4.7.6, S.108)(Vergleichswert je pro Umfelddatenereignis) 
+ * Diese Klasse repraesentiert eine Menge von Vergleichswerten (jeweils
+ * pro Umfelddatenereignis) der Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6, S.108)<br>
+ * Die Vergleichswerte werden fuer zwei Intervalle (parametrierbar und 24h) bereitsgestellt 
  *  
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
-public class VergleichsEreignisWerteMitAktuellemDatum{
-	
-	/**
-	 * aktuelles letztes empfangenes Datum, das zur Ermittlich dieses Vergleichswertes
-	 * herangezogen wurde
-	 */
-	private ResultData aktuellerWert = null;
+public class VergleichsEreignisWerte{
 	
 	/**
 	 * Das Ereignis mit seinem Vergleichswert in Bezug auf das
@@ -68,17 +60,6 @@ public class VergleichsEreignisWerteMitAktuellemDatum{
 	 * der gemessene Ausfall am Sensor auf 24h
 	 */
 	private double ausfallGemessen24 = Double.NaN;
-	
-
-	/**
-	 * Standardkonstruktor
-	 * 
-	 * @param aktuellerWert aktuelles letztes empfangenes Datum, das zur Ermittlung
-	 * dieses Vergleichswertes herangezogen wurde 
-	 */
-	public VergleichsEreignisWerteMitAktuellemDatum(final ResultData aktuellerWert){
-		this.aktuellerWert = aktuellerWert;
-	}
 
 
 	/**
@@ -116,10 +97,10 @@ public class VergleichsEreignisWerteMitAktuellemDatum{
 
 	/**
 	 * Erfragt, ob die Vergleichswerte fuer den Bezugszeitraum von 24h 
-	 * schon gesetzt wurde
+	 * schon gesetzt wurden
 	 * 
 	 * @return ob die Vergleichswerte fuer den Bezugszeitraum von 24h 
-	 * schon gesetzt wurde
+	 * schon gesetzt wurden
 	 */
 	public final boolean isValid24(){
 		return this.vergleichsWerte24.values().size() > 0;
@@ -187,21 +168,4 @@ public class VergleichsEreignisWerteMitAktuellemDatum{
 		return this.ausfallGemessen24;
 	}
 	
-	
-	/**
-	 * Erfragt aktuelles letztes empfangenes Datum, das zur Ermittlich
-	 * dieses Vergleichswertes herangezogen wurde 
-	 * 
-	 * @return aktuelles letztes empfangenes Datum, das zur Ermittlich
-	 * dieses Vergleichswertes herangezogen wurde 
-	 */
-	public final ResultData getAktuellenWert(){
-		return this.aktuellerWert;
-	}
-
-	
-	
-	public final long getAktuelleZeit(){
-		return 0;
-	}
 }

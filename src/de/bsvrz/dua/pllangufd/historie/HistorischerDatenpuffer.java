@@ -59,9 +59,26 @@ implements Iterable<G>{
 	private SortedSet<G> puffer = new TreeSet<G>();
 	
 	/**
-	 * aktelle Maximallaenge des Pufferintervalls
+	 * aktuelle Maximallaenge des Pufferintervalls
 	 */
 	private long intervallLaenge = Long.MIN_VALUE;
+	
+	
+	/**
+	 * Standardkonstruktor
+	 */
+	public HistorischerDatenpuffer(){
+	}
+	
+	
+	/**
+	 * Standardkonstruktor
+	 * 
+	 * @param intervallLaenge aktuelle Maximallaenge des Pufferintervalls
+	 */
+	public HistorischerDatenpuffer(final long intervallLaenge){
+		this.intervallLaenge = intervallLaenge;
+	}
 	
 	
 	/**

@@ -28,11 +28,11 @@ package de.bsvrz.dua.pllangufd.na;
 
 import java.util.Set;
 
-import de.bsvrz.dav.daf.main.ClientDavInterface;
+import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktEreignis;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensorMenge;
-import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
-import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
+import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
+import de.bsvrz.dua.pllangufd.VergleichsEreignisWerte;
 
 /**
  * Assoziator fuer eine Menge von NS-Sensoren der Art:<br>
@@ -47,33 +47,21 @@ public class PlLang_Ns_SensorMenge
 extends AbstraktPlLangEreignisSensorMenge{
 	
 	/**
-	 * Standardkonstruktor
-	 *  
-	 * @param dav Verbindung zum Datenverteiler
-	 * @param messStelle die UFD-Messstelle
-	 * @param sensorSelbst der Hauptsensor (der ueberprueft wird)
-	 * @param sensorVorgaenger sein Vorgaenger
-	 * @param sensorNachfolger sein Nachfolger
-	 */
-	public PlLang_Ns_SensorMenge(ClientDavInterface dav,
-									 DUAUmfeldDatenMessStelle messStelle,
-									 DUAUmfeldDatenSensor sensorSelbst,
-								 	 DUAUmfeldDatenSensor sensorVorgaenger, 
-								 	 DUAUmfeldDatenSensor sensorNachfolger){
-		super(dav, messStelle, sensorSelbst, sensorVorgaenger, sensorNachfolger);
-		this.onlineSensor = PlLang_Ns_Sensor.getInstanz(dav, this.sensorSelbst);
-		onlineSensor.addListener(this, true);
-		PlLang_Ns_Sensor.getInstanz(dav, this.vorgaengerObj).addListener(this, true);
-		PlLang_Ns_Sensor.getInstanz(dav, this.nachfolgerObj).addListener(this, true);
-	}
-
-	
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return NiederschlagsEreignis.getInstanzen();
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
+			SystemObject objekt) {
+		return PlLang_Ns_Sensor.getInstanz(DAV, objekt);
 	}
 	
 }

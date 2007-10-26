@@ -29,11 +29,9 @@ package de.bsvrz.dua.pllangufd;
 import java.util.Map;
 import java.util.Set;
 
-import de.bsvrz.dav.daf.main.ClientDavInterface;
+import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
-import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
-import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
@@ -47,141 +45,127 @@ import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
  *
  */
 public abstract class AbstraktPlLangEreignisSensorMenge 
-extends AbstraktPlLangSensorMenge<VergleichsEreignisWerteMitAktuellemDatum>{
-	
-	/**
-	 * Hauptsensor (Prüfling) mit aktuellen Daten und Parametern
-	 */
-	protected AbstraktPlLangSensor<VergleichsEreignisWerteMitAktuellemDatum> onlineSensor = null;
-
-	
-	/**
-	 * Standardkonstruktor
-	 *  
-	 * @param dav Verbindung zum Datenverteiler
-	 * @param messStelle die UFD-Messstelle
-	 * @param sensorSelbst der Hauptsensor (der ueberprueft wird)
-	 * @param sensorVorgaenger sein Vorgaenger
-	 * @param sensorNachfolger sein Nachfolger
-	 */
-	public AbstraktPlLangEreignisSensorMenge(ClientDavInterface dav,
-			DUAUmfeldDatenMessStelle messStelle,
-			DUAUmfeldDatenSensor sensorSelbst,
-			DUAUmfeldDatenSensor sensorVorgaenger,
-			DUAUmfeldDatenSensor sensorNachfolger) {
-		super(dav, messStelle, sensorSelbst, sensorVorgaenger, sensorNachfolger);
-	}
-	
+extends AbstraktPlLangSensorMenge<VergleichsEreignisWerte>{
+		
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiereDaten(VergleichsEreignisWerteMitAktuellemDatum datum) {
+	public void aktualisiereDaten(ResultData datum) {
 		synchronized (this) {
-			if(datum != null && datum.getAktuellenWert() != null){
-				if(datum.getAktuellenWert().getObject().equals(this.sensorSelbst)){
-					this.aktuellesSensorDatum = datum;
-				}else
-				if(datum.getAktuellenWert().getObject().equals(this.nachfolgerObj)){
-					this.aktuellesNachfolgerDatum = datum;
-				}else
-				if(datum.getAktuellenWert().getObject().equals(this.vorgaengerObj)){
-					this.aktuellesVorgaengerDatum = datum;
-				}
-			}
+			VergleichsEreignisWerte aktuellesSensorDatum = 
+				this.prueflingSensor.getAktuellenVergleichsWert(datum.getDataTime());
 			
-			UfdsLangZeitPlPruefungsParameter parameter = this.onlineSensor.getAktuelleParameter();
+			VergleichsEreignisWerte aktuellesNachfolgerDatum = 
+				this.nachfolgerSensor.getAktuellenVergleichsWert(datum.getDataTime());
 			
-			if(parameter != null &&
-				parameter.isValid() && 
-				parameter.getMaxAbweichung().isOk() &&
-				this.aktuellesSensorDatum != null){
+			VergleichsEreignisWerte aktuellesVorgaengerDatum = 
+				this.vorgaengerSensor.getAktuellenVergleichsWert(datum.getDataTime());		
+			
+			if(aktuellesSensorDatum != null &&
+				aktuellesNachfolgerDatum != null &&
+				aktuellesVorgaengerDatum != null){
 				
-				/**
-				 * parametrierter Bezugszeitraum
-				 */
-				if(this.aktuellesSensorDatum.getAusfall() > 0 &&
-					parameter.getMaxAusfallZeit() > 0 &&
-					this.aktuellesSensorDatum.getAusfall() > parameter.getMaxAusfallZeit()){
-					this.sendeBetriebsmeldung(this.messStelle, "Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
-							UmfeldDatenArt.getUmfeldDatenArtVon(this.sensorSelbst) + " für die Messstelle " + //$NON-NLS-1$ 
-							this.messStelle + " konnte nicht durchgeführt werden, da keine" + //$NON-NLS-1$
-									" ausreichende Datenbasis vorlag", //$NON-NLS-1$
-							"Langzeit-PL-Prüfung"); //$NON-NLS-1$
-				}else{
-					double abweichung = this.getAbweichung(false);
-					if(abweichung >= 0 && abweichung > parameter.getMaxAbweichung().getWert()){
-						this.sendeBetriebsmeldung(this.messStelle, "Der Wert " + //$NON-NLS-1$
-								UmfeldDatenArt.getUmfeldDatenArtVon(this.sensorSelbst) + " für die Messstelle " + //$NON-NLS-1$ 
-								this.messStelle + " weicht um " + abweichung + " (>" + parameter.getMaxAbweichung().getWert() +  //$NON-NLS-1$ //$NON-NLS-2$ 
-								") vom erwarteten Vergleichswert im Vergleichszeitbereich " +  //$NON-NLS-1$ 
-								DUAKonstanten.BM_ZEIT_FORMAT.format(this.aktuellesSensorDatum.getAktuelleZeit() - parameter.getVergleichsIntervall().getMillis()) + " - " +   //$NON-NLS-1$
-								DUAKonstanten.BM_ZEIT_FORMAT.format(this.aktuellesSensorDatum.getAktuelleZeit()) + 
-								"(" + parameter.getVergleichsIntervall() + ") ab.",   //$NON-NLS-1$ //$NON-NLS-2$
-								"Langzeitmessfehler Umfelddaten"); //$NON-NLS-1$						
-					}
-				}
-
+				UfdsLangZeitPlPruefungsParameter parameter = this.prueflingSensor.getAktuelleParameter();
 				
-				/**
-				 * 24h Bezugszeitraum
-				 */
-				if(this.aktuellesSensorDatum.getAusfall24() > 0 &&
+				if(parameter != null &&
+					parameter.isValid() && 
+					parameter.getMaxAbweichung().isOk()){
+					
+					/**
+					 * parametrierter Bezugszeitraum
+					 */
+					if(aktuellesSensorDatum.getAusfall() > 0 &&
 						parameter.getMaxAusfallZeit() > 0 &&
-						this.aktuellesSensorDatum.getAusfall24() > parameter.getMaxAusfallZeit()){
+						aktuellesSensorDatum.getAusfall() > parameter.getMaxAusfallZeit()){
 						this.sendeBetriebsmeldung(this.messStelle, "Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
-								UmfeldDatenArt.getUmfeldDatenArtVon(this.sensorSelbst) + " für die Messstelle " + //$NON-NLS-1$ 
+								UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
 								this.messStelle + " konnte nicht durchgeführt werden, da keine" + //$NON-NLS-1$
 										" ausreichende Datenbasis vorlag", //$NON-NLS-1$
-								"Langzeit-PL-Prüfung (24h)"); //$NON-NLS-1$
+								"Langzeit-PL-Prüfung"); //$NON-NLS-1$
 					}else{
-						double abweichung = this.getAbweichung(true);
+						double abweichung = this.getAbweichung(false, aktuellesSensorDatum, 
+																aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
 						if(abweichung >= 0 && abweichung > parameter.getMaxAbweichung().getWert()){
 							this.sendeBetriebsmeldung(this.messStelle, "Der Wert " + //$NON-NLS-1$
-									UmfeldDatenArt.getUmfeldDatenArtVon(this.sensorSelbst) + " für die Messstelle " + //$NON-NLS-1$ 
+									UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
 									this.messStelle + " weicht um " + abweichung + " (>" + parameter.getMaxAbweichung().getWert() +  //$NON-NLS-1$ //$NON-NLS-2$ 
 									") vom erwarteten Vergleichswert im Vergleichszeitbereich " +  //$NON-NLS-1$ 
-									DUAKonstanten.BM_ZEIT_FORMAT.format(this.aktuellesSensorDatum.getAktuelleZeit() - Konstante.TAG_24_IN_MS) + " - " +   //$NON-NLS-1$
-									DUAKonstanten.BM_ZEIT_FORMAT.format(this.aktuellesSensorDatum.getAktuelleZeit()) + 
-									"(24 Stunden) ab.",   //$NON-NLS-1$
-									"Langzeitmessfehler Umfelddaten (24h)"); //$NON-NLS-1$						
+									DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime() - parameter.getVergleichsIntervall().getMillis()) + " - " +   //$NON-NLS-1$
+									DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime()) + 
+									"(" + parameter.getVergleichsIntervall() + ") ab.",   //$NON-NLS-1$ //$NON-NLS-2$
+									"Langzeitmessfehler Umfelddaten"); //$NON-NLS-1$						
 						}
 					}
+
+					
+					/**
+					 * 24h Bezugszeitraum
+					 */
+					if(aktuellesSensorDatum.getAusfall24() > 0 &&
+						parameter.getMaxAusfallZeit() > 0 &&
+						aktuellesSensorDatum.getAusfall24() > parameter.getMaxAusfallZeit()){
+							this.sendeBetriebsmeldung(this.messStelle, "Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
+									UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
+									this.messStelle + " konnte nicht durchgeführt werden, da keine" + //$NON-NLS-1$
+											" ausreichende Datenbasis vorlag", //$NON-NLS-1$
+									"Langzeit-PL-Prüfung (24h)"); //$NON-NLS-1$
+						}else{
+							double abweichung = this.getAbweichung(true, aktuellesSensorDatum, 
+									aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
+							if(abweichung >= 0 && abweichung > parameter.getMaxAbweichung().getWert()){
+								this.sendeBetriebsmeldung(this.messStelle, "Der Wert " + //$NON-NLS-1$
+										UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
+										this.messStelle + " weicht um " + abweichung + " (>" + parameter.getMaxAbweichung().getWert() +  //$NON-NLS-1$ //$NON-NLS-2$ 
+										") vom erwarteten Vergleichswert im Vergleichszeitbereich " +  //$NON-NLS-1$ 
+										DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime() - Konstante.TAG_24_IN_MS) + " - " +   //$NON-NLS-1$
+										DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime()) + 
+										"(24 Stunden) ab.",   //$NON-NLS-1$
+										"Langzeitmessfehler Umfelddaten (24h)"); //$NON-NLS-1$						
+							}
+						}
+				}
 			}
 		}		
 	}
 	
 	
 	/**
-	 * Errechnet den Wert Abweichung auf Basis der aktuellen Vergleichswerte
-	 * pro NS-Ereignis aller assoziierten Sensoren.<br>
+	 * Errechnet den Wert AbweichungXY auf Basis der aktuellen Vergleichswerte
+	 * pro XY-Ereignis aller assoziierten Sensoren.<br>
 	 * Siehe Afo-4.0 6.6.2.4.7.6 (NS, S. 109)
 	 * 
 	 * @param intervall24 ob die Abweichung fuer das Bezugsintervall von 24h 
 	 * berechnet werden soll (sonst wird fuer das parametrierbare Bezugsintervall
 	 * berechnet)
-	 * @return der Wert Abweichung (>= 0) auf Basis der aktuellen Vergleichswerte
-	 * pro NS-Ereignis aller assoziierten Sensoren oder ein Wert < 0, wenn die
-	 * AbweichungNS nicht ermittelt werden konnte
+	 * @param aktuellesSensorDatum aktuelle Daten des Sensor-Prueflings
+	 * @param aktuellesVorgaengerDatum aktuelle Daten des Vorgaengers
+	 * @param aktuellesNachfolgerDatum aktuelle Daten des Nachfolgers
+	 * @return der Wert AbweichungXY (>= 0) auf Basis der aktuellen Vergleichswerte
+	 * pro XY-Ereignis aller assoziierten Sensoren oder ein Wert < 0, wenn die
+	 * AbweichungXY nicht ermittelt werden konnte
 	 */
-	private final double getAbweichung(final boolean intervall24){
+	private final double getAbweichung(final boolean intervall24,
+									VergleichsEreignisWerte aktuellesSensorDatum,
+									VergleichsEreignisWerte aktuellesVorgaengerDatum,
+									VergleichsEreignisWerte aktuellesNachfolgerDatum){
 		double ergebnis = Double.MIN_VALUE;
 		
-		if(this.aktuellesSensorDatum != null &&
-			this.aktuellesNachfolgerDatum != null && 
-			this.aktuellesVorgaengerDatum != null){
+		if(aktuellesSensorDatum != null &&
+			aktuellesNachfolgerDatum != null && 
+			aktuellesVorgaengerDatum != null){
 
 			Map<AbstraktEreignis, Double> sensorVergleichsWerte = null;
 			Map<AbstraktEreignis, Double> nachfolgerVergleichsWerte = null;
 			Map<AbstraktEreignis, Double> vorgaengerVergleichsWerte = null;
 			if(intervall24){
-				sensorVergleichsWerte = this.aktuellesSensorDatum.getVergleichsWerte24();
-				nachfolgerVergleichsWerte = this.aktuellesNachfolgerDatum.getVergleichsWerte24();
-				vorgaengerVergleichsWerte = this.aktuellesVorgaengerDatum.getVergleichsWerte24();
+				sensorVergleichsWerte = aktuellesSensorDatum.getVergleichsWerte24();
+				nachfolgerVergleichsWerte = aktuellesNachfolgerDatum.getVergleichsWerte24();
+				vorgaengerVergleichsWerte = aktuellesVorgaengerDatum.getVergleichsWerte24();
 			}else{
-				sensorVergleichsWerte = this.aktuellesSensorDatum.getVergleichsWerte();
-				nachfolgerVergleichsWerte = this.aktuellesNachfolgerDatum.getVergleichsWerte();
-				vorgaengerVergleichsWerte = this.aktuellesVorgaengerDatum.getVergleichsWerte();
+				sensorVergleichsWerte = aktuellesSensorDatum.getVergleichsWerte();
+				nachfolgerVergleichsWerte = aktuellesNachfolgerDatum.getVergleichsWerte();
+				vorgaengerVergleichsWerte = aktuellesVorgaengerDatum.getVergleichsWerte();
 			}
 			
 			for(AbstraktEreignis ereignis:getEreignisInstanzen()){

@@ -1,0 +1,294 @@
+<!DOCTYPE konfigurationsBereich PUBLIC "-//K2S//DTD Dokument//DE" "K2S.dtd">
+<konfigurationsBereich pid="kb.plLangUfdTestModell" verantwortlich="kv.aoe.bitctrl.tester">
+    <konfigurationsAenderung stand="26.10.2007" autor="Thomas Thierfelder, BitCtrl Systems GmbH" grund="Test">
+		Bereich zum Test der Messwertersetzung UFD erzeugt.</konfigurationsAenderung>
+    <modell>
+    </modell>
+    <objekte>
+    
+		<konfigurationsObjekt pid="ufdMessSt.pruefling" name="ufdMessSt.pruefling" typ="typ.umfeldDatenMessStelle">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<objektMenge name="UmfeldDatenSensoren">
+				<element pid="ufdSensor.pruefling.fbz" />
+				<element pid="ufdSensor.pruefling.ns" />
+				<element pid="ufdSensor.pruefling.ni" />
+				<element pid="ufdSensor.pruefling.wfd" />
+				<element pid="ufdSensor.pruefling.lt" />
+				<element pid="ufdSensor.pruefling.sw" />
+			</objektMenge>
+		</konfigurationsObjekt>
+
+		<konfigurationsObjekt pid="ufdMessSt.vorgaenger" name="ufdMessSt.vorgaenger" typ="typ.umfeldDatenMessStelle">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<objektMenge name="UmfeldDatenSensoren">
+				<element pid="ufdSensor.vorgaenger.fbz" />
+				<element pid="ufdSensor.vorgaenger.ns" />
+				<element pid="ufdSensor.vorgaenger.ni" />
+				<element pid="ufdSensor.vorgaenger.wfd" />
+				<element pid="ufdSensor.vorgaenger.lt" />
+				<element pid="ufdSensor.vorgaenger.sw" />
+			</objektMenge>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdMessSt.nachfolger" name="ufdMessSt.nachfolger" typ="typ.umfeldDatenMessStelle">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<objektMenge name="UmfeldDatenSensoren">
+				<element pid="ufdSensor.nachfolger.fbz" />
+				<element pid="ufdSensor.nachfolger.ns" />
+				<element pid="ufdSensor.nachfolger.ni" />
+				<element pid="ufdSensor.nachfolger.wfd" />
+				<element pid="ufdSensor.nachfolger.lt" />
+				<element pid="ufdSensor.nachfolger.sw" />
+			</objektMenge>
+		</konfigurationsObjekt>
+	
+
+		<konfigurationsObjekt pid="ufdSensor.pruefling.ni" name="ufdSensor.pruefling.ni" typ="typ.ufdsNiederschlagsIntensität">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="ufdMessSt.vorgaenger" />
+				<datum name="Nachfolger" wert="ufdMessSt.nachfolger" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+			
+		<konfigurationsObjekt pid="ufdSensor.pruefling.wfd" name="ufdSensor.pruefling.wfd" typ="typ.ufdsWasserFilmDicke">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="ufdMessSt.vorgaenger" />
+				<datum name="Nachfolger" wert="ufdMessSt.nachfolger" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdSensor.pruefling.ns" name="ufdSensor.pruefling.ns" typ="typ.ufdsNiederschlagsArt">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="ufdMessSt.vorgaenger" />
+				<datum name="Nachfolger" wert="ufdMessSt.nachfolger" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+		
+		<konfigurationsObjekt pid="ufdSensor.pruefling.fbz" name="ufdSensor.pruefling.fbz" typ="typ.ufdsFahrBahnOberFlächenZustand">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="ufdMessSt.vorgaenger" />
+				<datum name="Nachfolger" wert="ufdMessSt.nachfolger" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+	
+		<konfigurationsObjekt pid="ufdSensor.pruefling.lt" name="ufdSensor.pruefling.lt" typ="typ.ufdsLuftTemperatur">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="ufdMessSt.vorgaenger" />
+				<datum name="Nachfolger" wert="ufdMessSt.nachfolger" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdSensor.pruefling.sw" name="ufdSensor.pruefling.sw" typ="typ.ufdsSichtWeite">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="ufdMessSt.vorgaenger" />
+				<datum name="Nachfolger" wert="ufdMessSt.nachfolger" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>					
+
+
+
+		<konfigurationsObjekt pid="ufdSensor.vorgaenger.ni" name="ufdSensor.vorgaenger.ni" typ="typ.ufdsNiederschlagsIntensität">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+			
+		<konfigurationsObjekt pid="ufdSensor.vorgaenger.wfd" name="ufdSensor.vorgaenger.wfd" typ="typ.ufdsWasserFilmDicke">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdSensor.vorgaenger.ns" name="ufdSensor.vorgaenger.ns" typ="typ.ufdsNiederschlagsArt">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+		
+		<konfigurationsObjekt pid="ufdSensor.vorgaenger.fbz" name="ufdSensor.vorgaenger.fbz" typ="typ.ufdsFahrBahnOberFlächenZustand">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+	
+		<konfigurationsObjekt pid="ufdSensor.vorgaenger.lt" name="ufdSensor.vorgaenger.lt" typ="typ.ufdsLuftTemperatur">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdSensor.vorgaenger.sw" name="ufdSensor.vorgaenger.sw" typ="typ.ufdsSichtWeite">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>	
+						
+						
+					
+		<konfigurationsObjekt pid="ufdSensor.nachfolger.ni" name="ufdSensor.nachfolger.ni" typ="typ.ufdsNiederschlagsIntensität">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+			
+		<konfigurationsObjekt pid="ufdSensor.nachfolger.wfd" name="ufdSensor.nachfolger.wfd" typ="typ.ufdsWasserFilmDicke">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdSensor.nachfolger.ns" name="ufdSensor.nachfolger.ns" typ="typ.ufdsNiederschlagsArt">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+		
+		<konfigurationsObjekt pid="ufdSensor.nachfolger.fbz" name="ufdSensor.nachfolger.fbz" typ="typ.ufdsFahrBahnOberFlächenZustand">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+	
+		<konfigurationsObjekt pid="ufdSensor.nachfolger.lt" name="ufdSensor.nachfolger.lt" typ="typ.ufdsLuftTemperatur">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>
+	
+		<konfigurationsObjekt pid="ufdSensor.nachfolger.sw" name="ufdSensor.nachfolger.sw" typ="typ.ufdsSichtWeite">
+			<info>
+				<kurzinfo>info</kurzinfo>
+			</info>
+			<datensatz attributgruppe="atg.umfeldDatenSensor">
+				<datum name="Vorgänger" wert="null" />
+				<datum name="Nachfolger" wert="null" />
+				<datum name="ErsatzSensor" wert="null" />
+				<datum name="UmfeldDatenSensorQuelle" wert="null" />
+				<datum name="Typ" wert="HauptSensor" />
+			</datensatz>
+		</konfigurationsObjekt>	
+		
+    </objekte>
+</konfigurationsBereich>

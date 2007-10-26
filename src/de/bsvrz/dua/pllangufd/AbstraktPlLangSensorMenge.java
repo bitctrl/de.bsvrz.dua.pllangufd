@@ -27,6 +27,7 @@
 package de.bsvrz.dua.pllangufd;
 
 import de.bsvrz.dav.daf.main.ClientDavInterface;
+import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
@@ -40,7 +41,7 @@ import de.bsvrz.sys.funclib.operatingMessage.MessageType;
 
 /**
  * Abstraktes Rohgeruest fuer eine Menge von Sensoren der Art:<br>
- * Hauptsensor, Vorgaenger, Nachfolger,<br>
+ * Hauptsensor (Pruefling), Vorgaenger, Nachfolger,<br>
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD 
  * ueberprueft wird
  * 
@@ -48,76 +49,73 @@ import de.bsvrz.sys.funclib.operatingMessage.MessageType;
  *
  */
 public abstract class AbstraktPlLangSensorMenge<G>
-implements IOnlineUfdSensorListener<G>{
+implements IOnlineUfdSensorListener<ResultData>{
 	
 	/**
-	 * statische Datenverteiler-Verbindung
+	 * statische Verbindung zum Datenverteiler
 	 */
 	protected static ClientDavInterface DAV = null;
 
 	/**
-	 * aktuelles Vorgaenger-Datum
+	 * Vorgaenger-Sensor mit aktuellen Online-Daten
 	 */
-	protected G aktuellesVorgaengerDatum = null;
+	protected AbstraktPlLangSensor<G> vorgaengerSensor = null;
 
 	/**
-	 * aktuelles Nachfolger-Datum
+	 * Nachfolger-Sensor mit aktuellen Online-Daten
 	 */
-	protected G aktuellesNachfolgerDatum = null;
+	protected AbstraktPlLangSensor<G> nachfolgerSensor = null;
 
 	/**
-	 * aktuelles Sensor-Datum
+	 * Pruefling mit aktuellen Online-Daten
 	 */
-	protected G aktuellesSensorDatum = null;
-	
+	protected AbstraktPlLangSensor<G> prueflingSensor = null;
+		
 	/**
-	 * Messstelle
+	 * Messstelle, zu der der Pruefling gehoert
 	 */
 	protected SystemObject messStelle = null;
 
-	/**
-	 * Vorgaenger
-	 */
-	protected SystemObject vorgaengerObj = null;
-
-	/**
-	 * Nachfolger
-	 */
-	protected SystemObject nachfolgerObj = null;
-
-	/**
-	 * Sensor selbst
-	 */
-	protected SystemObject sensorSelbst = null;
 
 	
 	/**
-	 * Standardkonstruktor
+	 * Erfragt eine statische Instanz des Online-Sensors, der mit dem uebergebenen
+	 * Systemobjekt assoziiert ist
+	 * 
+	 * @param objekt ein Systemobjekt eines Umfelddatensensors
+	 * @return eine statische Instanz des Online-Sensors, der mit dem uebergebenen
+	 * Systemobjekt assoziiert ist
+	 */
+	protected abstract AbstraktPlLangSensor<G> getSensorInstanz(final SystemObject objekt);
+	
+	
+	/**
+	 * Initialisiert dieses Objekt (Instanziierung und Anmeldung der einzelnen
+	 * Sensoren auf Daten und Parameter usw.)
 	 *  
 	 * @param dav Verbindung zum Datenverteiler
-	 * @param messStelle die UFD-Messstelle
+	 * @param messStelle die UFD-Messstelle des Prueflings
 	 * @param sensorSelbst der Hauptsensor (der ueberprueft wird)
 	 * @param sensorVorgaenger sein Vorgaenger
 	 * @param sensorNachfolger sein Nachfolger
 	 */
-	public AbstraktPlLangSensorMenge(ClientDavInterface dav,
-									 DUAUmfeldDatenMessStelle messStelle,
-									 DUAUmfeldDatenSensor sensorSelbst,
-								 	 DUAUmfeldDatenSensor sensorVorgaenger, 
-								 	 DUAUmfeldDatenSensor sensorNachfolger){
+	public final void initialisiere(ClientDavInterface dav,
+			 DUAUmfeldDatenMessStelle messStelle,
+			 DUAUmfeldDatenSensor sensorSelbst,
+		 	 DUAUmfeldDatenSensor sensorVorgaenger, 
+		 	 DUAUmfeldDatenSensor sensorNachfolger){
 		if(DAV == null){
 			DAV = dav;
 		}
 		this.messStelle = messStelle.getObjekt();
-		this.sensorSelbst = sensorSelbst.getObjekt();
-		this.vorgaengerObj = sensorVorgaenger.getObjekt();
-		this.nachfolgerObj = sensorNachfolger.getObjekt();
-		if(this.sensorSelbst == null || 
-		   this.vorgaengerObj == null || 
-		   this.nachfolgerObj == null){
-			throw new NullPointerException("Sensormenge kann nicht initialisiert werden." + //$NON-NLS-1$
-					" Einer der Sensoren ist <<null>>"); //$NON-NLS-1$
-		}
+		
+		this.prueflingSensor = this.getSensorInstanz(sensorSelbst.getObjekt());
+		this.vorgaengerSensor = this.getSensorInstanz(sensorVorgaenger.getObjekt());
+		this.nachfolgerSensor = this.getSensorInstanz(sensorNachfolger.getObjekt());
+		
+		this.prueflingSensor.addListener(this, true);
+		this.vorgaengerSensor.addListener(this, true);
+		this.nachfolgerSensor.addListener(this, true);		
 	}
 	
 	

@@ -31,12 +31,12 @@ import java.util.Map;
 import java.util.SortedSet;
 
 import de.bsvrz.dav.daf.main.ClientDavInterface;
-import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
-import de.bsvrz.dua.pllangufd.VergleichsWertMitAktuellemDatum;
+import de.bsvrz.dua.pllangufd.VergleichsWert;
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Sensor, der die aktuellen Daten eines NI-, WFD-, LT-, oder SW-Sensors
@@ -46,7 +46,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
  *
  */
 public class PlLang_Ni_Wfd_Lt_Sw_Sensor
-extends AbstraktPlLangSensor<VergleichsWertMitAktuellemDatum>{
+extends AbstraktPlLangSensor<VergleichsWert>{
 
 	/**
 	 * statische Instanzen dieser Klasse
@@ -79,25 +79,23 @@ extends AbstraktPlLangSensor<VergleichsWertMitAktuellemDatum>{
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	protected void berechneOnlineWert(ResultData resultat) {
-		this.onlineWert = new VergleichsWertMitAktuellemDatum(resultat);
-
-		HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
-		this.hitorie24.addDatum(historischerWert);
+	public VergleichsWert getAktuellenVergleichsWert(
+			long aktuellerZeitStempel) {
+		VergleichsWert onlineWert = new VergleichsWert();
 
 		synchronized (this) {
 			/**
 			 * berechne Vergleichswert fuer parametriertes Vergleichsintervall
 			 */
+			
 			if(this.aktuelleParameter != null && this.aktuelleParameter.isValid()){					
 				double ergebnis = Double.NaN;
 
+				long intervallAnfang = aktuellerZeitStempel - this.aktuelleParameter.getVergleichsIntervall().getMillis();
 				SortedSet<HistorischerUfdsWert> historieVergleich = 
-					this.hitorie24.getPufferInhalt(this.aktuelleParameter.getVergleichsIntervall().getMillis());
+					this.hitorie24.getTeilMenge(intervallAnfang, aktuellerZeitStempel);
+				
 				if(!historieVergleich.isEmpty()){	
 					long summeD = -1;
 					long summeWmalD = -1;
@@ -116,11 +114,7 @@ extends AbstraktPlLangSensor<VergleichsWertMitAktuellemDatum>{
 					if(summeD >= 0){
 						summeA = this.hitorie24.getIntervallLaenge() - summeD;
 						if(summeA < 0){
-							summeA = 0;
-
-							/**
-							 * TODO: wieder raus
-							 */
+							//summeA = 0;
 							throw new RuntimeException("---------------------------"); //$NON-NLS-1$
 						}
 
@@ -132,19 +126,23 @@ extends AbstraktPlLangSensor<VergleichsWertMitAktuellemDatum>{
 					}
 				}	
 
-				this.onlineWert.setVergleichsWert( ergebnis );
+				onlineWert.setVergleichsWert( ergebnis );
 
 
 				/**
 				 * berechne Vergleichswert fuer letzte 24h
 				 */
 				double ergebnis24 = Double.NaN;
+				
+				long intervallAnfang24 = aktuellerZeitStempel - Konstante.TAG_24_IN_MS;
+				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
+					this.hitorie24.getTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 
-				if(!this.hitorie24.getPufferInhalt().isEmpty()){	
+				if(!historieVergleich24.isEmpty()){	
 					long summeD24 = -1;
 					long summeWmalD24 = -1;
 					long summeA24 = -1;
-					for(HistorischerUfdsWert wert:this.hitorie24.getPufferInhalt()){
+					for(HistorischerUfdsWert wert:historieVergleich24){
 						if(wert.getWert().isOk()){
 							if(summeD24 == -1){
 								summeD24 = 0;	// Initialisierung
@@ -174,10 +172,11 @@ extends AbstraktPlLangSensor<VergleichsWertMitAktuellemDatum>{
 					}
 				}	
 
-				this.onlineWert.setVergleichsWert24( ergebnis24 );
+				onlineWert.setVergleichsWert24( ergebnis24 );
 			}
 		}
-
+		
+		return onlineWert;
 	}
 	
 }

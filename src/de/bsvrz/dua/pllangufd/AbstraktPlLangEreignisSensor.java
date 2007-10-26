@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
-import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
+import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Abstrakter Umfelddatensensor fuer die PL-Pruefung langzeit UFD
@@ -42,43 +42,51 @@ import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
  *
  */
 public abstract class AbstraktPlLangEreignisSensor 
-extends AbstraktPlLangSensor<VergleichsEreignisWerteMitAktuellemDatum>{
+extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected final void berechneOnlineWert(ResultData resultat) {
-		this.onlineWert = new VergleichsEreignisWerteMitAktuellemDatum(resultat);
-
-		HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
-		this.hitorie24.addDatum(historischerWert);
+	public VergleichsEreignisWerte getAktuellenVergleichsWert(long aktuellerZeitStempel) {
+		VergleichsEreignisWerte ergebnis = null;
 
 		synchronized (this) {
-			if(this.aktuelleParameter != null && this.aktuelleParameter.isValid()){
+			if(!this.hitorie24.getPufferInhalt().isEmpty() && 
+				this.aktuelleParameter != null && 
+				this.aktuelleParameter.isValid()){
+				
+				ergebnis = new VergleichsEreignisWerte();
 				/**
 				 * berechne Vergleichswerte fuer parametriertes Vergleichsintervall
 				 */
+				long intervallAnfang = aktuellerZeitStempel - this.aktuelleParameter.getVergleichsIntervall().getMillis();
 				SortedSet<HistorischerUfdsWert> historieVergleich = 
-					this.hitorie24.getPufferInhalt(this.aktuelleParameter.getVergleichsIntervall().getMillis());
-				
+					this.hitorie24.getTeilMenge(intervallAnfang, aktuellerZeitStempel);
+
 				if(!historieVergleich.isEmpty()){
-					this.onlineWert.setVergleichsWerte(
+					ergebnis.setVergleichsWerte(
 							getVergleichsWerte(historieVergleich, getEreignisInstanzen()));
 				}
 
 				/**
 				 * berechne Vergleichswerte fuer letzte 24h
 				 */
-				if(!this.hitorie24.getPufferInhalt().isEmpty()){
-					this.onlineWert.setVergleichsWerte24(
-							getVergleichsWerte(this.hitorie24.getPufferInhalt(),
-									getEreignisInstanzen()));
+				long intervallAnfang24 = aktuellerZeitStempel - Konstante.TAG_24_IN_MS;
+				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
+					this.hitorie24.getTeilMenge(intervallAnfang24, aktuellerZeitStempel);
+
+				if(!historieVergleich24.isEmpty()){
+					ergebnis.setVergleichsWerte24(
+							getVergleichsWerte(historieVergleich24, getEreignisInstanzen()));
 				}
-			}
+			}				
 		}
+				
+		return ergebnis;
 	}
-	
+
 	
 	/**
 	 * Erfragt eine Map mit den Vergleichswerten, die in Bezug auf die 

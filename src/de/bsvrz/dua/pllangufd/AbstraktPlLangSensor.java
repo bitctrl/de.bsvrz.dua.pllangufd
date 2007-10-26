@@ -27,6 +27,7 @@
 package de.bsvrz.dua.pllangufd;
 
 import de.bsvrz.dav.daf.main.ClientDavInterface;
+import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.historie.HistorischerDatenpuffer;
@@ -39,13 +40,13 @@ import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Abstrakter Umfelddatensensor fuer die PL-Pruefung Langzeit UFD
- * mit aktuellen Parametern
+ * mit aktuellen Parametern und den Online-Daten der letzten 24 Stunden
  *  
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
 public abstract class AbstraktPlLangSensor<G>
-extends AbstraktOnlineUfdSensor<G>
+extends AbstraktOnlineUfdSensor<ResultData>
 implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	
 	/**
@@ -56,22 +57,47 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	/**
 	 * Messwerthistorie dieses Sensors fuer die letzten 24 Stunden
 	 */
-	protected HistorischerDatenpuffer<HistorischerUfdsWert> hitorie24 = new HistorischerDatenpuffer<HistorischerUfdsWert>();
-	
+	protected HistorischerDatenpuffer<HistorischerUfdsWert> hitorie24 = 
+							new HistorischerDatenpuffer<HistorischerUfdsWert>(Konstante.TAG_24_IN_MS);
+		
 
+	/**
+	 * Erfragt den aktuellen Vergleichswert, auf Basis der bis jetzt 
+	 * (uebergebener Zeitstempel) eingetroffenen Daten
+	 * 
+	 * @param aktuellerZeitStempel indiziert den Jetzt-Zeitpunkt
+	 * @return aktueller Vergleichswert, auf Basis der bis jetzt 
+	 * (uebergebener Zeitstempel) eingetroffenen Daten oder <code>null</code>,
+	 * wenn dieser nicht errechnet werden konnte (weil noch keine Daten
+	 * bzw. Parameter vorlagen)
+	 */
+	public abstract G getAktuellenVergleichsWert(final long aktuellerZeitStempel);
+	
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void initialisiere(ClientDavInterface dav, SystemObject objekt, Aspect aspekt) {
+	protected void initialisiere(ClientDavInterface dav,
+								 SystemObject objekt,
+								 Aspect aspekt) {
 		super.initialisiere(dav, objekt, aspekt);
-		
-		this.hitorie24.setIntervallLaenge(Konstante.TAG_24_IN_MS);
 		UniversalAtgUfdsLangzeitPLPruefung parameter = new UniversalAtgUfdsLangzeitPLPruefung(dav, objekt);
 		parameter.addListener(this, true);
 	}
-
 	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void berechneOnlineWert(ResultData resultat) {
+		this.onlineWert = resultat;
+		HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
+		this.hitorie24.addDatum(historischerWert);
+	}
+
+
 	/**
 	 * Erfragt die aktuellen Parameter dieses Sensors
 	 * 

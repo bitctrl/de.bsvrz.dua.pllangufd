@@ -26,7 +26,6 @@
 
 package de.bsvrz.dua.pllangufd;
 
-import de.bsvrz.dav.daf.main.ResultData;
 
 /**
  * Diese Klasse repraesentiert das aktuelle Datum eines Umfelddatensensors
@@ -35,7 +34,7 @@ import de.bsvrz.dav.daf.main.ResultData;
  * @author BitCtrl Systems GmbH, Thierfelder
  *
  */
-public class VergleichsWertMitAktuellemDatum {  
+public class VergleichsWert {  
 	
 	/**
 	 * der Vergleichswert
@@ -46,24 +45,7 @@ public class VergleichsWertMitAktuellemDatum {
 	 * der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
 	 */
 	private double vergleichsWert24 = Double.NaN;
-	
-	/**
-	 * aktuelles letztes empfangenes Datum, das zur Ermittlich dieses Vergleichswertes
-	 * herangezogen wurde
-	 */
-	private ResultData aktuellerWert = null;
-	
-	
-	/**
-	 * Standardkonstruktor
-	 * 
-	 * @param aktuellerWert aktuelles letztes empfangenes Datum, das zur Ermittlung
-	 * dieses Vergleichswertes herangezogen wurde 
-	 */
-	public VergleichsWertMitAktuellemDatum(final ResultData aktuellerWert){
-		this.aktuellerWert = aktuellerWert;
-	}
-	
+		
 	
 	/**
 	 * Setzt den Vergleichswert der Pl-Pruefung langzeit UFD
@@ -129,18 +111,6 @@ public class VergleichsWertMitAktuellemDatum {
 	 */
 	public final double getVergleichsWert24(){
 		return this.vergleichsWert24;
-	}
-	
-
-	/**
-	 * Erfragt aktuelles letztes empfangenes Datum, das zur Ermittlich
-	 * dieses Vergleichswertes herangezogen wurde 
-	 * 
-	 * @return aktuelles letztes empfangenes Datum, das zur Ermittlich
-	 * dieses Vergleichswertes herangezogen wurde 
-	 */
-	public final ResultData getAktuellenWert(){
-		return this.aktuellerWert;
 	}
 	
 }

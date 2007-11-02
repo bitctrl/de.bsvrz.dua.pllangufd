@@ -30,8 +30,6 @@ import java.util.Set;
 
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.dua.pllangufd.fbz.PlLang_Fbz_SensorMenge;
-import de.bsvrz.dua.pllangufd.na.PlLang_Ns_SensorMenge;
 import de.bsvrz.dua.pllangufd.rest.PlLang_Ni_Wfd_Lt_Sw_SensorMenge;
 import de.bsvrz.sys.funclib.application.StandardApplicationRunner;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAInitialisierungsException;
@@ -138,6 +136,14 @@ extends AbstraktVerwaltungsAdapter{
 					DUAUmfeldDatenMessStelle.getInstanz(vorgaengerObjekt);
 				if(messStelleVorher != null){
 					sensorVor = messStelleVorher.getHauptSensor(datenArt);
+					if(sensorVor == null){
+						/**
+						 * kein Hauptsensor: nehme ersten Nebensensor
+						 */
+						if(messStelleVorher.getNebenSensoren(datenArt).size() > 0){
+							sensorVor = messStelleVorher.getNebenSensoren(datenArt).iterator().next();
+						}
+					}
 				}
 			}
 			
@@ -147,6 +153,14 @@ extends AbstraktVerwaltungsAdapter{
 					DUAUmfeldDatenMessStelle.getInstanz(nachfolgerObjekt);
 				if(messStelleNachher != null){
 					sensorNach = messStelleNachher.getHauptSensor(datenArt);
+					if(sensorNach == null){
+						/**
+						 * kein Hauptsensor: nehme ersten Nebensensor
+						 */
+						if(messStelleNachher.getNebenSensoren(datenArt).size() > 0){
+							sensorNach = messStelleNachher.getNebenSensoren(datenArt).iterator().next();
+						}
+					}
 				}
 			}
 		}

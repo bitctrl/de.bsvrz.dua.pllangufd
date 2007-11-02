@@ -34,7 +34,9 @@ import de.bsvrz.dua.pllangufd.AbstraktPlLangSensorMenge;
 import de.bsvrz.dua.pllangufd.VergleichsWert;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.DUAUtensilien;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
+import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Assoziator fuer eine Menge von NI-, WFD-, LT-, oder SW-Sensoren der Art:<br>
@@ -49,19 +51,23 @@ public class PlLang_Ni_Wfd_Lt_Sw_SensorMenge
 extends AbstraktPlLangSensorMenge<VergleichsWert>{
 
 
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	public void aktualisiereDaten(ResultData datum) {
 		synchronized (this) {
 			VergleichsWert aktuellesSensorDatum = 
-				this.prueflingSensor.getAktuellenVergleichsWert(datum.getDataTime());
+				this.prueflingSensor.getAktuellenVergleichsWert(prueflingSensor.getAktuelleParameter(), 
+						datum.getDataTime());
 
 			VergleichsWert aktuellesNachfolgerDatum = 
-				this.nachfolgerSensor.getAktuellenVergleichsWert(datum.getDataTime());
+				this.nachfolgerSensor.getAktuellenVergleichsWert(prueflingSensor.getAktuelleParameter(), 
+						datum.getDataTime());
 
 			VergleichsWert aktuellesVorgaengerDatum = 
-				this.vorgaengerSensor.getAktuellenVergleichsWert(datum.getDataTime());					
+				this.vorgaengerSensor.getAktuellenVergleichsWert(prueflingSensor.getAktuelleParameter(), 
+						datum.getDataTime());					
 
 			UfdsLangZeitPlPruefungsParameter parameter = this.prueflingSensor.getAktuelleParameter();
 
@@ -71,55 +77,59 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 						aktuellesSensorDatum, aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
 				if(abweichung24 != Double.NaN){
 					synchronized (this) {
-						if(abweichung24 <= parameter.getMaxAbweichung().getSkaliertenWert()){
-							long start = -1; // TODO
-							long ende = -1; // TODO
+						if(abweichung24 > parameter.getMaxAbweichung().getSkaliertenWert()){
+							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime()
+									- Konstante.TAG_24_IN_MS)) + " - " +  //$NON-NLS-1$
+							DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime())) + " (24 Stunden)"; //$NON-NLS-1$
 
-							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(start)) + " - " +  //$NON-NLS-1$
-							DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(ende)) + " (24 Stunden)"; //$NON-NLS-1$
-
-							this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " +  //$NON-NLS-1$
-									UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
-									" für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
-									+ abweichung24 + " (>" + parameter.getMaxAbweichung().getSkaliertenWert() +  //$NON-NLS-1$
-									") vom erwarteten Vergleichswert im Vergleichszeitbereich " + //$NON-NLS-1$
-									"" + vergleichsZeitBereich + " ab.", //$NON-NLS-1$ //$NON-NLS-2$
-							"Langzeitmessfehler Umfelddaten (24h)"); //$NON-NLS-1$										
+							if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+								this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " +  //$NON-NLS-1$
+										UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
+										" für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
+										+ DUAUtensilien.runde(abweichung24, 2) + " (>" + parameter.getMaxAbweichung().getSkaliertenWert() +  //$NON-NLS-1$
+										") vom erwarteten Vergleichswert im Vergleichszeitbereich " + //$NON-NLS-1$
+										"" + vergleichsZeitBereich + " ab.", //$NON-NLS-1$ //$NON-NLS-2$
+										LZMF_UFD24, datum.getDataTime());																		
+							}
 						}
 					}				
 				}else{
-					this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Die Plausibilitätsprüfung zur " +  //$NON-NLS-1$
-							UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
-							" für die Messstelle " + this.messStelle + " konnte nicht durchgeführt werden," + //$NON-NLS-1$ //$NON-NLS-2$
-							" da ein Vergleichswert nicht bestimmt werden konnte.", "Langzeit-Pl-Prüfung (24h)"); //$NON-NLS-1$ //$NON-NLS-2$
+					if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+						this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Die Plausibilitätsprüfung zur " +  //$NON-NLS-1$
+								UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
+								" für die Messstelle " + this.messStelle + " konnte nicht durchgeführt werden," + //$NON-NLS-1$ //$NON-NLS-2$
+								" da ein Vergleichswert nicht bestimmt werden konnte.", LZ_PL_PR24, datum.getDataTime()); //$NON-NLS-1$
+					}
 				}
 
 				double abweichung = this.getAbweichung(false,
 						aktuellesSensorDatum, aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
 				if(abweichung != Double.NaN){
 					synchronized (this) {
-						if(abweichung <= parameter.getMaxAbweichung().getSkaliertenWert()){
-							long start = -1; // TODO
-							long ende = -1; // TODO
-
-							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(start)) + " - " +  //$NON-NLS-1$
-							DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(ende)) + " (" + //$NON-NLS-1$
+						if(abweichung > parameter.getMaxAbweichung().getSkaliertenWert()){
+							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime()
+									- parameter.getVergleichsIntervall().getMillis())) + " - " +  //$NON-NLS-1$
+							DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime())) + " (" + //$NON-NLS-1$
 							parameter.getVergleichsIntervall() + ")"; //$NON-NLS-1$
 
-							this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " +  //$NON-NLS-1$
-									UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
-									" für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
-									+ abweichung + " (>" + parameter.getMaxAbweichung().getSkaliertenWert() +  //$NON-NLS-1$
-									") vom erwarteten Vergleichswert im Vergleichszeitbereich " + //$NON-NLS-1$
-									"" + vergleichsZeitBereich + " ab.", //$NON-NLS-1$ //$NON-NLS-2$
-							"Langzeitmessfehler Umfelddaten"); //$NON-NLS-1$																
+							if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= parameter.getVergleichsIntervall().getMillis()){
+								this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " +  //$NON-NLS-1$
+										UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
+										" für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
+										+ DUAUtensilien.runde(abweichung, 2) + " (>" + parameter.getMaxAbweichung().getSkaliertenWert() +  //$NON-NLS-1$
+										") vom erwarteten Vergleichswert im Vergleichszeitbereich " + //$NON-NLS-1$
+										"" + vergleichsZeitBereich + " ab.", //$NON-NLS-1$ //$NON-NLS-2$
+										LZMF_UFD, datum.getDataTime());
+							}
 						}					
 					}
 				}else{
-					this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Die Plausibilitätsprüfung zur " +  //$NON-NLS-1$
+					if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= parameter.getVergleichsIntervall().getMillis()){
+						this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Die Plausibilitätsprüfung zur " +  //$NON-NLS-1$
 							UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
 							" für die Messstelle " + this.messStelle + " konnte nicht durchgeführt werden," + //$NON-NLS-1$ //$NON-NLS-2$
-							" da ein Vergleichswert nicht bestimmt werden konnte.", "Langzeit-Pl-Prüfung"); //$NON-NLS-1$ //$NON-NLS-2$
+							" da ein Vergleichswert nicht bestimmt werden konnte.", LZ_PL_PR, datum.getDataTime()); //$NON-NLS-1$
+					}
 				}
 			}
 		}

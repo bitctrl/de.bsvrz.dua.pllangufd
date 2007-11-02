@@ -179,8 +179,8 @@ public class HistorischerDatenpufferTest {
 		puffer.addDatum(new HistPufferElement(10));
 		puffer.addDatum(new HistPufferElement(11));
 		
-		Assert.assertEquals(2, puffer.getTeilMenge(10, 20).size());
-		Assert.assertEquals(1, puffer.getTeilMenge(11, 20).size());
+		Assert.assertEquals(1, puffer.getTeilMenge(10, 20).size());
+		Assert.assertEquals(0, puffer.getTeilMenge(11, 20).size());
 		Assert.assertEquals(0, puffer.getTeilMenge(12, 20).size());
 
 		long[] werte = new long[]{11, 10};
@@ -192,8 +192,8 @@ public class HistorischerDatenpufferTest {
 		puffer.addDatum(new HistPufferElement(20));
 		puffer.addDatum(new HistPufferElement(21));
 
-		Assert.assertEquals(3, puffer.getTeilMenge(10, 20).size());
-		Assert.assertEquals(2, puffer.getTeilMenge(11, 20).size());
+		Assert.assertEquals(2, puffer.getTeilMenge(10, 20).size());
+		Assert.assertEquals(1, puffer.getTeilMenge(11, 20).size());
 		Assert.assertEquals(1, puffer.getTeilMenge(12, 20).size());
 		Assert.assertEquals(2, puffer.getTeilMenge(12, 21).size());
 		Assert.assertEquals(2, puffer.getTeilMenge(12, 22).size());

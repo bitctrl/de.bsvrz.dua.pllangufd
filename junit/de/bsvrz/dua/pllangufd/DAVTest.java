@@ -29,6 +29,7 @@ package de.bsvrz.dua.pllangufd;
 import java.util.Random;
 
 import de.bsvrz.dav.daf.main.ClientDavInterface;
+import de.bsvrz.dua.pllangufd.vew.VerwaltungPlLangzeitUFD;
 import de.bsvrz.sys.funclib.application.StandardApplication;
 import de.bsvrz.sys.funclib.application.StandardApplicationRunner;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
@@ -62,6 +63,11 @@ public class DAVTest {
 	 * Randomizer
 	 */
 	public static Random R = new Random(System.currentTimeMillis());
+	
+	/**
+	 * Erste Datenzeit der Testdaten
+	 */
+	public static final long START_ZEIT = 0;
 
 	
 	/**
@@ -76,13 +82,21 @@ public class DAVTest {
 	throws Exception {
 		
 		if(VERBINDUNG == null) {
+
+			String[] CON_DATA_APP = new String[CON_DATA.length + 1];
+			int i = 0;
+			for(String str:CON_DATA){
+				CON_DATA_APP[i++] = new String(str.getBytes());
+			}
+			CON_DATA_APP[i] = "-KonfigurationsBereichsPid=kb.plLangUfdTestModell"; //$NON-NLS-1$
+
 			StandardApplicationRunner.run(new StandardApplication() {
 	
 				public void initialize(ClientDavInterface connection)
 						throws Exception {
 					DAVTest.VERBINDUNG = connection;
 					UmfeldDatenArt.initialisiere(VERBINDUNG);
-					UfdSensorSender.init(VERBINDUNG);
+					UfdSensorSender.initialisiere(VERBINDUNG, START_ZEIT);
 				}
 	
 				public void parseArguments(ArgumentList argumentList)
@@ -90,7 +104,8 @@ public class DAVTest {
 					//
 				}
 	
-			}, CON_DATA);			
+			}, CON_DATA);
+			StandardApplicationRunner.run(new VerwaltungPlLangzeitUFD(), CON_DATA_APP);
 		}
 				
 		return VERBINDUNG;

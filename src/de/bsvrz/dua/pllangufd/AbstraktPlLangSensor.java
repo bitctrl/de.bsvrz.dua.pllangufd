@@ -50,6 +50,11 @@ extends AbstraktOnlineUfdSensor<ResultData>
 implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	
 	/**
+	 * erste fuer diesen Umfelddatensensor empfangene Datenzeit
+	 */
+	private long aktivSeit = Long.MIN_VALUE;
+	
+	/**
 	 * aktuelle Parameter fuer die Langzeitpruefung
 	 */
 	protected UfdsLangZeitPlPruefungsParameter aktuelleParameter = null;
@@ -65,13 +70,15 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	 * Erfragt den aktuellen Vergleichswert, auf Basis der bis jetzt 
 	 * (uebergebener Zeitstempel) eingetroffenen Daten
 	 * 
+	 * @param parameter aktuelle Pl-langzeit-Parameter des Sensor-Prueflings
 	 * @param aktuellerZeitStempel indiziert den Jetzt-Zeitpunkt
 	 * @return aktueller Vergleichswert, auf Basis der bis jetzt 
 	 * (uebergebener Zeitstempel) eingetroffenen Daten oder <code>null</code>,
 	 * wenn dieser nicht errechnet werden konnte (weil noch keine Daten
 	 * bzw. Parameter vorlagen)
 	 */
-	public abstract G getAktuellenVergleichsWert(final long aktuellerZeitStempel);
+	public abstract G getAktuellenVergleichsWert(final UfdsLangZeitPlPruefungsParameter parameter,
+												 final long aktuellerZeitStempel);
 	
 	
 	/**
@@ -92,11 +99,24 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	 */
 	@Override
 	protected void berechneOnlineWert(ResultData resultat) {
+		if(this.aktivSeit == Long.MIN_VALUE){
+			this.aktivSeit = resultat.getDataTime();
+		}
 		this.onlineWert = resultat;
 		HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
 		this.hitorie24.addDatum(historischerWert);
 	}
 
+	
+	/**
+	 * Erfragt seit wann Daten fuer diesen Umfelddatensensor empfangen werden
+	 * 
+	 * @return seit wann Daten fuer diesen Umfelddatensensor empfangen werden
+	 */
+	public final long getAktivSeit(){
+		return this.aktivSeit;
+	}
+	
 
 	/**
 	 * Erfragt die aktuellen Parameter dieses Sensors

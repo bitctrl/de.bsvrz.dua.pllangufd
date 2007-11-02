@@ -26,6 +26,9 @@
 
 package de.bsvrz.dua.pllangufd;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
@@ -52,6 +55,26 @@ public abstract class AbstraktPlLangSensorMenge<G>
 implements IOnlineUfdSensorListener<ResultData>{
 	
 	/**
+	 * <code>Langzeit-Pl-Prüfung</code>
+	 */
+	protected static final String LZ_PL_PR = "Langzeit-Pl-Prüfung"; //$NON-NLS-1$
+	
+	/**
+	 * <code>Langzeit-Pl-Prüfung (24h)</code>
+	 */
+	protected static final String LZ_PL_PR24 = "Langzeit-Pl-Prüfung (24h)"; //$NON-NLS-1$
+	
+	/**
+	 * <code>Langzeitmessfehler Umfelddaten</code>
+	 */
+	protected static final String LZMF_UFD = "Langzeitmessfehler Umfelddaten"; //$NON-NLS-1$
+
+	/**
+	 * <code>Langzeitmessfehler Umfelddaten (24h)</code>
+	 */
+	protected static final String LZMF_UFD24 = "Langzeitmessfehler Umfelddaten (24h)"; //$NON-NLS-1$
+	
+	/**
 	 * statische Verbindung zum Datenverteiler
 	 */
 	protected static ClientDavInterface DAV = null;
@@ -74,7 +97,13 @@ implements IOnlineUfdSensorListener<ResultData>{
 	/**
 	 * Messstelle, zu der der Pruefling gehoert
 	 */
-	protected SystemObject messStelle = null;
+	protected SystemObject messStelle = null; 
+	
+	/**
+	 * Bildet den Nachrichtenzusatz auf die letzte Datenzeit ab, 
+	 * fuer die eine Nachricht mit diesem Zusatz publiziert worden ist
+	 */
+	private Map<String, Long> zusatzAufLetzteDatenzeit = new HashMap<String, Long>();
 
 
 	
@@ -120,21 +149,33 @@ implements IOnlineUfdSensorListener<ResultData>{
 	
 	
 	/**
-	 * Sendet eine Betriebsmeldung als Warnung an den Operator
+	 * Sendet eine Betriebsmeldung als Warnung an den Operator.
+	 * <br><b>Achtung:</b> Es koennen nur zwei unterschiedliche
+	 * Nachrichten in Folge versendet werden (Zeitstempel)
 	 * 
 	 * @param objekt das betroffene Systemobjekt
 	 * @param nachricht der Nachrichtentext
 	 * @param zusatz ein Nachrichtenzusatz
+	 * @param datenzeit der Zeitstempel des Datums, das diese Fehlermeldung provoziert hat
 	 */
-	protected final void sendeBetriebsmeldung(SystemObject objekt, String nachricht, String zusatz){
-		MessageSender nachrichtenSender = MessageSender.getInstance();
-		nachrichtenSender.sendMessage(
-				MessageType.APPLICATION_DOMAIN, 
-				zusatz,
-				MessageGrade.WARNING,
-				objekt,
-				new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
-				nachricht);
+	protected final void sendeBetriebsmeldung(SystemObject objekt,
+											  String nachricht,
+											  String zusatz,
+											  long datenzeit){
+		
+		if(this.zusatzAufLetzteDatenzeit.get(zusatz) == null ||
+			this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit){
+			
+			this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
+			MessageSender nachrichtenSender = MessageSender.getInstance();
+			nachrichtenSender.sendMessage(
+					MessageType.APPLICATION_DOMAIN, 
+					zusatz,
+					MessageGrade.WARNING,
+					objekt,
+					new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
+					nachricht);
+		}
 	}
 
 }

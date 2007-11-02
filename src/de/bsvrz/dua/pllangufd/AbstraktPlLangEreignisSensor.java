@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
+import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
@@ -49,7 +50,9 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public VergleichsEreignisWerte getAktuellenVergleichsWert(long aktuellerZeitStempel) {
+	public VergleichsEreignisWerte getAktuellenVergleichsWert(
+			final UfdsLangZeitPlPruefungsParameter parameter,
+			long aktuellerZeitStempel) {
 		VergleichsEreignisWerte ergebnis = null;
 
 		synchronized (this) {
@@ -63,7 +66,7 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 				 */
 				long intervallAnfang = aktuellerZeitStempel - this.aktuelleParameter.getVergleichsIntervall().getMillis();
 				SortedSet<HistorischerUfdsWert> historieVergleich = 
-					this.hitorie24.getTeilMenge(intervallAnfang, aktuellerZeitStempel);
+					this.hitorie24.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
 
 				if(!historieVergleich.isEmpty()){
 					ergebnis.setVergleichsWerte(
@@ -75,7 +78,7 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 				 */
 				long intervallAnfang24 = aktuellerZeitStempel - Konstante.TAG_24_IN_MS;
 				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
-					this.hitorie24.getTeilMenge(intervallAnfang24, aktuellerZeitStempel);
+					this.hitorie24.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 
 				if(!historieVergleich24.isEmpty()){
 					ergebnis.setVergleichsWerte24(

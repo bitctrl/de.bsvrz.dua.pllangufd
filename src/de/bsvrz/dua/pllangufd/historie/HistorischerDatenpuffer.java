@@ -127,12 +127,33 @@ implements Iterable<G>{
 	 * 
 	 * @param anfang Anfang des abgeschlossenen Intervalls
 	 * @param ende Ende des abgeschlossenen Intervalls
+	 * @return eine (ggf. leere) Kopie der Menge mit den Elementen im Puffer, deren 
+	 * Datenzeitstempel im Bereich [anfang, ende] liegen
+	 */
+	@SuppressWarnings("unchecked")
+	public final synchronized SortedSet<G> cloneTeilMenge(long anfang, long ende) {
+		SortedSet<G> kopie = new TreeSet<G>();
+		
+		G groesstesElement = (G)new HistPufferElement(anfang);
+		G kleinstesElement = (G)new HistPufferElement(ende);
+		kopie.addAll(this.puffer.subSet(kleinstesElement, groesstesElement));
+		
+		return kopie;
+	}
+	
+	
+	/**
+	 * Erfragt die Elemente im Puffer, deren Datenzeitstempel im Bereich
+	 * [anfang, ende] liegen
+	 * 
+	 * @param anfang Anfang des abgeschlossenen Intervalls
+	 * @param ende Ende des abgeschlossenen Intervalls
 	 * @return eine (ggf. leere) Menge mit den Elementen im Puffer, deren 
 	 * Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
 	public final synchronized SortedSet<G> getTeilMenge(long anfang, long ende) {
-		G groesstesElement = (G)new HistPufferElement(anfang - 1);
+		G groesstesElement = (G)new HistPufferElement(anfang);
 		G kleinstesElement = (G)new HistPufferElement(ende);
 		return this.puffer.subSet(kleinstesElement, groesstesElement);
 	}

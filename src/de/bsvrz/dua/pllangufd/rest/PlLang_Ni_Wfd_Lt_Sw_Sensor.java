@@ -26,6 +26,7 @@
 
 package de.bsvrz.dua.pllangufd.rest;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -35,6 +36,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
 import de.bsvrz.dua.pllangufd.VergleichsWert;
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
+import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
@@ -79,8 +81,12 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 	}
 
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VergleichsWert getAktuellenVergleichsWert(
+			final UfdsLangZeitPlPruefungsParameter parameter,
 			long aktuellerZeitStempel) {
 		VergleichsWert onlineWert = new VergleichsWert();
 
@@ -89,19 +95,20 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 			 * berechne Vergleichswert fuer parametriertes Vergleichsintervall
 			 */
 			
-			if(this.aktuelleParameter != null && this.aktuelleParameter.isValid()){					
+			if(parameter != null && parameter.isValid()){					
 				double ergebnis = Double.NaN;
 
-				long intervallAnfang = aktuellerZeitStempel - this.aktuelleParameter.getVergleichsIntervall().getMillis();
+				long intervallAnfang = aktuellerZeitStempel - parameter.getVergleichsIntervall().getMillis();
 				SortedSet<HistorischerUfdsWert> historieVergleich = 
-					this.hitorie24.getTeilMenge(intervallAnfang, aktuellerZeitStempel);
+					this.hitorie24.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
+				long intervallLaenge = aktuellerZeitStempel - intervallAnfang;
 				
 				if(!historieVergleich.isEmpty()){	
 					long summeD = -1;
 					long summeWmalD = -1;
 					long summeA = -1;
 					for(HistorischerUfdsWert wert:historieVergleich){
-						if(wert.getWert().isOk()){
+						if(wert.getWert() != null && wert.getWert().isOk()){
 							if(summeD == -1){
 								summeD = 0;	// Initialisierung
 								summeWmalD = 0;	// Initialisierung
@@ -112,15 +119,19 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 					}
 
 					if(summeD >= 0){
-						summeA = this.hitorie24.getIntervallLaenge() - summeD;
+						summeA = intervallLaenge - summeD;
 						if(summeA < 0){
+							System.out.println(this.getObjekt());
+							System.out.println("intervallLaenge: " +  intervallLaenge + ", summeD: " + summeD);
+							System.out.println(new Date(aktuellerZeitStempel));
+							
 							//summeA = 0;
 							throw new RuntimeException("---------------------------"); //$NON-NLS-1$
 						}
 
-						double anteilAusfall = ((double)summeA) / ((double)this.hitorie24.getIntervallLaenge());
+						double anteilAusfall = ((double)summeA) / ((double)intervallLaenge);
 
-						if(anteilAusfall <= aktuelleParameter.getMaxAusfallZeit()){
+						if(anteilAusfall <= parameter.getMaxAusfallZeit()){
 							ergebnis = ((double)summeWmalD)/((double)summeD);
 						}
 					}
@@ -136,14 +147,15 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 				
 				long intervallAnfang24 = aktuellerZeitStempel - Konstante.TAG_24_IN_MS;
 				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
-					this.hitorie24.getTeilMenge(intervallAnfang24, aktuellerZeitStempel);
+					this.hitorie24.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
+				long intervallLaenge24 = aktuellerZeitStempel - intervallAnfang24;
 
 				if(!historieVergleich24.isEmpty()){	
 					long summeD24 = -1;
 					long summeWmalD24 = -1;
 					long summeA24 = -1;
 					for(HistorischerUfdsWert wert:historieVergleich24){
-						if(wert.getWert().isOk()){
+						if(wert.getWert() != null && wert.getWert().isOk()){
 							if(summeD24 == -1){
 								summeD24 = 0;	// Initialisierung
 								summeWmalD24 = 0;	// Initialisierung
@@ -154,7 +166,7 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 					}
 
 					if(summeD24 >= 0){
-						summeA24 = this.hitorie24.getIntervallLaenge() - summeD24;
+						summeA24 = intervallLaenge24 - summeD24;
 						if(summeA24 < 0){
 							summeA24 = 0;
 
@@ -164,9 +176,9 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 							throw new RuntimeException("---------------------------"); //$NON-NLS-1$
 						}
 
-						double anteilAusfall = ((double)summeA24) / ((double)this.hitorie24.getIntervallLaenge());
+						double anteilAusfall = ((double)summeA24) / ((double)Konstante.TAG_24_IN_MS);
 
-						if(anteilAusfall <= aktuelleParameter.getMaxAusfallZeit()){
+						if(anteilAusfall <= parameter.getMaxAusfallZeit()){
 							ergebnis24 = ((double)summeWmalD24)/((double)summeD24);
 						}
 					}

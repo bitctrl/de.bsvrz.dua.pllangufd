@@ -165,7 +165,7 @@ public class HistorischerDatenpufferTest {
 
 	
 	/**
-	 * Testet extraktion von Teilmengen
+	 * Testet Extraktion von Teilmengen
 	 */
 	@Test
 	public void testGetTeilMenge()

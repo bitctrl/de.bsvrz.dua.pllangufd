@@ -52,37 +52,14 @@ public class VergleichsEreignisWerte{
 	private Map<AbstraktEreignis, Double> vergleichsWerte24 = new HashMap<AbstraktEreignis, Double>();
 	
 	/**
-	 * der gemessene Ausfall am Sensor
+	 * die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf Vergleichsintervall)
 	 */
-	private double ausfallGemessen = Double.NaN;
+	private long datenZeitGesamt = Long.MIN_VALUE;
 	
 	/**
-	 * der gemessene Ausfall am Sensor auf 24h
+	 * die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf 24h)
 	 */
-	private double ausfallGemessen24 = Double.NaN;
-
-
-	/**
-	 * Setzt die Vergleichswerte der Pl-Pruefung langzeit UFD
-	 * nach Afo-4.0 (6.6.2.4.7.6, S.108)
-	 * 
-	 * @param vergleichsWerte Vergleichswerte in Bezug auf das
-	 * parametrierbare Bezugsintervall
-	 */
-	public final void setVergleichsWerte(Map<AbstraktEreignis, Double> vergleichsWerte){
-		this.vergleichsWerte = vergleichsWerte;		
-	}
-
-	/**
-	 * Setzt die Vergleichswerte der Pl-Pruefung langzeit UFD
-	 * nach Afo-4.0 (24h) (6.6.2.4.7.6, S.108)
-	 * 
-	 * @param vergleichsWerte Vergleichswerte in Bezug auf das
-	 * 24h-Bezugsintervall
-	 */
-	public final void setVergleichsWerte24(Map<AbstraktEreignis, Double> vergleichsWerte24){
-		this.vergleichsWerte24 = vergleichsWerte24;		
-	}
+	private long datenZeitGesamt24 = Long.MIN_VALUE;
 
 
 	/**
@@ -130,42 +107,43 @@ public class VergleichsEreignisWerte{
 
 	
 	/**
-	 * Setzt den Ausfall
+	 * Erfragt die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf Vergleichsintervall)
 	 * 
-	 * @param ausfall der Ausfall
+	 * @return die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf Vergleichsintervall)
 	 */
-	public final void setAusfall(final double ausfall){
-		this.ausfallGemessen = ausfall;
+	public final long getDatenzeitGesamt(){
+		return this.datenZeitGesamt;
 	}
-	
-	
-	/**
-	 * Erfragt den gemessenen Ausfall
-	 * 
-	 * @return der gemessene Ausfall
-	 */
-	public final double getAusfall(){
-		return this.ausfallGemessen;
-	}
-	
 
+	
 	/**
-	 * Setzt den Ausfall (24h)
+	 * Erfragt die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf 24h)
 	 * 
-	 * @param ausfall der Ausfall (24h)
+	 * @return die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf 24h)
 	 */
-	public final void setAusfall24(final double ausfall){
-		this.ausfallGemessen24 = ausfall;
+	public final long getDatenzeitGesamt24(){
+		return this.datenZeitGesamt24;
 	}
 	
 	
 	/**
-	 * Erfragt den gemessenen Ausfall (24h)
+	 * Setzte den Inhalt dieses Objektes
 	 * 
-	 * @return der gemessene Ausfall (24h)
+	 * @param intervall24 indiziert, dass die Werte fuer das Vergleichsintervall von 24 Stunden 
+	 * gesendet gesetzt werden sollen
+	 * @param gesamtDatenzeit die absolute Zeit, innerhalb der Daten vorliegen
+	 * @param vergleichsWerte die Ausfallwerte in ms pro Ereignis
 	 */
-	public final double getAusfall24(){
-		return this.ausfallGemessen24;
+	public final void setInhalt(final boolean intervall24,
+								final long gesamtDatenzeit,
+								final Map<AbstraktEreignis, Double> vergleichsWerte){
+		if(intervall24){
+			this.datenZeitGesamt24 = gesamtDatenzeit;
+			this.vergleichsWerte24 = vergleichsWerte;
+		}else{
+			this.datenZeitGesamt = gesamtDatenzeit;
+			this.vergleichsWerte = vergleichsWerte;
+		}
 	}
 	
 }

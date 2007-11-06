@@ -73,16 +73,17 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 
 			if(parameter != null && parameter.isValid() && parameter.getMaxAbweichung().isOk()){
 
-				double abweichung24 = this.getAbweichung(true,
-						aktuellesSensorDatum, aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
-				if(abweichung24 != Double.NaN){
-					synchronized (this) {
-						if(abweichung24 > parameter.getMaxAbweichung().getSkaliertenWert()){
-							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime()
-									- Konstante.TAG_24_IN_MS)) + " - " +  //$NON-NLS-1$
-							DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime())) + " (24 Stunden)"; //$NON-NLS-1$
+				if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
 
-							if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+					double abweichung24 = this.getAbweichung(true,
+							aktuellesSensorDatum, aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
+					if(! Double.isNaN(abweichung24)){
+						synchronized (this) {
+							if(abweichung24 > parameter.getMaxAbweichung().getSkaliertenWert()){
+								String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime()
+										- Konstante.TAG_24_IN_MS)) + " - " +  //$NON-NLS-1$
+										DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime())) + " (24 Stunden)"; //$NON-NLS-1$
+
 								this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " +  //$NON-NLS-1$
 										UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
 										" für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
@@ -91,10 +92,8 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 										"" + vergleichsZeitBereich + " ab.", //$NON-NLS-1$ //$NON-NLS-2$
 										LZMF_UFD24, datum.getDataTime());																		
 							}
-						}
-					}				
-				}else{
-					if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+						}				
+					}else{
 						this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Die Plausibilitätsprüfung zur " +  //$NON-NLS-1$
 								UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + 
 								" für die Messstelle " + this.messStelle + " konnte nicht durchgeführt werden," + //$NON-NLS-1$ //$NON-NLS-2$
@@ -104,7 +103,7 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 
 				double abweichung = this.getAbweichung(false,
 						aktuellesSensorDatum, aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
-				if(abweichung != Double.NaN){
+				if(! Double.isNaN(abweichung)){
 					synchronized (this) {
 						if(abweichung > parameter.getMaxAbweichung().getSkaliertenWert()){
 							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime()
@@ -178,9 +177,9 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 				}				
 			}
 			
-			if(vergleichsWertPruefling != Double.NaN && 
-				vergleichsWertVorgaenger != Double.NaN && 
-				vergleichsWertNachfolger != Double.NaN){
+			if( ! Double.isNaN(vergleichsWertPruefling) && 
+					! Double.isNaN(vergleichsWertVorgaenger) && 
+							! Double.isNaN(vergleichsWertNachfolger)){
 				abweichung = Math.abs(vergleichsWertPruefling - ((vergleichsWertVorgaenger + vergleichsWertNachfolger) / 2.0));
 			}
 		}

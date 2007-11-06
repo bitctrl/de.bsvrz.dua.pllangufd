@@ -76,7 +76,7 @@ public class VergleichsWert {
 	 * @return ob der Vergleichswert schon gesetzt wurde
 	 */
 	public final boolean isValid(){
-		return this.vergleichsWert != Double.NaN;
+		return !Double.isNaN(this.vergleichsWert);
 	}
 	
 	
@@ -88,7 +88,7 @@ public class VergleichsWert {
 	 * schon gesetzt wurde
 	 */
 	public final boolean isValid24(){
-		return this.vergleichsWert24 != Double.NaN;
+		return !Double.isNaN(this.vergleichsWert24);
 	}
 	
 	

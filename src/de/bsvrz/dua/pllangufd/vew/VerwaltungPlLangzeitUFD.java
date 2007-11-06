@@ -30,6 +30,8 @@ import java.util.Set;
 
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
+import de.bsvrz.dua.pllangufd.fbz.PlLang_Fbz_SensorMenge;
+import de.bsvrz.dua.pllangufd.na.PlLang_Ns_SensorMenge;
 import de.bsvrz.dua.pllangufd.rest.PlLang_Ni_Wfd_Lt_Sw_SensorMenge;
 import de.bsvrz.sys.funclib.application.StandardApplicationRunner;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAInitialisierungsException;
@@ -77,9 +79,9 @@ extends AbstraktVerwaltungsAdapter{
 		
 		Set<UmfeldDatenArt> ni_wfd_sw_lt = new HashSet<UmfeldDatenArt>();
 		ni_wfd_sw_lt.add(UmfeldDatenArt.NI);
-//		ni_wfd_sw_lt.add(UmfeldDatenArt.WFD);
-//		ni_wfd_sw_lt.add(UmfeldDatenArt.SW);
-//		ni_wfd_sw_lt.add(UmfeldDatenArt.LT);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.WFD);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.SW);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.LT);
 		/**
 		 * Instanziierung
 		 */
@@ -92,17 +94,17 @@ extends AbstraktVerwaltungsAdapter{
 				}
 			}
 			
-//			DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle, UmfeldDatenArt.NS);
-//			if(sensorenNS[0] != null && sensorenNS[1] != null && sensorenNS[2] != null){
-//				PlLang_Ns_SensorMenge sensorMenge = new PlLang_Ns_SensorMenge();
-//				sensorMenge.initialisiere(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
-//			}
-//
-//			DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle, UmfeldDatenArt.FBZ);
-//			if(sensorenFBZ[0] != null && sensorenFBZ[1] != null && sensorenFBZ[2] != null){
-//				PlLang_Fbz_SensorMenge sensorMenge = new PlLang_Fbz_SensorMenge();
-//				sensorMenge.initialisiere(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
-//			}
+			DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle, UmfeldDatenArt.NS);
+			if(sensorenNS[0] != null && sensorenNS[1] != null && sensorenNS[2] != null){
+				PlLang_Ns_SensorMenge sensorMenge = new PlLang_Ns_SensorMenge();
+				sensorMenge.initialisiere(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
+			}
+
+			DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle, UmfeldDatenArt.FBZ);
+			if(sensorenFBZ[0] != null && sensorenFBZ[1] != null && sensorenFBZ[2] != null){
+				PlLang_Fbz_SensorMenge sensorMenge = new PlLang_Fbz_SensorMenge();
+				sensorMenge.initialisiere(this.verbindung, messStelle, sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
+			}
 		}
 	}
 	

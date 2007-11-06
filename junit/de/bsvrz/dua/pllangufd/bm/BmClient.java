@@ -98,6 +98,18 @@ implements ClientReceiverInterface{
 
 
 	/**
+	 * Loescht einen Listener 
+	 * 
+	 * @param listener ein alter Listener
+	 */
+	public void removeListener(final IBmListener listener){
+		synchronized (this.listeners) {
+			this.listeners.remove(listener);
+		}
+	}
+
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	public void update(ResultData[] results) {

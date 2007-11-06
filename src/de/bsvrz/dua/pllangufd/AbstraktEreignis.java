@@ -85,7 +85,7 @@ public class AbstraktEreignis {
 	 * liegt, durch das dieses Ereignis beschrieben ist
 	 */
 	public final boolean isZustandInEreignis(final int zustand){
-		return this.intervallBegin <= zustand && zustand >= this.intervallEnde;
+		return this.intervallBegin <= zustand && zustand <= this.intervallEnde;
 	}
 	
 	

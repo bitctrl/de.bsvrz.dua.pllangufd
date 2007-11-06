@@ -32,6 +32,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
+import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Wrapper-Klasse fuer die Daten aller Parameter-Attributgruppen
@@ -61,6 +62,12 @@ extends AllgemeinerDatenContainer{
 	 */
 	private UmfeldDatenSensorWert maxAbweichung = null;
 	
+	/**
+	 * Maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
+	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall
+	 */
+	private long maxAbweichungZeit = Long.MIN_VALUE;
+	
 	
 	/**
 	 * Standardkonstruktor
@@ -73,13 +80,26 @@ extends AllgemeinerDatenContainer{
 			vergleichsIntervall = null;
 		}else{
 			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(resultat.getObject());
+
 			final String attMaxAbweichungName = "maxAbweichung" + datenArt.getAbkuerzung(); //$NON-NLS-1$
 			final Data datum = resultat.getData();
 			
 			this.vergleichsIntervall = StundenIntervallAnteil12h.getZustand(datum.getUnscaledValue("VergleichsIntervall").intValue()); //$NON-NLS-1$
 			this.maxAusfallZeit = datum.getTimeValue("maxAusfallZeit").getMillis(); //$NON-NLS-1$
+
+
+			
+//			if(datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)){
+//				this.maxAbweichungZeit = datum.getTimeValue(attMaxAbweichungName).getMillis();
+//			}else{
+//				this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
+//				this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+//			}
+			
+			
 			this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
 			this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+
 		}
 	}
 	
@@ -108,7 +128,7 @@ extends AllgemeinerDatenContainer{
 	
 	
 	/**
-	 * Erfragt die Maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den Nachbarsensoren
+	 * Erfragt die maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den Nachbarsensoren
 	 * über das Vergleichsintervall
 	 *  
 	 * @return maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den Nachbarsensoren
@@ -116,6 +136,21 @@ extends AllgemeinerDatenContainer{
 	 */
 	public final UmfeldDatenSensorWert getMaxAbweichung(){
 		return this.maxAbweichung;
+	}
+	
+	
+	/**
+	 * Erfragt die maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
+	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall
+	 *  
+	 * @return maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
+	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall (int ms)
+	 */
+	public final long getMaxAbweichungZeit(){
+		/**
+		 * TODO: return this.maxAbweichungZeit;
+		 */
+		return 15L *  Konstante.MINUTE_IN_MS;
 	}
 	
 	

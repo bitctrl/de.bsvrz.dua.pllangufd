@@ -26,6 +26,7 @@
 
 package de.bsvrz.dua.pllangufd;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,7 +104,7 @@ implements IOnlineUfdSensorListener<ResultData>{
 	 * Bildet den Nachrichtenzusatz auf die letzte Datenzeit ab, 
 	 * fuer die eine Nachricht mit diesem Zusatz publiziert worden ist
 	 */
-	private Map<String, Long> zusatzAufLetzteDatenzeit = new HashMap<String, Long>();
+	private Map<String, Long> zusatzAufLetzteDatenzeit = Collections.synchronizedMap(new HashMap<String, Long>());
 
 
 	
@@ -163,18 +164,20 @@ implements IOnlineUfdSensorListener<ResultData>{
 											  String zusatz,
 											  long datenzeit){
 		
-		if(this.zusatzAufLetzteDatenzeit.get(zusatz) == null ||
-			this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit){
-			
-			this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
-			MessageSender nachrichtenSender = MessageSender.getInstance();
-			nachrichtenSender.sendMessage(
-					MessageType.APPLICATION_DOMAIN, 
-					zusatz,
-					MessageGrade.WARNING,
-					objekt,
-					new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
-					nachricht);
+		synchronized (this.zusatzAufLetzteDatenzeit) {
+			if(this.zusatzAufLetzteDatenzeit.get(zusatz) == null ||
+					this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit){
+
+				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
+				MessageSender nachrichtenSender = MessageSender.getInstance();
+				nachrichtenSender.sendMessage(
+						MessageType.APPLICATION_DOMAIN, 
+						zusatz,
+						MessageGrade.WARNING,
+						objekt,
+						new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
+						nachricht);
+			}			
 		}
 	}
 

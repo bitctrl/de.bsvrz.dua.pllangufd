@@ -26,7 +26,6 @@
 
 package de.bsvrz.dua.pllangufd.rest;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -106,7 +105,6 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 				if(!historieVergleich.isEmpty()){	
 					long summeD = -1;
 					long summeWmalD = -1;
-					long summeA = -1;
 					for(HistorischerUfdsWert wert:historieVergleich){
 						if(wert.getWert() != null && wert.getWert().isOk()){
 							if(summeD == -1){
@@ -119,19 +117,7 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 					}
 
 					if(summeD >= 0){
-						summeA = intervallLaenge - summeD;
-						if(summeA < 0){
-							System.out.println(this.getObjekt());
-							System.out.println("intervallLaenge: " +  intervallLaenge + ", summeD: " + summeD);
-							System.out.println(new Date(aktuellerZeitStempel));
-							
-							//summeA = 0;
-							throw new RuntimeException("---------------------------"); //$NON-NLS-1$
-						}
-
-						double anteilAusfall = ((double)summeA) / ((double)intervallLaenge);
-
-						if(anteilAusfall <= parameter.getMaxAusfallZeit()){
+						if(intervallLaenge - summeD <= parameter.getMaxAusfallZeit()){
 							ergebnis = ((double)summeWmalD)/((double)summeD);
 						}
 					}
@@ -153,7 +139,6 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 				if(!historieVergleich24.isEmpty()){	
 					long summeD24 = -1;
 					long summeWmalD24 = -1;
-					long summeA24 = -1;
 					for(HistorischerUfdsWert wert:historieVergleich24){
 						if(wert.getWert() != null && wert.getWert().isOk()){
 							if(summeD24 == -1){
@@ -166,19 +151,7 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 					}
 
 					if(summeD24 >= 0){
-						summeA24 = intervallLaenge24 - summeD24;
-						if(summeA24 < 0){
-							summeA24 = 0;
-
-							/**
-							 * TODO: wieder raus
-							 */
-							throw new RuntimeException("---------------------------"); //$NON-NLS-1$
-						}
-
-						double anteilAusfall = ((double)summeA24) / ((double)Konstante.TAG_24_IN_MS);
-
-						if(anteilAusfall <= parameter.getMaxAusfallZeit()){
+						if(intervallLaenge24 - summeD24 <= parameter.getMaxAusfallZeit()){
 							ergebnis24 = ((double)summeWmalD24)/((double)summeD24);
 						}
 					}

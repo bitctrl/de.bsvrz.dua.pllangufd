@@ -57,20 +57,19 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 
 		synchronized (this) {
 			if(!this.hitorie24.getPufferInhalt().isEmpty() && 
-				this.aktuelleParameter != null && 
-				this.aktuelleParameter.isValid()){
+					parameter != null && 
+					parameter.isValid()){
 				
 				ergebnis = new VergleichsEreignisWerte();
 				/**
 				 * berechne Vergleichswerte fuer parametriertes Vergleichsintervall
 				 */
-				long intervallAnfang = aktuellerZeitStempel - this.aktuelleParameter.getVergleichsIntervall().getMillis();
+				long intervallAnfang = aktuellerZeitStempel - parameter.getVergleichsIntervall().getMillis();
 				SortedSet<HistorischerUfdsWert> historieVergleich = 
 					this.hitorie24.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
-
+				
 				if(!historieVergleich.isEmpty()){
-					ergebnis.setVergleichsWerte(
-							getVergleichsWerte(historieVergleich, getEreignisInstanzen()));
+					this.setVergleichsWerte(false, historieVergleich, ergebnis);
 				}
 
 				/**
@@ -81,37 +80,36 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 					this.hitorie24.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 
 				if(!historieVergleich24.isEmpty()){
-					ergebnis.setVergleichsWerte24(
-							getVergleichsWerte(historieVergleich24, getEreignisInstanzen()));
+					this.setVergleichsWerte(true, historieVergleich24, ergebnis);
 				}
 			}				
 		}
 				
 		return ergebnis;
 	}
-
+	
 	
 	/**
-	 * Erfragt eine Map mit den Vergleichswerten, die in Bezug auf die 
-	 * uebergebenen historischen Werte pro Ereignis (der uebergebenen 
-	 * Ereignisse) ausgerechnet werden koennen
+	 * Berechnet aus den uebergebenen historischen Werten die Vergleichswerte
+	 * pro Ereignis und die gesamte Datenzeit
 	 * 
+	 * @param intervall24 indiziert, dass die Werte fuer das Vergleichsintervall von 24 Stunden 
+	 * gesendet gesetzt werden sollen
 	 * @param historischeWerte historische Umfelddatenwerte eines bestimmten
 	 * Bezugszeitraums
-	 * @param ereignisse alle Ereignisse, denen die Zustaende innerhalb der
-	 * uebergebenen historischen Werte zugeordnet werden sollen 
-	 * @return eine Menge von (Ereignis, Vergleichswert)-Paaren. Diese Liste
-	 * ist ggf. leer, wenn fuer keines der uebergebenen Ereignisse ein
-	 * Vergleichswert errechnet werden konnte
+	 * @param vergleichsEreignisWerte Puffer fuer die Vergleichswerte
+	 * pro Ereignis und die gesamte Ausfallzeit
 	 */
-	protected Map<AbstraktEreignis, Double> getVergleichsWerte(
-												SortedSet<HistorischerUfdsWert> historischeWerte,
-												Set<? extends AbstraktEreignis> ereignisse){
+	protected final void setVergleichsWerte(final boolean intervall24,
+											SortedSet<HistorischerUfdsWert> historischeWerte,
+											VergleichsEreignisWerte vergleichsEreignisWerte){
 		Map<AbstraktEreignis, Double> ergebnisse = new HashMap<AbstraktEreignis, Double>();
+		long datenzeitGesamt = 0;
 		
 		for(HistorischerUfdsWert historischerWert:historischeWerte){
 			if(historischerWert.getWert().isOk()){
-				for(AbstraktEreignis ereignis:ereignisse){
+				datenzeitGesamt += historischerWert.getT();
+				for(AbstraktEreignis ereignis:this.getEreignisInstanzen()){
 					if(ereignis.isZustandInEreignis((int)historischerWert.getWert().getWert())){
 						Double ergebnisWert = ergebnisse.get(ereignis);
 						if(ergebnisWert == null){
@@ -125,9 +123,9 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 			}
 		}
 		
-		return ergebnisse;
+		vergleichsEreignisWerte.setInhalt(intervall24, datenzeitGesamt, ergebnisse);
 	}
-
+	
 	
 	/**
 	 * Erfragt die Menge von Ereignissen, fuer die die Abweichung bzw. ueber denen

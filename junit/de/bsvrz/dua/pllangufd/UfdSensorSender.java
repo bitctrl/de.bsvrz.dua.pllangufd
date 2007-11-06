@@ -80,6 +80,7 @@ implements ClientSenderInterface{
 			INSTANZEN.put(objekt, new UfdSensorSender(dav, objekt));
 		}
 		Pause.warte(1000L);
+				
 		/**
 		 * Warte bis alle Anmeldungenen durchgeführt sind
 		 */
@@ -89,7 +90,8 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 1);
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit, nutzDaten));
 		}
 		
@@ -99,7 +101,8 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 1);
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 15L * Konstante.MINUTE_IN_MS, nutzDaten));
 		}
 
@@ -109,7 +112,8 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 1);
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 30L * Konstante.MINUTE_IN_MS, nutzDaten));
 		}
 
@@ -119,7 +123,8 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 1);
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 45L * Konstante.MINUTE_IN_MS, nutzDaten));
 		}
 
@@ -129,7 +134,8 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 1);
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 60L * Konstante.MINUTE_IN_MS, nutzDaten));
 		}
 
@@ -186,9 +192,9 @@ implements ClientSenderInterface{
 			DAVTest.getDav().sendData(resultat);
 			System.out.println(DUAKonstanten.ZEIT_FORMAT_GENAU.format(new Date(resultat.getDataTime())) + ", " + //$NON-NLS-1$ 
 					resultat.getObject().getPid() + " (" +  //$NON-NLS-1$
-					(resultat.getData().getTimeValue("T").getMillis() / 1000) + "s): " +  //$NON-NLS-1$ //$NON-NLS-2$
+					(resultat.getData().getTimeValue("T").getMillis() / Konstante.MINUTE_IN_MS) + "min): " +  //$NON-NLS-1$ //$NON-NLS-2$
 					resultat.getData().getItem(UmfeldDatenArt.getUmfeldDatenArtVon(resultat.getObject()).getName()).getUnscaledValue("Wert").longValue()); //$NON-NLS-1$
-			Pause.warte(100);
+			Pause.warte(50);
 		} catch (DataNotSubscribedException e) {
 			e.printStackTrace();
 		} catch (SendSubscriptionNotConfirmed e) {

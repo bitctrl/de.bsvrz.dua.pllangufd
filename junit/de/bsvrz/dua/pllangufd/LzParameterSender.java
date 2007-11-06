@@ -136,7 +136,19 @@ implements ClientSenderInterface{
 				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
 		nutzDatum.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
 		nutzDatum.getTimeValue("maxAusfallZeit").setMillis(maxAusfallZeit); //$NON-NLS-1$
-		nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$
+		if(datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)){
+			
+			
+			
+			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(0); //$NON-NLS-1$
+			
+			/**
+			 * TODO:nutzDatum.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$ 
+			 */
+			
+		}else{
+			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$
+		}
 		
 		try {
 			DAV.sendData(new ResultData(this.objekt, dd, System.currentTimeMillis(), nutzDatum));

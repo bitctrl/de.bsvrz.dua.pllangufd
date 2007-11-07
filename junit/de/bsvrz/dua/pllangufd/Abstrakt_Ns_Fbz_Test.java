@@ -35,7 +35,6 @@ import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.bm.BmClient;
 import de.bsvrz.dua.pllangufd.bm.IBmListener;
-import de.bsvrz.sys.funclib.bitctrl.app.Pause;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
@@ -494,8 +493,11 @@ implements IBmListener{
 				time, nDat));
 
 		// Ausfall
-		
+
 		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, -1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
 		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
 				time, vDat));
@@ -503,7 +505,11 @@ implements IBmListener{
 		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
 				time, nDat));
 		
+
 		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, -1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
 		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
 				time, vDat));
@@ -512,6 +518,9 @@ implements IBmListener{
 				time, nDat));
 
 		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, -1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
 		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
 				time, vDat));
@@ -529,81 +538,7 @@ implements IBmListener{
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 0);
 		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
 				time, nDat));
-		
-		
-		
-		for(int i = 0; i<50; i++){
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 0);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 0);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
 
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 0);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 0);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 0);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 0);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-		}
-		
-		
-//		for(int i = 0; i<50; i++){
-//			time += i15min;
-//			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 0);
-//			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-//					time, pDat));
-//			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
-//			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-//					time, vDat));
-//			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 64);
-//			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-//					time, nDat));
-//
-//			time += i15min;
-//			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 0);
-//			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-//					time, pDat));
-//			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
-//			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-//					time, vDat));
-//			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 64);
-//			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-//					time, nDat));
-//
-//			time += i15min;
-//			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 0);
-//			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-//					time, pDat));
-//			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 0);
-//			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-//					time, vDat));
-//			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 64);
-//			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-//					time, nDat));
-//		}
-
-		Pause.warte(5000000);
 	}
 	
 	
@@ -633,18 +568,18 @@ implements IBmListener{
 	public void aktualisiere(long zeit, String meldungsText){
 		System.out.println(meldungsText);
 		
-//		try {
-//			Assert.assertEquals("Falsche Betriebsmeldung empfangen", //$NON-NLS-1$
-//					this.getBetriebsmeldungen()[BM_ZAEHLER], meldungsText);
-//		
-//			BM_ZAEHLER++;
-//			
-//			if(BM_ZAEHLER == this.getBetriebsmeldungen().length){
-//				BmClient.getInstanz(DAVTest.getDav()).removeListener(this);
-//			}
-//		} catch (Exception e) {
-//			throw new RuntimeException(e);
-//		}
+		try {
+			Assert.assertEquals("Falsche Betriebsmeldung empfangen", //$NON-NLS-1$
+					this.getBetriebsmeldungen()[BM_ZAEHLER], meldungsText);
+		
+			BM_ZAEHLER++;
+			
+			if(BM_ZAEHLER == this.getBetriebsmeldungen().length){
+				BmClient.getInstanz(DAVTest.getDav()).removeListener(this);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }

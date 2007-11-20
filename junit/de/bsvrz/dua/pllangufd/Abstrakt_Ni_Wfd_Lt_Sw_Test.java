@@ -50,17 +50,13 @@ import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
  */
 public abstract class Abstrakt_Ni_Wfd_Lt_Sw_Test 
 implements IBmListener{
-	
+
 	/**
 	 * Zaehlt die Betriebsmeldungen pro Sensor-Art
 	 */
 	private static int BM_ZAEHLER = 0;
-	
-	/**
-	 * indiziert, ob diese Klasse mit der Wasserfilmdicke arbeitet
-	 */
-	private boolean wfd = false;
-	
+
+
 
 	/**
 	 * Erfragt das Systemobjekt des Prueflings-Sensors
@@ -70,7 +66,7 @@ implements IBmListener{
 	 */
 	protected abstract SystemObject getPruefling()
 	throws Exception;
-	
+
 	/**
 	 * Erfragt das Systemobjekt des Vorgaenger-Sensors
 	 * 
@@ -79,7 +75,7 @@ implements IBmListener{
 	 */
 	protected abstract SystemObject getVorgaenger()
 	throws Exception;
-	
+
 	/**
 	 * Erfragt das Systemobjekt des Nachfolger-Sensors
 	 * 
@@ -88,15 +84,15 @@ implements IBmListener{
 	 */
 	protected abstract SystemObject getNachfolger()
 	throws Exception;
-	
+
 	/**
 	 * Erfragt den maximalen Abstand des Vergleichswertes im Test
 	 * 
 	 * @return den maximalen Abstand des Vergleichswertes im Test
 	 */
 	protected abstract long getMaxAbweichung();
-	
-	
+
+
 	/**
 	 * Erfragt die geordnete Menge von Betriebsmeldungen, die fuer diesen
 	 * Test erwartet werden
@@ -110,42 +106,42 @@ implements IBmListener{
 		return new String[]{"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$ 
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:00 - 01.01.1970 04:00 (1 Stunde) ab.", //$NON-NLS-1$ 
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$" +
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$" +
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:15 - 01.01.1970 04:15 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:30 - 01.01.1970 04:30 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:00 - 01.01.1970 06:00 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:15 - 01.01.1970 06:15 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:30 - 01.01.1970 06:30 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 06:45 - 01.01.1970 07:45 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" + //$NON-NLS-1$
 				" weicht um 1.67 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:00 - 01.01.1970 08:00 (1 Stunde) ab.", //$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" +//$NON-NLS-1$
 				" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:15 - 01.01.1970 08:15 (1 Stunde) ab.",//$NON-NLS-1$
-		"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)" +//$NON-NLS-1$
 				" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:30 - 01.01.1970 08:30 (1 Stunde) ab.",//$NON-NLS-1$				
-		"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden," + //$NON-NLS-1$
 				" da ein Vergleichswert nicht bestimmt werden konnte.", //$NON-NLS-1$
-		"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden," + //$NON-NLS-1$
-				" da ein Vergleichswert nicht bestimmt werden konnte."}; //$NON-NLS-1$
+		" da ein Vergleichswert nicht bestimmt werden konnte."}; //$NON-NLS-1$
 	}
-			
-	
+
+
 	/**
 	 * Diese Methode sendet fuer den Sensor, dessen Vorgaenger und dessen Nachfolger
 	 * in unterschiedlichen Intervallen Sensorwerte, die bestimmte vordefinierte Nachrichten
@@ -157,536 +153,282 @@ implements IBmListener{
 	public void testAufLangzeitMessfehler()
 	throws Exception{
 		BM_ZAEHLER = 0;
-		
+
 		ClientDavInterface dav = DAVTest.getDav();
-		
+
 		BmClient.getInstanz(dav).addListener(this);
-				
+
 		SystemObject prueflingNI = this.getPruefling();
 		SystemObject vorgaengerNI = this.getVorgaenger();
 		SystemObject nachfolgerNI = this.getNachfolger();
-		
+
 		UfdSensorSender pSender = UfdSensorSender.getInstanz(prueflingNI);
 		UfdSensorSender vSender = UfdSensorSender.getInstanz(vorgaengerNI);
 		UfdSensorSender nSender = UfdSensorSender.getInstanz(nachfolgerNI);
-		
+
 		LzParameterSender.getInstanz(dav, prueflingNI).setParameter(StundenIntervallAnteil12h.STUNDEN_1,
-																	30 * Konstante.MINUTE_IN_MS, this.getMaxAbweichung());
-		
+				30 * Konstante.MINUTE_IN_MS, this.getMaxAbweichung());
+
 		long i30min = 30L * Konstante.MINUTE_IN_MS;
 		long i15min = 15L * Konstante.MINUTE_IN_MS;
-		
+
 		long time = Konstante.STUNDE_IN_MS;
-		
+
 		Data pDat = null;
 		Data vDat = null;
 		Data nDat = null;
 
-		if(this.wfd){
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// erste Stunde
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 40);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 40);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// 2. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// 3. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 60);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-	
-			
-			// 2. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// 3. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 60);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 10);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 60);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-			
-			// letzter Test auf die Nachricht, dass ein Messwert nicht ermittelt 
-			// werden konnte. Fuer den Vorgaenger werden keine Daten mehr versendet
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 10);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 10);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-			
-		}else{
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// erste Stunde
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 4);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 4);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// 2. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// 3. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-	
-			
-			// 2. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			// 3. Stunde
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 6);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			time += i15min;
-			vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
-			vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
-					time, vDat));
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 6);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-			
-			// letzter Test auf die Nachricht, dass ein Messwert nicht ermittelt 
-			// werden konnte. Fuer den Vorgaenger werden keine Daten mehr versendet
-			
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-			
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			time += i15min;
-			pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
-			pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
-					time, pDat));
-	
-			nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
-			nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
-					time, nDat));
-		}
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		time += i15min;
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		// erste Stunde
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 4);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		time += i15min;
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 4);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		// 2. Stunde
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		time += i15min;
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		// 3. Stunde
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		time += i15min;
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+
+
+		// 2. Stunde
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		time += i15min;
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		// 3. Stunde
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 6);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		time += i15min;
+		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
+		vSender.sende(new ResultData(vSender.getObjekt(), getDatenBeschreibung(vSender.getObjekt()),
+				time, vDat));
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 6);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		// letzter Test auf die Nachricht, dass ein Messwert nicht ermittelt 
+		// werden konnte. Fuer den Vorgaenger werden keine Daten mehr versendet
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		time += i15min;
+		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
+		pSender.sende(new ResultData(pSender.getObjekt(), getDatenBeschreibung(pSender.getObjekt()),
+				time, pDat));
+
+		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
+		nSender.sende(new ResultData(nSender.getObjekt(), getDatenBeschreibung(nSender.getObjekt()),
+				time, nDat));
 	}
 	
 	

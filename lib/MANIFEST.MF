@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: BitCtrl Systems GmbH
 Require-Bundle: de.bsvrz.sys.funclib.bitctrl
 Export-Package: de.bsvrz.dua.pllangufd,
+ de.bsvrz.dua.pllangufd.bm,
  de.bsvrz.dua.pllangufd.fbz,
  de.bsvrz.dua.pllangufd.historie,
  de.bsvrz.dua.pllangufd.na,

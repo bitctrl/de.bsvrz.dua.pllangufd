@@ -89,16 +89,16 @@ extends AllgemeinerDatenContainer{
 
 
 			
-//			if(datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)){
-//				this.maxAbweichungZeit = datum.getTimeValue(attMaxAbweichungName).getMillis();
-//			}else{
-//				this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
-//				this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
-//			}
+			if(datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)){
+				this.maxAbweichungZeit = datum.getTimeValue(attMaxAbweichungName).getMillis();
+			}else{
+				this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
+				this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+			}
 			
 			
-			this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
-			this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+//			this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
+//			this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
 
 		}
 	}
@@ -147,10 +147,8 @@ extends AllgemeinerDatenContainer{
 	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall (int ms)
 	 */
 	public final long getMaxAbweichungZeit(){
-		/**
-		 * TODO: return this.maxAbweichungZeit;
-		 */
-		return 15L *  Konstante.MINUTE_IN_MS;
+		return this.maxAbweichungZeit;
+		//		return 15L *  Konstante.MINUTE_IN_MS;
 	}
 	
 	

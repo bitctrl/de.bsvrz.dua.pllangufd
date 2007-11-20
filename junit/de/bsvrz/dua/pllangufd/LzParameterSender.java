@@ -140,11 +140,9 @@ implements ClientSenderInterface{
 			
 			
 			
-			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(0); //$NON-NLS-1$
+//			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(0); //$NON-NLS-1$
 			
-			/**
-			 * TODO:nutzDatum.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$ 
-			 */
+			nutzDatum.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$ 
 			
 		}else{
 			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$

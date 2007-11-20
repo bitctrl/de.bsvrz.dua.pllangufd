@@ -37,7 +37,7 @@ import de.bsvrz.dua.pllangufd.DAVTest;
  */
 public class WfdTest
 extends Abstrakt_Ni_Wfd_Lt_Sw_Test{
-
+		
 	/**
 	 * {@inheritDoc}
 	 */
@@ -70,7 +70,7 @@ extends Abstrakt_Ni_Wfd_Lt_Sw_Test{
 	 */
 	@Override
 	protected long getMaxAbweichung() {
-		return 10;
+		return 100;
 	}
 
 }

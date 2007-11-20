@@ -565,7 +565,7 @@ implements IBmListener{
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiere(long zeit, String meldungsText){
+	public void aktualisiereBetriebsMeldungen(SystemObject obj, long zeit, String meldungsText){
 		System.out.println(meldungsText);
 		
 		try {

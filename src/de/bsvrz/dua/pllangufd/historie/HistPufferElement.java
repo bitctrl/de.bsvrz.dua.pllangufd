@@ -25,6 +25,8 @@
  */
 package de.bsvrz.dua.pllangufd.historie;
 
+import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
+
 /**
  * Allgemeines <b>sortierbares</b> Objekt mit Zeitstempel (fuer die Klasse
  * <code>HistorischerDatenpuffer</code>)

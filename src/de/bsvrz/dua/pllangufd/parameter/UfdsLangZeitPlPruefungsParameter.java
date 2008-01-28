@@ -32,7 +32,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Wrapper-Klasse fuer die Daten aller Parameter-Attributgruppen

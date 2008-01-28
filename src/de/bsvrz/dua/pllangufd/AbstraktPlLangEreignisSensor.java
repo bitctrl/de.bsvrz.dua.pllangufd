@@ -107,7 +107,7 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 		long datenzeitGesamt = 0;
 		
 		for(HistorischerUfdsWert historischerWert:historischeWerte){
-			if(historischerWert.getWert().isOk()){
+			if(historischerWert.getWert() != null && historischerWert.getWert().isOk()){
 				datenzeitGesamt += historischerWert.getT();
 				for(AbstraktEreignis ereignis:this.getEreignisInstanzen()){
 					if(ereignis.isZustandInEreignis((int)historischerWert.getWert().getWert())){
@@ -121,7 +121,7 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 					}
 				}
 			}
-		}
+		}			
 		
 		vergleichsEreignisWerte.setInhalt(intervall24, datenzeitGesamt, ergebnisse);
 	}

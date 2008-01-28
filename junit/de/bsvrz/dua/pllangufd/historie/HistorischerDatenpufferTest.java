@@ -45,36 +45,36 @@ public class HistorischerDatenpufferTest {
 	throws Exception{
 		HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
 		
-		Assert.assertEquals(0, puffer.getPufferInhalt().size());
-		Assert.assertEquals(0, puffer.getPufferInhalt(10).size());
+		Assert.assertEquals("1", 0, puffer.getPufferInhalt().size()); //$NON-NLS-1$
+		Assert.assertEquals("2", 0, puffer.getPufferInhalt(10).size()); //$NON-NLS-1$
 		
 		puffer.addDatum(new HistPufferElement(10));
 		puffer.addDatum(new HistPufferElement(11));
 		
-		Assert.assertEquals(0, puffer.getPufferInhalt().size());
-		Assert.assertEquals(0, puffer.getPufferInhalt(10).size());
+		Assert.assertEquals("3", 0, puffer.getPufferInhalt().size()); //$NON-NLS-1$
+		Assert.assertEquals("4", 0, puffer.getPufferInhalt(10).size()); //$NON-NLS-1$
 		
 		puffer.setIntervallLaenge(1);
 		
-		Assert.assertEquals(1, puffer.getIntervallLaenge());
+		Assert.assertEquals("5", 1, puffer.getIntervallLaenge()); //$NON-NLS-1$
 		
 		puffer.addDatum(new HistPufferElement(3));
-		Assert.assertEquals(3, puffer.getPufferInhalt().iterator().next().getZeitStempel());
-		Assert.assertEquals(3, puffer.getPufferInhalt(0).iterator().next().getZeitStempel());
-		Assert.assertEquals(1, puffer.getPufferInhalt().size());
-		Assert.assertEquals(1, puffer.getPufferInhalt(0).size());
+		Assert.assertEquals("6", 3, puffer.getPufferInhalt().iterator().next().getZeitStempel()); //$NON-NLS-1$
+		Assert.assertEquals("7", 3, puffer.getPufferInhalt(0).iterator().next().getZeitStempel()); //$NON-NLS-1$
+		Assert.assertEquals("8", 1, puffer.getPufferInhalt().size()); //$NON-NLS-1$
+		Assert.assertEquals("9", 1, puffer.getPufferInhalt(0).size()); //$NON-NLS-1$
 
 		puffer.addDatum(new HistPufferElement(2));
-		Assert.assertEquals(3, puffer.getPufferInhalt().iterator().next().getZeitStempel());
-		Assert.assertEquals(3, puffer.getPufferInhalt(0).iterator().next().getZeitStempel());
-		Assert.assertEquals(2, puffer.getPufferInhalt().size());
-		Assert.assertEquals(1, puffer.getPufferInhalt(0).size());
+		Assert.assertEquals("10", 3, puffer.getPufferInhalt().iterator().next().getZeitStempel()); //$NON-NLS-1$
+		Assert.assertEquals("11", 3, puffer.getPufferInhalt(0).iterator().next().getZeitStempel()); //$NON-NLS-1$
+		Assert.assertEquals("12", 2, puffer.getPufferInhalt().size()); //$NON-NLS-1$
+		Assert.assertEquals("13", 1, puffer.getPufferInhalt(0).size()); //$NON-NLS-1$
 
 		puffer.addDatum(new HistPufferElement(1));
-		Assert.assertEquals(3, puffer.getPufferInhalt().iterator().next().getZeitStempel());
-		Assert.assertEquals(3, puffer.getPufferInhalt(0).iterator().next().getZeitStempel());
-		Assert.assertEquals(2, puffer.getPufferInhalt().size());
-		Assert.assertEquals(1, puffer.getPufferInhalt(0).size());
+		Assert.assertEquals("14", 3, puffer.getPufferInhalt().iterator().next().getZeitStempel()); //$NON-NLS-1$
+		Assert.assertEquals("15", 3, puffer.getPufferInhalt(0).iterator().next().getZeitStempel()); //$NON-NLS-1$
+		Assert.assertEquals("16", 2, puffer.getPufferInhalt().size()); //$NON-NLS-1$
+		Assert.assertEquals("17", 1, puffer.getPufferInhalt(0).size()); //$NON-NLS-1$
 		
 		puffer.addDatum(new HistPufferElement(4));
 		Assert.assertEquals(4, puffer.getPufferInhalt().iterator().next().getZeitStempel());

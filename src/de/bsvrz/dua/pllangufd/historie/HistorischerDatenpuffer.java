@@ -28,6 +28,7 @@ package de.bsvrz.dua.pllangufd.historie;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -56,7 +57,7 @@ implements Iterable<G>{
 	/**
 	 * nach Zeitstempeln sortierter Datenpuffer
 	 */
-	private SortedSet<G> puffer = new TreeSet<G>();
+	private SortedSet<G> puffer = Collections.synchronizedSortedSet(new TreeSet<G>());
 	
 	/**
 	 * aktuelle Maximallaenge des Pufferintervalls
@@ -93,7 +94,7 @@ implements Iterable<G>{
 					" einem maximalen Zeitintervall initialisiert.\n" + //$NON-NLS-1$
 					"Das Datum wird abgewiesen: " + datum); //$NON-NLS-1$
 		}else{
-			synchronized(this){
+			synchronized(this.puffer){
 				this.puffer.add(datum);
 			}
 			this.aufraeumen();
@@ -113,7 +114,7 @@ implements Iterable<G>{
 	 * 
 	 * @param intervallLaenge neue Intervalllaenge
 	 */
-	public final synchronized void setIntervallLaenge(final long intervallLaenge){
+	public final void setIntervallLaenge(final long intervallLaenge){
 		if(this.intervallLaenge != intervallLaenge){
 			this.intervallLaenge = intervallLaenge;
 			this.aufraeumen();
@@ -131,12 +132,14 @@ implements Iterable<G>{
 	 * Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
-	public final synchronized SortedSet<G> cloneTeilMenge(long anfang, long ende) {
+	public final SortedSet<G> cloneTeilMenge(long anfang, long ende) {
 		SortedSet<G> kopie = new TreeSet<G>();
 		
 		G groesstesElement = (G)new HistPufferElement(anfang);
 		G kleinstesElement = (G)new HistPufferElement(ende);
-		kopie.addAll(this.puffer.subSet(kleinstesElement, groesstesElement));
+		synchronized (this.puffer) {
+			kopie.addAll(this.puffer.subSet(kleinstesElement, groesstesElement));	
+		}		
 		
 		return kopie;
 	}
@@ -152,10 +155,12 @@ implements Iterable<G>{
 	 * Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
-	public final synchronized SortedSet<G> getTeilMenge(long anfang, long ende) {
+	public final SortedSet<G> getTeilMenge(long anfang, long ende) {
 		G groesstesElement = (G)new HistPufferElement(anfang);
 		G kleinstesElement = (G)new HistPufferElement(ende);
-		return this.puffer.subSet(kleinstesElement, groesstesElement);
+		synchronized (this.puffer) {
+			return this.puffer.subSet(kleinstesElement, groesstesElement);			
+		}
 	}
 	
 	
@@ -169,7 +174,7 @@ implements Iterable<G>{
 	 */
 	public final SortedSet<G> getPufferInhalt(long andereIntervallLaenge){
 		SortedSet<G> pufferClone = new TreeSet<G>();
-		synchronized (this) {
+		synchronized (this.puffer) {
 			if(!this.puffer.isEmpty()){
 				G aktuellsterDatensatz = this.puffer.first();
 				long aeltesterErlaubterZeitStempel = aktuellsterDatensatz.getZeitStempel() - andereIntervallLaenge;
@@ -214,7 +219,7 @@ implements Iterable<G>{
 	 */
 	public final SortedSet<G> clonePufferInhalt(){
 		SortedSet<G> pufferClone = new TreeSet<G>();
-		synchronized (this) {
+		synchronized (this.puffer) {
 			pufferClone.addAll(this.puffer);			
 		}
 		return pufferClone;
@@ -224,10 +229,12 @@ implements Iterable<G>{
 	/**
 	 * Loescht alle Elemente aus dem Puffer, die nicht mehr im Intervall liegen
 	 */
-	private final synchronized void aufraeumen(){
-		if(!this.puffer.isEmpty()){
-			this.setJetzt(this.puffer.first().getZeitStempel());
-		}		 
+	private final void aufraeumen(){
+		synchronized(this.puffer){
+			if(!this.puffer.isEmpty()){
+				this.setJetzt(this.puffer.first().getZeitStempel());
+			}
+		}
 	}
 	
 	
@@ -239,19 +246,21 @@ implements Iterable<G>{
 	 * 
 	 * @param jetzt der Jetzt-Zeitpunkt
 	 */
-	public final synchronized void setJetzt(final long jetzt){
-		if(!this.puffer.isEmpty()){
-			long aeltesterErlaubterZeitStempel = jetzt - this.intervallLaenge;
-			
-			Collection<G> zuLoeschendeElemente = new ArrayList<G>();
-			for(G pufferElement:this.puffer){
-				if(pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel){
-					zuLoeschendeElemente.add(pufferElement);
+	public final void setJetzt(final long jetzt){
+		synchronized (this.puffer) {
+			if(!this.puffer.isEmpty()){
+				long aeltesterErlaubterZeitStempel = jetzt - this.intervallLaenge;
+				
+				Collection<G> zuLoeschendeElemente = new ArrayList<G>();
+				for(G pufferElement:this.puffer){
+					if(pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel){
+						zuLoeschendeElemente.add(pufferElement);
+					}
 				}
-			}
-			
-			this.puffer.removeAll(zuLoeschendeElemente);
-		}		 
+				
+				this.puffer.removeAll(zuLoeschendeElemente);
+			}		 			
+		}
 	}
 
 

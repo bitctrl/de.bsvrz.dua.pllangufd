@@ -24,6 +24,9 @@ Versionsgeschichte
 
   - Erste Auslieferung
 
+1.1.0
+
+  - Hinzufuegen von Skripten zur Konsolenausfuehrung von JUnit-Tests
 
 Bemerkungen
 ===========

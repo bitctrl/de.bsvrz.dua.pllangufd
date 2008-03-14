@@ -28,6 +28,10 @@ Versionsgeschichte
 
   - Hinzufuegen von Skripten zur Konsolenausfuehrung von JUnit-Tests
 
+1.1.1
+
+  - Bash-Startskript hinzu
+  
 Bemerkungen
 ===========
 

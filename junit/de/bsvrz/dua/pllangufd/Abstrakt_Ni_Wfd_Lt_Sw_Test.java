@@ -29,6 +29,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.DataDescription;
@@ -39,8 +41,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.bm.BmClient;
 import de.bsvrz.sys.funclib.bitctrl.dua.bm.IBmListener;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
-
 /**
  * Abstrakter Test fuer die Pl-Pruefung langzeit UFD der UFD-Arten
  * NI, WFD, LT und SW
@@ -167,12 +167,12 @@ implements IBmListener{
 		UfdSensorSender nSender = UfdSensorSender.getInstanz(nachfolgerNI);
 
 		LzParameterSender.getInstanz(dav, prueflingNI).setParameter(StundenIntervallAnteil12h.STUNDEN_1,
-				30 * Konstante.MINUTE_IN_MS, this.getMaxAbweichung());
+				30 * Constants.MILLIS_PER_MINUTE, this.getMaxAbweichung());
 
-		long i30min = 30L * Konstante.MINUTE_IN_MS;
-		long i15min = 15L * Konstante.MINUTE_IN_MS;
+		long i30min = 30L * Constants.MILLIS_PER_MINUTE;
+		long i15min = 15L * Constants.MILLIS_PER_MINUTE;
 
-		long time = Konstante.STUNDE_IN_MS;
+		long time = Constants.MILLIS_PER_HOUR;
 
 		Data pDat = null;
 		Data vDat = null;

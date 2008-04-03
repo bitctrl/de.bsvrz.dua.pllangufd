@@ -26,6 +26,8 @@
 
 package de.bsvrz.dua.pllangufd;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.Aspect;
@@ -36,7 +38,6 @@ import de.bsvrz.dua.pllangufd.parameter.IUniversalAtgUfdsLangzeitPLPruefungListe
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.dua.pllangufd.parameter.UniversalAtgUfdsLangzeitPLPruefung;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.AbstraktOnlineUfdSensor;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Abstrakter Umfelddatensensor fuer die PL-Pruefung Langzeit UFD
@@ -63,7 +64,7 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener{
 	 * Messwerthistorie dieses Sensors fuer die letzten 24 Stunden
 	 */
 	protected HistorischerDatenpuffer<HistorischerUfdsWert> hitorie24 = 
-							new HistorischerDatenpuffer<HistorischerUfdsWert>(Konstante.TAG_24_IN_MS);
+							new HistorischerDatenpuffer<HistorischerUfdsWert>(Constants.MILLIS_PER_DAY);
 		
 
 	/**

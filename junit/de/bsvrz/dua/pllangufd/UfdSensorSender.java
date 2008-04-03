@@ -30,6 +30,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.ClientSenderInterface;
 import de.bsvrz.dav.daf.main.Data;
@@ -40,10 +42,8 @@ import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.SendSubscriptionNotConfirmed;
 import de.bsvrz.dav.daf.main.SenderRole;
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.sys.funclib.bitctrl.app.Pause;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Sendet Daten von Umfelddatensensoren
@@ -79,7 +79,7 @@ implements ClientSenderInterface{
 		for(SystemObject objekt:dav.getDataModel().getType("typ.umfeldDatenSensor").getElements()){ //$NON-NLS-1$
 			INSTANZEN.put(objekt, new UfdSensorSender(dav, objekt));
 		}
-		Pause.warte(1000L);
+		try{ Thread.sleep(1000L); }catch (InterruptedException e) {}
 				
 		/**
 		 * Warte bis alle Anmeldungenen durchgeführt sind
@@ -90,7 +90,7 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
 					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit, nutzDaten));
 		}
@@ -101,9 +101,9 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
 					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 15L * Konstante.MINUTE_IN_MS, nutzDaten));
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 15L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
 		for(UfdSensorSender sender:INSTANZEN.values()){
@@ -112,9 +112,9 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
 					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 30L * Konstante.MINUTE_IN_MS, nutzDaten));
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 30L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
 		for(UfdSensorSender sender:INSTANZEN.values()){
@@ -123,9 +123,9 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
 					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 45L * Konstante.MINUTE_IN_MS, nutzDaten));
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 45L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
 		for(UfdSensorSender sender:INSTANZEN.values()){
@@ -134,9 +134,9 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
-			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Konstante.MINUTE_IN_MS, 
+			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
 					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 60L * Konstante.MINUTE_IN_MS, nutzDaten));
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 60L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
 	}
@@ -192,9 +192,9 @@ implements ClientSenderInterface{
 			DAVTest.getDav().sendData(resultat);
 			System.out.println(DUAKonstanten.ZEIT_FORMAT_GENAU.format(new Date(resultat.getDataTime())) + ", " + //$NON-NLS-1$ 
 					resultat.getObject().getPid() + " (" +  //$NON-NLS-1$
-					(resultat.getData().getTimeValue("T").getMillis() / Konstante.MINUTE_IN_MS) + "min): " +  //$NON-NLS-1$ //$NON-NLS-2$
+					(resultat.getData().getTimeValue("T").getMillis() / Constants.MILLIS_PER_MINUTE) + "min): " +  //$NON-NLS-1$ //$NON-NLS-2$
 					resultat.getData().getItem(UmfeldDatenArt.getUmfeldDatenArtVon(resultat.getObject()).getName()).getUnscaledValue("Wert").longValue()); //$NON-NLS-1$
-			Pause.warte(50);
+			try{ Thread.sleep(50L); }catch(InterruptedException ex) {}
 		} catch (DataNotSubscribedException e) {
 			e.printStackTrace();
 		} catch (SendSubscriptionNotConfirmed e) {

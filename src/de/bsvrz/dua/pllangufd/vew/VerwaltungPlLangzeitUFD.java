@@ -28,6 +28,8 @@ package de.bsvrz.dua.pllangufd.vew;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.fbz.PlLang_Fbz_SensorMenge;
@@ -42,7 +44,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.dfs.typen.SWETyp;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Das Modul Verwaltung ist die zentrale Steuereinheit der SWE PL-Prüfung Langzeit UFD.
@@ -71,7 +72,7 @@ extends AbstraktVerwaltungsAdapter{
 
 		DUAUmfeldDatenMessStelle.initialisiere(this.verbindung, this.objekte);
 		
-		String infoStr = Konstante.LEERSTRING;
+		String infoStr = Constants.EMPTY_STRING;
 		for(SystemObject obj:this.objekte){
 			infoStr += obj + "\n"; //$NON-NLS-1$
 		}

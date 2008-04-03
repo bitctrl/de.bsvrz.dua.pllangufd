@@ -30,13 +30,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.IOnlineUfdSensorListener;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 import de.bsvrz.sys.funclib.operatingMessage.MessageCauser;
 import de.bsvrz.sys.funclib.operatingMessage.MessageGrade;
 import de.bsvrz.sys.funclib.operatingMessage.MessageSender;
@@ -175,7 +176,7 @@ implements IOnlineUfdSensorListener<ResultData>{
 						zusatz,
 						MessageGrade.WARNING,
 						objekt,
-						new MessageCauser(DAV.getLocalUser(), Konstante.LEERSTRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
+						new MessageCauser(DAV.getLocalUser(), Constants.EMPTY_STRING, "Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
 						nachricht);
 			}			
 		}

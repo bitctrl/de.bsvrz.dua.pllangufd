@@ -31,11 +31,12 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Abstrakter Assoziator fuer eine Menge von NS- bzw. FBZ-Sensoren der Art:<br>
@@ -117,7 +118,7 @@ extends AbstraktPlLangSensorMenge<VergleichsEreignisWerte>{
 //										LZMF_UFD, datum.getDataTime());
 								this.sendeBetriebsmeldung(this.messStelle, "Der Wert " + //$NON-NLS-1$
 										UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
-										this.messStelle + " weicht um " + ZEIT_FORMAT.format(new Date((long)abweichung - Konstante.STUNDE_IN_MS)) + " (>" + ZEIT_FORMAT.format(new Date(parameter.getMaxAbweichungZeit() - Konstante.STUNDE_IN_MS)) +  //$NON-NLS-1$ //$NON-NLS-2$ 
+										this.messStelle + " weicht um " + ZEIT_FORMAT.format(new Date((long)abweichung - Constants.MILLIS_PER_HOUR)) + " (>" + ZEIT_FORMAT.format(new Date(parameter.getMaxAbweichungZeit() - Constants.MILLIS_PER_HOUR)) +  //$NON-NLS-1$ //$NON-NLS-2$ 
 										") vom erwarteten Vergleichswert im Vergleichszeitbereich " +  //$NON-NLS-1$ 
 										DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime() - parameter.getVergleichsIntervall().getMillis()) + " - " +   //$NON-NLS-1$
 										DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime()) + 
@@ -133,8 +134,8 @@ extends AbstraktPlLangSensorMenge<VergleichsEreignisWerte>{
 					 */
 					if(aktuellesSensorDatum.getDatenzeitGesamt24() > 0 &&
 							parameter.getMaxAusfallZeit() > 0 &&
-							Konstante.TAG_24_IN_MS - aktuellesSensorDatum.getDatenzeitGesamt24() > parameter.getMaxAusfallZeit()){
-							if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+							Constants.MILLIS_PER_DAY - aktuellesSensorDatum.getDatenzeitGesamt24() > parameter.getMaxAusfallZeit()){
+							if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Constants.MILLIS_PER_DAY){
 								this.sendeBetriebsmeldung(this.messStelle, "Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
 										UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
 										this.messStelle + " konnte nicht durchgeführt werden, da keine" + //$NON-NLS-1$
@@ -145,7 +146,7 @@ extends AbstraktPlLangSensorMenge<VergleichsEreignisWerte>{
 							double abweichung = this.getAbweichung(true, aktuellesSensorDatum, 
 									aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
 							if(abweichung >= 0 && abweichung > parameter.getMaxAbweichungZeit()){
-								if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+								if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Constants.MILLIS_PER_DAY){
 //									this.sendeBetriebsmeldung(this.messStelle, "Der Wert " + //$NON-NLS-1$
 //											UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
 //											this.messStelle + " weicht um " + DUAUtensilien.runde(abweichung, 2) + " (>" + parameter.getMaxAbweichungZeit() +  //$NON-NLS-1$ //$NON-NLS-2$ 
@@ -156,9 +157,9 @@ extends AbstraktPlLangSensorMenge<VergleichsEreignisWerte>{
 //											LZMF_UFD24, datum.getDataTime());
 									this.sendeBetriebsmeldung(this.messStelle, "Der Wert " + //$NON-NLS-1$
 											UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt()) + " für die Messstelle " + //$NON-NLS-1$ 
-											this.messStelle + " weicht um " + ZEIT_FORMAT.format(new Date((long)abweichung - Konstante.STUNDE_IN_MS)) + " (>" + ZEIT_FORMAT.format(new Date(parameter.getMaxAbweichungZeit() - Konstante.STUNDE_IN_MS)) +  //$NON-NLS-1$ //$NON-NLS-2$ 
+											this.messStelle + " weicht um " + ZEIT_FORMAT.format(new Date((long)abweichung - Constants.MILLIS_PER_HOUR)) + " (>" + ZEIT_FORMAT.format(new Date(parameter.getMaxAbweichungZeit() - Constants.MILLIS_PER_HOUR)) +  //$NON-NLS-1$ //$NON-NLS-2$ 
 											") vom erwarteten Vergleichswert im Vergleichszeitbereich " +  //$NON-NLS-1$ 
-											DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime() - Konstante.TAG_24_IN_MS) + " - " +   //$NON-NLS-1$
+											DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime() - Constants.MILLIS_PER_DAY) + " - " +   //$NON-NLS-1$
 											DUAKonstanten.BM_ZEIT_FORMAT.format(datum.getDataTime()) + 
 											"(24 Stunden) ab.",   //$NON-NLS-1$
 											LZMF_UFD24, datum.getDataTime());

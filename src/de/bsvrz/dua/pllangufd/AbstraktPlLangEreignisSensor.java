@@ -31,9 +31,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Abstrakter Umfelddatensensor fuer die PL-Pruefung langzeit UFD
@@ -75,7 +76,7 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 				/**
 				 * berechne Vergleichswerte fuer letzte 24h
 				 */
-				long intervallAnfang24 = aktuellerZeitStempel - Konstante.TAG_24_IN_MS;
+				long intervallAnfang24 = aktuellerZeitStempel - Constants.MILLIS_PER_DAY;
 				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
 					this.hitorie24.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 

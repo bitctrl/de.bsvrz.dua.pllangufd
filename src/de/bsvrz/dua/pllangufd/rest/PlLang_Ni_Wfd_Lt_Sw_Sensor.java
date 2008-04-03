@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
@@ -37,7 +39,6 @@ import de.bsvrz.dua.pllangufd.VergleichsWert;
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Sensor, der die aktuellen Daten eines NI-, WFD-, LT-, oder SW-Sensors
@@ -131,7 +132,7 @@ extends AbstraktPlLangSensor<VergleichsWert>{
 				 */
 				double ergebnis24 = Double.NaN;
 				
-				long intervallAnfang24 = aktuellerZeitStempel - Konstante.TAG_24_IN_MS;
+				long intervallAnfang24 = aktuellerZeitStempel - Constants.MILLIS_PER_DAY;
 				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
 					this.hitorie24.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 				long intervallLaenge24 = aktuellerZeitStempel - intervallAnfang24;

@@ -27,6 +27,8 @@ package de.bsvrz.dua.pllangufd.rest;
 
 import java.util.Date;
 
+import com.bitctrl.Constants;
+
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
@@ -36,7 +38,6 @@ import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAUtensilien;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
-import de.bsvrz.sys.funclib.bitctrl.konstante.Konstante;
 
 /**
  * Assoziator fuer eine Menge von NI-, WFD-, LT-, oder SW-Sensoren der Art:<br>
@@ -73,7 +74,7 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 
 			if(parameter != null && parameter.isValid() && parameter.getMaxAbweichung().isOk()){
 
-				if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Konstante.TAG_24_IN_MS){
+				if(datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Constants.MILLIS_PER_DAY){
 
 					double abweichung24 = this.getAbweichung(true,
 							aktuellesSensorDatum, aktuellesVorgaengerDatum, aktuellesNachfolgerDatum);
@@ -81,7 +82,7 @@ extends AbstraktPlLangSensorMenge<VergleichsWert>{
 						synchronized (this) {
 							if(abweichung24 > parameter.getMaxAbweichung().getSkaliertenWert()){
 								String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime()
-										- Konstante.TAG_24_IN_MS)) + " - " +  //$NON-NLS-1$
+										- Constants.MILLIS_PER_DAY)) + " - " +  //$NON-NLS-1$
 										DUAKonstanten.BM_ZEIT_FORMAT.format(new Date(datum.getDataTime())) + " (24 Stunden)"; //$NON-NLS-1$
 
 								this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " +  //$NON-NLS-1$

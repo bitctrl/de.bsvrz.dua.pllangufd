@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -23,46 +23,47 @@
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
  */
+
 package de.bsvrz.dua.pllangufd.rest;
 
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.dua.pllangufd.Abstrakt_Ni_Wfd_Lt_Sw_Test;
+import de.bsvrz.dua.pllangufd.AbstraktNiWfdLtSwTest;
 import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
- * Testet auf Versenden von Betriebsmeldungen fuer LT-Sensoren
+ * Testet auf Versenden von Betriebsmeldungen fuer LT-Sensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
+ * @version $Id$
  */
-public class LtTest
-extends Abstrakt_Ni_Wfd_Lt_Sw_Test{
+public class LtTest extends AbstraktNiWfdLtSwTest {
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected SystemObject getNachfolger() 
-	throws Exception{
-		return DAVTest.getDav().getDataModel().getObject("ufdSensor.nachfolger.lt"); //$NON-NLS-1$;
+	protected SystemObject getNachfolger() throws Exception {
+		return DAVTest.getDav().getDataModel().getObject(
+				"ufdSensor.nachfolger.lt"); //$NON-NLS-1$;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected SystemObject getPruefling()
-	throws Exception{
-		return DAVTest.getDav().getDataModel().getObject("ufdSensor.pruefling.lt"); //$NON-NLS-1$;
+	protected SystemObject getPruefling() throws Exception {
+		return DAVTest.getDav().getDataModel().getObject(
+				"ufdSensor.pruefling.lt"); //$NON-NLS-1$;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected SystemObject getVorgaenger() 
-	throws Exception{
-		return DAVTest.getDav().getDataModel().getObject("ufdSensor.vorgaenger.lt"); //$NON-NLS-1$;
+	protected SystemObject getVorgaenger() throws Exception {
+		return DAVTest.getDav().getDataModel().getObject(
+				"ufdSensor.vorgaenger.lt"); //$NON-NLS-1$;
 	}
 
 	/**
@@ -72,5 +73,5 @@ extends Abstrakt_Ni_Wfd_Lt_Sw_Test{
 	protected long getMaxAbweichung() {
 		return 10;
 	}
-		
+
 }

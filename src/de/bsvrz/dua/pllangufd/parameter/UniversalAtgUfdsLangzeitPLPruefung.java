@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -42,74 +42,80 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
  * Klasse zum Auslesen aller der Parameter-Attributgruppen
- * <code>atg.ufdsLangzeitPLPrüfungXXX</code>
- *  
+ * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class UniversalAtgUfdsLangzeitPLPruefung
-implements ClientReceiverInterface{
-	
+public class UniversalAtgUfdsLangzeitPLPruefung implements
+		ClientReceiverInterface {
+
 	/**
-	 * aktueller Parametersatz
+	 * aktueller Parametersatz.
 	 */
 	private UfdsLangZeitPlPruefungsParameter parameterSatz = null;
-	
+
 	/**
-	 * beobachter dieses Objektes (werden ueber aktuelle Parameter informiert)
+	 * beobachter dieses Objektes (werden ueber aktuelle Parameter informiert).
 	 */
-	private Set<IUniversalAtgUfdsLangzeitPLPruefungListener> listenerMenge = 
-		Collections.synchronizedSet(new HashSet<IUniversalAtgUfdsLangzeitPLPruefungListener>());
-	
-	
+	private Set<IUniversalAtgUfdsLangzeitPLPruefungListener> listenerMenge = Collections
+			.synchronizedSet(new HashSet<IUniversalAtgUfdsLangzeitPLPruefungListener>());
+
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param dav Datenverteiler-Verbindung
-	 * @param objekt Systemobjekt eines beliebigen Umfelddatensensors
+	 * @param dav
+	 *            Datenverteiler-Verbindung
+	 * @param objekt
+	 *            Systemobjekt eines beliebigen Umfelddatensensors
 	 */
-	public UniversalAtgUfdsLangzeitPLPruefung(final ClientDavInterface dav, 
-											  final SystemObject objekt){
+	public UniversalAtgUfdsLangzeitPLPruefung(final ClientDavInterface dav,
+			final SystemObject objekt) {
 		UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
-		
-		if(datenArt == null){
-			throw new NullPointerException("Die Datenart von " + objekt +  //$NON-NLS-1$
+
+		if (datenArt == null) {
+			throw new NullPointerException("Die Datenart von " + objekt + //$NON-NLS-1$
 					" konnte nicht bestimmt werden"); //$NON-NLS-1$
 		}
-			
+
 		DataDescription parameterBeschreibung = new DataDescription(
-				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+				dav.getDataModel().getAttributeGroup(
+						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
 				dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL),
-				(short)0);
-		dav.subscribeReceiver(this, objekt, parameterBeschreibung, ReceiveOptions.normal(), ReceiverRole.receiver());
+				(short) 0);
+		dav.subscribeReceiver(this, objekt, parameterBeschreibung,
+				ReceiveOptions.normal(), ReceiverRole.receiver());
 	}
 
-	
 	/**
-	 * Fuegt der Menge aller Listener einen Listener hinzu
+	 * Fuegt der Menge aller Listener einen Listener hinzu.
 	 * 
-	 * @param listener ein neuer Listener
-	 * @param sofortInformieren ob der neue Listener sofort ueber das aktuelle
-	 * Datum informiert werden soll
+	 * @param listener
+	 *            ein neuer Listener
+	 * @param sofortInformieren
+	 *            ob der neue Listener sofort ueber das aktuelle Datum
+	 *            informiert werden soll
 	 */
-	public final synchronized void addListener(final IUniversalAtgUfdsLangzeitPLPruefungListener listener,
-											   final boolean sofortInformieren){
-		if(this.listenerMenge.add(listener) && this.parameterSatz != null){
+	public final synchronized void addListener(
+			final IUniversalAtgUfdsLangzeitPLPruefungListener listener,
+			final boolean sofortInformieren) {
+		if (this.listenerMenge.add(listener) && this.parameterSatz != null) {
 			listener.aktualisiereParameter(this.parameterSatz);
 		}
 	}
-	
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public void update(ResultData[] resultate) {
-		if(resultate != null){
-			for(ResultData resultat:resultate){
-				if(resultat != null){
-					synchronized(this){
-						this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(resultat);
-						for(IUniversalAtgUfdsLangzeitPLPruefungListener listener:listenerMenge){
+		if (resultate != null) {
+			for (ResultData resultat : resultate) {
+				if (resultat != null) {
+					synchronized (this) {
+						this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(
+								resultat);
+						for (IUniversalAtgUfdsLangzeitPLPruefungListener listener : listenerMenge) {
 							listener.aktualisiereParameter(this.parameterSatz);
 						}
 					}
@@ -117,5 +123,5 @@ implements ClientReceiverInterface{
 			}
 		}
 	}
-		
+
 }

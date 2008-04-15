@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,16 +36,23 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 import de.bsvrz.sys.funclib.commandLineArgs.ArgumentList;
 
 /**
- * Stellt eine Datenverteiler-Verbindung
- * zur Verfügung.
+ * Stellt eine Datenverteiler-Verbindung zur Verfügung.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
+ * @version $Id$
  */
-public class DAVTest {
+public final class DAVTest {
 
 	/**
-	 * Verbindungsdaten
+	 * Standardkonstruktor.
+	 */
+	private DAVTest() {
+		
+	}
+	
+	/**
+	 * Verbindungsdaten.
 	 */
 	private static final String[] CON_DATA = new String[] {
 			"-datenverteiler=localhost:8083", //$NON-NLS-1$ 
@@ -55,60 +62,58 @@ public class DAVTest {
 			"-debugLevelFileText=CONFIG" }; //$NON-NLS-1$
 
 	/**
-	 * Verbindung zum Datenverteiler
+	 * Verbindung zum Datenverteiler.
 	 */
-	protected static ClientDavInterface VERBINDUNG = null;
+	protected static ClientDavInterface dieVerbindung = null;
 
 	/**
-	 * Randomizer
+	 * Randomizer.
 	 */
-	public static Random R = new Random(System.currentTimeMillis());
-	
+	public static Random r = new Random(System.currentTimeMillis());
+
 	/**
-	 * Erste Datenzeit der Testdaten
+	 * Erste Datenzeit der Testdaten.
 	 */
 	public static final long START_ZEIT = 0;
 
-	
 	/**
-	 * Erfragt bzw. initialisiert eine
-	 * Datenverteiler-Verbindung
+	 * Erfragt bzw. initialisiert eine Datenverteiler-Verbindung
 	 * 
 	 * @return die Datenverteiler-Verbindung
-	 * @throws Exception falls die Verbindung nicht
-	 * hergestellt werden konnte
+	 * @throws Exception
+	 *             falls die Verbindung nicht hergestellt werden konnte
 	 */
-	public static final ClientDavInterface getDav()
-	throws Exception {
-		
-		if(VERBINDUNG == null) {
+	public static ClientDavInterface getDav() throws Exception {
 
-			String[] CON_DATA_APP = new String[CON_DATA.length + 1];
+		if (dieVerbindung == null) {
+
+			String[] conDataApp = new String[CON_DATA.length + 1];
 			int i = 0;
-			for(String str:CON_DATA){
-				CON_DATA_APP[i++] = new String(str.getBytes());
+			for (String str : CON_DATA) {
+				conDataApp[i++] = new String(str.getBytes());
 			}
-			CON_DATA_APP[i] = "-KonfigurationsBereichsPid=kb.plLangUfdTestModell"; //$NON-NLS-1$
+			conDataApp[i] = "-KonfigurationsBereichsPid=kb.plLangUfdTestModell"; //$NON-NLS-1$
 
 			StandardApplicationRunner.run(new StandardApplication() {
-	
+
 				public void initialize(ClientDavInterface connection)
 						throws Exception {
-					DAVTest.VERBINDUNG = connection;
-					UmfeldDatenArt.initialisiere(VERBINDUNG);
-					UfdSensorSender.initialisiere(VERBINDUNG, START_ZEIT);
+					DAVTest.dieVerbindung = connection;
+					UmfeldDatenArt.initialisiere(dieVerbindung);
+					UfdSensorSender.initialisiere(dieVerbindung, START_ZEIT);
 				}
-	
+
 				public void parseArguments(ArgumentList argumentList)
 						throws Exception {
 					//
 				}
-	
+
 			}, CON_DATA);
-			StandardApplicationRunner.run(new VerwaltungPlLangzeitUFD(), CON_DATA_APP);
+			StandardApplicationRunner.run(new VerwaltungPlLangzeitUFD(),
+					conDataApp);
 		}
-				
-		return VERBINDUNG;
+
+		return dieVerbindung;
 	}
 
 }

@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -23,6 +23,7 @@
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
  */
+
 package de.bsvrz.dua.pllangufd.historie;
 
 import de.bsvrz.dav.daf.main.ResultData;
@@ -32,59 +33,58 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 
 /**
  * Historischer Wert eines beliebigen Umfelddatensensors.<br>
- * <b>Achtung:</b> Instanzen dieses Typs sind nur nach ihrem Zeitstempel sortierbar
+ * <b>Achtung:</b> Instanzen dieses Typs sind nur nach ihrem Zeitstempel
+ * sortierbar
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class HistorischerUfdsWert
-extends HistPufferElement{
-	
+public class HistorischerUfdsWert extends HistPufferElement {
+
 	/**
-	 * ob dieser Wert als plausibel gekennzeichnet war
+	 * ob dieser Wert als plausibel gekennzeichnet war.
 	 */
 	private boolean plausibel = false;
 
 	/**
-	 * Erfassungsintervalldauer
+	 * Erfassungsintervalldauer.
 	 */
-	private long T = Long.MIN_VALUE;
-	
+	private long tT = Long.MIN_VALUE;
+
 	/**
-	 * der historische Wert an sich
+	 * der historische Wert an sich.
 	 */
 	private UmfeldDatenSensorWert wert = null;
 
-	
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param resultat ein Umfelddatenresultat
+	 * @param resultat
+	 *            ein Umfelddatenresultat
 	 */
-	public HistorischerUfdsWert(ResultData resultat){
+	public HistorischerUfdsWert(ResultData resultat) {
 		super(resultat.getDataTime());
-		
-		if(resultat.getData() != null){
+
+		if (resultat.getData() != null) {
 			UmfeldDatenSensorDatum datum = new UmfeldDatenSensorDatum(resultat);
 			this.plausibel = datum.getStatusMessWertErsetzungImplausibel() == DUAKonstanten.NEIN;
 			this.wert = datum.getWert();
-			this.T = datum.getT();		
-		}		
+			this.tT = datum.getT();
+		}
 	}
-	
-	
+
 	/**
-	 * Erfragt die Erfassungsintervalldauer
+	 * Erfragt die Erfassungsintervalldauer.
 	 * 
 	 * @return die Erfassungsintervalldauer
 	 */
 	public final long getT() {
-		return this.T;
+		return this.tT;
 	}
-	
-	
+
 	/**
-	 * Erfragt, ob dieser Wert als plausibel gekennzeichnet war
+	 * Erfragt, ob dieser Wert als plausibel gekennzeichnet war.
 	 * 
 	 * @return ob dieser Wert als plausibel gekennzeichnet war
 	 */
@@ -92,9 +92,8 @@ extends HistPufferElement{
 		return this.plausibel;
 	}
 
-
 	/**
-	 * Erfragt den historischen Wert an sich
+	 * Erfragt den historischen Wert an sich.
 	 * 
 	 * @return der historische Wert an sich
 	 */

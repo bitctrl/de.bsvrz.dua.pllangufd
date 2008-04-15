@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -23,6 +23,7 @@
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
  */
+
 package de.bsvrz.dua.pllangufd.fbz;
 
 import java.util.HashSet;
@@ -31,105 +32,106 @@ import java.util.Set;
 import de.bsvrz.dua.pllangufd.AbstraktEreignis;
 
 /**
- * Bildet die Zustaende des Attributs <code>att.ufdsFahrBahnOberFlächenZustand</code> auf
- * innerhalb der Pl-Pruefung langzeit UFD benoetigte Ereignisse ab
- *  
+ * Bildet die Zustaende des Attributs
+ * <code>att.ufdsFahrBahnOberFlächenZustand</code> auf innerhalb der
+ * Pl-Pruefung langzeit UFD benoetigte Ereignisse ab.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class FahrBahnZustandsEreignis
-extends AbstraktEreignis{
+public final class FahrBahnZustandsEreignis extends AbstraktEreignis {
 
 	/**
-	 * die statischen Instanzen dieser Klasse
+	 * die statischen Instanzen dieser Klasse.
 	 */
-	private static Set<FahrBahnZustandsEreignis> INSTANZEN = new HashSet<FahrBahnZustandsEreignis>();
-	
-	/**
-	 * Wert <code>nicht ermittelbar/fehlerhaft</code>
-	 */	
-	public static final FahrBahnZustandsEreignis NICHT_ERMITTELBAR_FEHLERHAFT = 
-		new FahrBahnZustandsEreignis(-3, -3, "nicht ermittelbar/fehlerhaft"); //$NON-NLS-1$
+	private static Set<FahrBahnZustandsEreignis> instanzen = new HashSet<FahrBahnZustandsEreignis>();
 
 	/**
-	 * Wert <code>fehlerhaft</code>
-	 */	
-	public static final FahrBahnZustandsEreignis FEHLERHAFT = 
-		new FahrBahnZustandsEreignis(-2, -2, "fehlerhaft"); //$NON-NLS-1$
+	 * Wert <code>nicht ermittelbar/fehlerhaft</code>.
+	 */
+	public static final FahrBahnZustandsEreignis NICHT_ERMITTELBAR_FEHLERHAFT = new FahrBahnZustandsEreignis(
+			-3, -3, "nicht ermittelbar/fehlerhaft"); //$NON-NLS-1$
 
 	/**
-	 * Wert <code>nicht ermittelbar</code>
-	 */	
-	public static final FahrBahnZustandsEreignis NICHT_ERMITTELBAR = 
-		new FahrBahnZustandsEreignis(-1, -1, "nicht ermittelbar"); //$NON-NLS-1$
-	
-	/**
-	 * Wert <code>trocken</code>
-	 */	
-	public static final FahrBahnZustandsEreignis TROCKEN = 
-		new FahrBahnZustandsEreignis(0, 0, "trocken"); //$NON-NLS-1$
-	
-	/**
-	 * Wert <code>feucht</code>
-	 */	
-	public static final FahrBahnZustandsEreignis FEUCHT = 
-		new FahrBahnZustandsEreignis(1, 1, "feucht"); //$NON-NLS-1$
+	 * Wert <code>fehlerhaft</code>.
+	 */
+	public static final FahrBahnZustandsEreignis FEHLERHAFT = new FahrBahnZustandsEreignis(
+			-2, -2, "fehlerhaft"); //$NON-NLS-1$
 
 	/**
-	 * Wert <code>nass</code>
-	 */	
-	public static final FahrBahnZustandsEreignis NASS = 
-		new FahrBahnZustandsEreignis(32, 32, "nass"); //$NON-NLS-1$
+	 * Wert <code>nicht ermittelbar</code>.
+	 */
+	public static final FahrBahnZustandsEreignis NICHT_ERMITTELBAR = new FahrBahnZustandsEreignis(
+			-1, -1, "nicht ermittelbar"); //$NON-NLS-1$
 
 	/**
-	 * Wert <code>gefrorenes Wasser</code>
-	 */	
-	public static final FahrBahnZustandsEreignis GEFRORENES_WASSER = 
-		new FahrBahnZustandsEreignis(64, 64, "gefrorenes Wasser"); //$NON-NLS-1$
+	 * Wert <code>trocken</code>.
+	 */
+	public static final FahrBahnZustandsEreignis TROCKEN = new FahrBahnZustandsEreignis(
+			0, 0, "trocken"); //$NON-NLS-1$
 
 	/**
-	 * Wert <code>Schnee/Schneematsch</code>
-	 */	
-	public static final FahrBahnZustandsEreignis SCHNEE_SCHNEEMATSCH = 
-		new FahrBahnZustandsEreignis(65, 65, "Schnee/Schneematsch"); //$NON-NLS-1$
+	 * Wert <code>feucht</code>.
+	 */
+	public static final FahrBahnZustandsEreignis FEUCHT = new FahrBahnZustandsEreignis(
+			1, 1, "feucht"); //$NON-NLS-1$
 
 	/**
-	 * Wert <code>Eis</code>
-	 */	
-	public static final FahrBahnZustandsEreignis EIS = 
-		new FahrBahnZustandsEreignis(66, 66, "Eis"); //$NON-NLS-1$	
-	
+	 * Wert <code>nass</code>.
+	 */
+	public static final FahrBahnZustandsEreignis NASS = new FahrBahnZustandsEreignis(
+			32, 32, "nass"); //$NON-NLS-1$
+
 	/**
-	 * Wert <code>Raureif</code>
-	 */	
-	public static final FahrBahnZustandsEreignis RAUREIF = 
-		new FahrBahnZustandsEreignis(67, 67, "Raureif"); //$NON-NLS-1$
-		
-	
+	 * Wert <code>gefrorenes Wasser</code>.
+	 */
+	public static final FahrBahnZustandsEreignis GEFRORENES_WASSER = new FahrBahnZustandsEreignis(
+			64, 64, "gefrorenes Wasser"); //$NON-NLS-1$
+
 	/**
-	 * Standardkonstruktor
+	 * Wert <code>Schnee/Schneematsch</code>.
+	 */
+	public static final FahrBahnZustandsEreignis SCHNEE_SCHNEEMATSCH = new FahrBahnZustandsEreignis(
+			65, 65, "Schnee/Schneematsch"); //$NON-NLS-1$
+
+	/**
+	 * Wert <code>Eis</code>.
+	 */
+	public static final FahrBahnZustandsEreignis EIS = new FahrBahnZustandsEreignis(
+			66, 66, "Eis"); //$NON-NLS-1$	
+
+	/**
+	 * Wert <code>Raureif</code>.
+	 */
+	public static final FahrBahnZustandsEreignis RAUREIF = new FahrBahnZustandsEreignis(
+			67, 67, "Raureif"); //$NON-NLS-1$
+
+	/**
+	 * Standardkonstruktor.
 	 * 
-	 * @param intervallAnfang unteres Ende des (beidseitig abgeschlossenen) Intervalls, innerhalb
-	 * dem die Werte fuer dieses Ereignis liegen
-	 * @param intervallEnde oberes Ende des (beidseitig abgeschlossenen) Intervalls, innerhalb
-	 * dem die Werte fuer dieses Ereignis liegen
-	 * @param name der Name des Ereignisses
+	 * @param intervallAnfang
+	 *            unteres Ende des (beidseitig abgeschlossenen) Intervalls,
+	 *            innerhalb dem die Werte fuer dieses Ereignis liegen
+	 * @param intervallEnde
+	 *            oberes Ende des (beidseitig abgeschlossenen) Intervalls,
+	 *            innerhalb dem die Werte fuer dieses Ereignis liegen
+	 * @param name
+	 *            der Name des Ereignisses
 	 */
-	private FahrBahnZustandsEreignis(final int intervallAnfang, 
-								  	 final int intervallEnde,
-								  	 final String name){
+	private FahrBahnZustandsEreignis(final int intervallAnfang,
+			final int intervallEnde, final String name) {
 		super(intervallAnfang, intervallEnde, name);
-		INSTANZEN.add(this);	
+		instanzen.add(this);
 	}
-	
-	
+
 	/**
-	 * Erfragt die statischen Instanzen dieser Klasse
+	 * Erfragt die statischen Instanzen dieser Klasse.
 	 * 
 	 * @return die statischen Instanzen dieser Klasse
 	 */
-	public static final Set<FahrBahnZustandsEreignis> getInstanzen(){
-		return INSTANZEN;
+	public static Set<FahrBahnZustandsEreignis> getInstanzen() {
+		return instanzen;
 	}
 
 }

@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -24,49 +24,51 @@
  * mailto: info@bitctrl.de
  */
 
+
 package de.bsvrz.dua.pllangufd;
 
-
 /**
- * Ein Ereignis ist eine Kumulation von DAV-Zustaenden wie sie innerhalb der
- * SWE PL-Pruefung langzeit UFD benoetigt wird
- *  
+ * Ein Ereignis ist eine Kumulation von DAV-Zustaenden wie sie innerhalb der SWE
+ * PL-Pruefung langzeit UFD benoetigt wird.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
 public class AbstraktEreignis {
 
 	/**
-	 * Begin des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
+	 * Begin des abgeschlossenen Intervalls, innerhalb dem die Zustaende dieses
+	 * Ereignisses liegen.
 	 */
 	public int intervallBegin = 0;
-	
+
 	/**
-	 * Ende des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
+	 * Ende des abgeschlossenen Intervalls, innerhalb dem die Zustaende dieses
+	 * Ereignisses liegen.
 	 */
 	public int intervallEnde = 0;
 
 	/**
-	 * der Name des Ereignisses
+	 * der Name des Ereignisses.
 	 */
 	private String name = null;
-	
-	
+
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param intervallBegin Begin des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
-	 * @param intervallEnde Ende des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
-	 * @param name der Name des Ereignisses
+	 * @param intervallBegin
+	 *            Begin des abgeschlossenen Intervalls, innerhalb dem die
+	 *            Zustaende dieses Ereignisses liegen.
+	 * @param intervallEnde
+	 *            Ende des abgeschlossenen Intervalls, innerhalb dem die
+	 *            Zustaende dieses Ereignisses liegen.
+	 * @param name
+	 *            der Name des Ereignisses.
 	 */
 	protected AbstraktEreignis(final int intervallBegin,
-							   final int intervallEnde,
-							   final String name){
-		if(intervallBegin > intervallEnde){
+			final int intervallEnde, final String name) {
+		if (intervallBegin > intervallEnde) {
 			throw new IllegalArgumentException(
 					"Intervallanfang darf nicht (echt) nach Intervallende liegen"); //$NON-NLS-1$
 		}
@@ -74,44 +76,41 @@ public class AbstraktEreignis {
 		this.intervallEnde = intervallEnde;
 		this.name = name;
 	}
-	
-	
+
 	/**
-	 * Erfragt, ob ein bestimmter Zustand innerhalb des abgeschlossenen Intervalls
-	 * liegt, durch das dieses Ereignis beschrieben ist
+	 * Erfragt, ob ein bestimmter Zustand innerhalb des abgeschlossenen
+	 * Intervalls liegt, durch das dieses Ereignis beschrieben ist.
 	 * 
-	 * @param zustand ein DAV-Zustand
-	 * @return ob ein bestimmter Zustand innerhalb des abgeschlossenen Intervalls
-	 * liegt, durch das dieses Ereignis beschrieben ist
+	 * @param zustand
+	 *            ein DAV-Zustand
+	 * @return ob ein bestimmter Zustand innerhalb des abgeschlossenen
+	 *         Intervalls liegt, durch das dieses Ereignis beschrieben ist
 	 */
-	public final boolean isZustandInEreignis(final int zustand){
+	public final boolean isZustandInEreignis(final int zustand) {
 		return this.intervallBegin <= zustand && zustand <= this.intervallEnde;
 	}
-	
-	
+
 	/**
 	 * Erfragt den Begin des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
+	 * Zustaende dieses Ereignisses liegen.
 	 * 
 	 * @return der Begin des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
+	 *         Zustaende dieses Ereignisses liegen
 	 */
-	public final int getIntervallBegin(){
+	public final int getIntervallBegin() {
 		return this.intervallBegin;
 	}
 
-
 	/**
 	 * Erfragt das Ende des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
+	 * Zustaende dieses Ereignisses liegen.
 	 * 
 	 * @return das Ende des abgeschlossenen Intervalls, innerhalb dem die
-	 * Zustaende dieses Ereignisses liegen
+	 *         Zustaende dieses Ereignisses liegen
 	 */
-	public final int getIntervallEnde(){
+	public final int getIntervallEnde() {
 		return this.intervallEnde;
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -119,6 +118,6 @@ public class AbstraktEreignis {
 	@Override
 	public String toString() {
 		return this.name;
-	}	
-	
+	}
+
 }

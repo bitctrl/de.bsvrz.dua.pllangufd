@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -37,44 +37,45 @@ import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 
 /**
- * Sensor, der die aktuellen Daten eines NS-Sensors zu Vergleichswerten im
- * Sinne der Pl-Pruefung langzeit UFD verarbeitet
- *  
+ * Sensor, der die aktuellen Daten eines NS-Sensors zu Vergleichswerten im Sinne
+ * der Pl-Pruefung langzeit UFD verarbeitet.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class PlLang_Ns_Sensor
-extends AbstraktPlLangEreignisSensor{
+public class PlLangNsSensor extends AbstraktPlLangEreignisSensor {
 
 	/**
-	 * statische Instanzen dieser Klasse
+	 * statische Instanzen dieser Klasse.
 	 */
-	private static final Map<SystemObject, PlLang_Ns_Sensor> INSTANZEN = new HashMap<SystemObject, PlLang_Ns_Sensor>();
-	
-	
+	private static final Map<SystemObject, PlLangNsSensor> INSTANZEN = new HashMap<SystemObject, PlLangNsSensor>();
+
 	/**
-	 * Erfragt eine statische Instanz dieser Klasse
+	 * Erfragt eine statische Instanz dieser Klasse.
 	 * 
-	 * @param dav Datenverteiler-Verbindung
-	 * @param objekt ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
+	 * @param dav
+	 *            Datenverteiler-Verbindung
+	 * @param objekt
+	 *            ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
 	 * @return eine statische Instanz dieser Klasse
 	 */
-	public static final PlLang_Ns_Sensor getInstanz(final ClientDavInterface dav, 
-													final SystemObject objekt){
-		if(objekt == null){
+	public static final PlLangNsSensor getInstanz(
+			final ClientDavInterface dav, final SystemObject objekt) {
+		if (objekt == null) {
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}
-		PlLang_Ns_Sensor instanz = INSTANZEN.get(objekt);
-		
-		if(instanz == null){
-			instanz = new PlLang_Ns_Sensor();
-			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+		PlLangNsSensor instanz = INSTANZEN.get(objekt);
+
+		if (instanz == null) {
+			instanz = new PlLangNsSensor();
+			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(
+					DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			INSTANZEN.put(objekt, instanz);
 		}
-		
+
 		return instanz;
 	}
-	
 
 	/**
 	 * {@inheritDoc}
@@ -83,5 +84,5 @@ extends AbstraktPlLangEreignisSensor{
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return NiederschlagsEreignis.getInstanzen();
 	}
-	
+
 }

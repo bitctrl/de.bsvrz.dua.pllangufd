@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -24,6 +24,7 @@
  * mailto: info@bitctrl.de
  */
 
+
 package de.bsvrz.dua.pllangufd;
 
 import java.util.HashMap;
@@ -37,16 +38,16 @@ import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 
 /**
- * Abstrakter Umfelddatensensor fuer die PL-Pruefung langzeit UFD
- * mit aktuellen Parametern fuer Ereignis-getriggerte Pruefung
+ * Abstrakter Umfelddatensensor fuer die PL-Pruefung langzeit UFD mit aktuellen
+ * Parametern fuer Ereignis-getriggerte Pruefung.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public abstract class AbstraktPlLangEreignisSensor 
-extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
+public abstract class AbstraktPlLangEreignisSensor extends
+		AbstraktPlLangSensor<VergleichsEreignisWerte> {
 
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -57,84 +58,93 @@ extends AbstraktPlLangSensor<VergleichsEreignisWerte>{
 		VergleichsEreignisWerte ergebnis = null;
 
 		synchronized (this) {
-			if(!this.hitorie24.getPufferInhalt().isEmpty() && 
-					parameter != null && 
-					parameter.isValid()){
-				
+			if (!this.hitorie24.getPufferInhalt().isEmpty()
+					&& parameter != null && parameter.isValid()) {
+
 				ergebnis = new VergleichsEreignisWerte();
 				/**
-				 * berechne Vergleichswerte fuer parametriertes Vergleichsintervall
+				 * berechne Vergleichswerte fuer parametriertes
+				 * Vergleichsintervall
 				 */
-				long intervallAnfang = aktuellerZeitStempel - parameter.getVergleichsIntervall().getMillis();
-				SortedSet<HistorischerUfdsWert> historieVergleich = 
-					this.hitorie24.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
-				
-				if(!historieVergleich.isEmpty()){
+				long intervallAnfang = aktuellerZeitStempel
+						- parameter.getVergleichsIntervall().getMillis();
+				SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
+						.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
+
+				if (!historieVergleich.isEmpty()) {
 					this.setVergleichsWerte(false, historieVergleich, ergebnis);
 				}
 
 				/**
 				 * berechne Vergleichswerte fuer letzte 24h
 				 */
-				long intervallAnfang24 = aktuellerZeitStempel - Constants.MILLIS_PER_DAY;
-				SortedSet<HistorischerUfdsWert> historieVergleich24 = 
-					this.hitorie24.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
+				long intervallAnfang24 = aktuellerZeitStempel
+						- Constants.MILLIS_PER_DAY;
+				SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
+						.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 
-				if(!historieVergleich24.isEmpty()){
-					this.setVergleichsWerte(true, historieVergleich24, ergebnis);
+				if (!historieVergleich24.isEmpty()) {
+					this
+							.setVergleichsWerte(true, historieVergleich24,
+									ergebnis);
 				}
-			}				
+			}
 		}
-				
+
 		return ergebnis;
 	}
-	
-	
+
 	/**
 	 * Berechnet aus den uebergebenen historischen Werten die Vergleichswerte
-	 * pro Ereignis und die gesamte Datenzeit
+	 * pro Ereignis und die gesamte Datenzeit.
 	 * 
-	 * @param intervall24 indiziert, dass die Werte fuer das Vergleichsintervall von 24 Stunden 
-	 * gesendet gesetzt werden sollen
-	 * @param historischeWerte historische Umfelddatenwerte eines bestimmten
-	 * Bezugszeitraums
-	 * @param vergleichsEreignisWerte Puffer fuer die Vergleichswerte
-	 * pro Ereignis und die gesamte Ausfallzeit
+	 * @param intervall24
+	 *            indiziert, dass die Werte fuer das Vergleichsintervall von 24
+	 *            Stunden gesendet gesetzt werden sollen
+	 * @param historischeWerte
+	 *            historische Umfelddatenwerte eines bestimmten Bezugszeitraums
+	 * @param vergleichsEreignisWerte
+	 *            Puffer fuer die Vergleichswerte pro Ereignis und die gesamte
+	 *            Ausfallzeit
 	 */
 	protected final void setVergleichsWerte(final boolean intervall24,
-											SortedSet<HistorischerUfdsWert> historischeWerte,
-											VergleichsEreignisWerte vergleichsEreignisWerte){
+			SortedSet<HistorischerUfdsWert> historischeWerte,
+			VergleichsEreignisWerte vergleichsEreignisWerte) {
 		Map<AbstraktEreignis, Double> ergebnisse = new HashMap<AbstraktEreignis, Double>();
 		long datenzeitGesamt = 0;
-		
-		for(HistorischerUfdsWert historischerWert:historischeWerte){
-			if(historischerWert.getWert() != null && historischerWert.getWert().isOk()){
+
+		for (HistorischerUfdsWert historischerWert : historischeWerte) {
+			if (historischerWert.getWert() != null
+					&& historischerWert.getWert().isOk()) {
 				datenzeitGesamt += historischerWert.getT();
-				for(AbstraktEreignis ereignis:this.getEreignisInstanzen()){
-					if(ereignis.isZustandInEreignis((int)historischerWert.getWert().getWert())){
+				for (AbstraktEreignis ereignis : this.getEreignisInstanzen()) {
+					if (ereignis.isZustandInEreignis((int) historischerWert
+							.getWert().getWert())) {
 						Double ergebnisWert = ergebnisse.get(ereignis);
-						if(ergebnisWert == null){
-							ergebnisse.put(ereignis, new Double(historischerWert.getT()));
-						}else{
-							ergebnisse.put(ereignis, ergebnisWert + new Double(historischerWert.getT()));
+						if (ergebnisWert == null) {
+							ergebnisse.put(ereignis, new Double(
+									historischerWert.getT()));
+						} else {
+							ergebnisse.put(ereignis, ergebnisWert
+									+ new Double(historischerWert.getT()));
 						}
-						break;						
+						break;
 					}
 				}
 			}
-		}			
-		
-		vergleichsEreignisWerte.setInhalt(intervall24, datenzeitGesamt, ergebnisse);
+		}
+
+		vergleichsEreignisWerte.setInhalt(intervall24, datenzeitGesamt,
+				ergebnisse);
 	}
-	
-	
+
 	/**
-	 * Erfragt die Menge von Ereignissen, fuer die die Abweichung bzw. ueber denen
-	 * die Vergleichswerte berechnet werden sollen
+	 * Erfragt die Menge von Ereignissen, fuer die die Abweichung bzw. ueber
+	 * denen die Vergleichswerte berechnet werden sollen
 	 * 
-	 * @return die Menge von Ereignissen, fuer die die Abweichung bzw. ueber denen
-	 * die Vergleichswerte berechnet werden sollen
+	 * @return die Menge von Ereignissen, fuer die die Abweichung bzw. ueber
+	 *         denen die Vergleichswerte berechnet werden sollen
 	 */
 	protected abstract Set<? extends AbstraktEreignis> getEreignisInstanzen();
-	
+
 }

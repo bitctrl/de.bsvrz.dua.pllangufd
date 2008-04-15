@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -42,68 +42,71 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
- * Sendet Parameter eines Sensors fuer die Pl-Pruefung langzeit UFD 
+ * Sendet Parameter eines Sensors fuer die Pl-Pruefung langzeit UFD.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
+ * @version $Id$
  */
-public class LzParameterSender 
-implements ClientSenderInterface{
-	
+public final class LzParameterSender implements ClientSenderInterface {
+
 	/**
-	 * statische Instanzen
+	 * statische Instanzen.
 	 */
-	private static Map<SystemObject, LzParameterSender> INSTANZEN = new HashMap<SystemObject, LzParameterSender>();
-	
+	private static Map<SystemObject, LzParameterSender> instanzen = new HashMap<SystemObject, LzParameterSender>();
+
 	/**
-	 * Datenverteiler-Verbindung
+	 * Datenverteiler-Verbindung.
 	 */
-	private static ClientDavInterface DAV = null;
-	
+	private static ClientDavInterface sDAV = null;
+
 	/**
-	 * das Systemobjekt des Sensors
+	 * das Systemobjekt des Sensors.
 	 */
 	private SystemObject objekt = null;
-	
-	
+
 	/**
-	 * Erfragt eine statische Instanz dieser Klasse 
+	 * Erfragt eine statische Instanz dieser Klasse.
 	 * 
-	 * @param dav Datenverteiler-Verbindung
-	 * @param obj Systemobjekt
+	 * @param dav
+	 *            Datenverteiler-Verbindung
+	 * @param obj
+	 *            Systemobjekt
 	 * @return eine statische Instanz dieser Klasse
 	 */
-	public static final LzParameterSender getInstanz(ClientDavInterface dav, 
-								   final SystemObject obj){
-		if(DAV == null){
-			DAV = dav;
+	public static LzParameterSender getInstanz(ClientDavInterface dav,
+			final SystemObject obj) {
+		if (sDAV == null) {
+			sDAV = dav;
 		}
-		LzParameterSender sender = INSTANZEN.get(obj);
-		
-		if(sender == null){
+		LzParameterSender sender = instanzen.get(obj);
+
+		if (sender == null) {
 			sender = new LzParameterSender(dav, obj);
-			INSTANZEN.put(obj, sender);
+			instanzen.put(obj, sender);
 		}
-		
+
 		return sender;
 	}
 
-	
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param dav Datenverteiler-Verbindung
-	 * @param obj Systemobjekt
+	 * @param dav
+	 *            Datenverteiler-Verbindung
+	 * @param obj
+	 *            Systemobjekt
 	 */
-	private LzParameterSender(ClientDavInterface dav, SystemObject obj){
+	private LzParameterSender(ClientDavInterface dav, SystemObject obj) {
 		this.objekt = obj;
 		UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(obj);
-		
-		DataDescription dd = new DataDescription(dav.getDataModel().getAttributeGroup(
-				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
-				dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_VORGABE),
-				(short)0);
-		
+
+		DataDescription dd = new DataDescription(dav.getDataModel()
+				.getAttributeGroup(
+						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+				dav.getDataModel().getAspect(
+						DaVKonstanten.ASP_PARAMETER_VORGABE), (short) 0);
+
 		try {
 			dav.subscribeSender(this, obj, dd, SenderRole.sender());
 		} catch (OneSubscriptionPerSendData e) {
@@ -111,62 +114,69 @@ implements ClientSenderInterface{
 		}
 	}
 
-	
 	/**
-	 * Sendet Parameter 
+	 * Sendet Parameter.
 	 * 
-	 * @param vergleichsIntervall der Vergleichsintervall
-	 * @param maxAusfallZeit die maximale Ausfallzeit
-	 * @param maxAbweichung die maximale Abweichung
+	 * @param vergleichsIntervall
+	 *            der Vergleichsintervall
+	 * @param maxAusfallZeit
+	 *            die maximale Ausfallzeit
+	 * @param maxAbweichung
+	 *            die maximale Abweichung
 	 * @return ob das Senden erfolgreich war
 	 */
-	public final boolean setParameter(StundenIntervallAnteil12h vergleichsIntervall,
-									  long maxAusfallZeit,
-									  long maxAbweichung){
+	public boolean setParameter(
+			StundenIntervallAnteil12h vergleichsIntervall, long maxAusfallZeit,
+			long maxAbweichung) {
 		boolean erfolg = false;
-		
-		UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(this.objekt);
-		
-		DataDescription dd = new DataDescription(DAV.getDataModel().getAttributeGroup(
-				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
-				DAV.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_VORGABE),
-				(short)0);
-		
-		Data nutzDatum = DAV.createData(DAV.getDataModel().getAttributeGroup(
+
+		UmfeldDatenArt datenArt = UmfeldDatenArt
+				.getUmfeldDatenArtVon(this.objekt);
+
+		DataDescription dd = new DataDescription(sDAV.getDataModel()
+				.getAttributeGroup(
+						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+				sDAV.getDataModel().getAspect(
+						DaVKonstanten.ASP_PARAMETER_VORGABE), (short) 0);
+
+		Data nutzDatum = sDAV.createData(sDAV.getDataModel().getAttributeGroup(
 				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
-		nutzDatum.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
+		nutzDatum
+				.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
 		nutzDatum.getTimeValue("maxAusfallZeit").setMillis(maxAusfallZeit); //$NON-NLS-1$
-		if(datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)){
-			
-			
-			
-//			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(0); //$NON-NLS-1$
-			
-			nutzDatum.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$ 
-			
-		}else{
-			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$
+		if (datenArt.equals(UmfeldDatenArt.ns)
+				|| datenArt.equals(UmfeldDatenArt.fbz)) {
+
+			// nutzDatum.getUnscaledValue("maxAbweichung" +
+			// datenArt.getAbkuerzung()).set(0); //$NON-NLS-1$
+
+			nutzDatum
+					.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$ 
+
+		} else {
+			nutzDatum
+					.getUnscaledValue(
+							"maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$
 		}
-		
+
 		try {
-			DAV.sendData(new ResultData(this.objekt, dd, System.currentTimeMillis(), nutzDatum));
+			sDAV.sendData(new ResultData(this.objekt, dd, System
+					.currentTimeMillis(), nutzDatum));
 			erfolg = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return erfolg;
 	}
-	
 
 	/**
 	 * {@inheritDoc}
-	 */	
+	 */
 	public void dataRequest(SystemObject object,
 			DataDescription dataDescription, byte state) {
 		// 		
 	}
-
 
 	/**
 	 * {@inheritDoc}

@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -23,60 +23,59 @@
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
  */
+
 package de.bsvrz.dua.pllangufd.historie;
 
 import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
 
 /**
  * Allgemeines <b>sortierbares</b> Objekt mit Zeitstempel (fuer die Klasse
- * <code>HistorischerDatenpuffer</code>)
- *  
+ * <code>HistorischerDatenpuffer</code>).
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class HistPufferElement
-implements IZeitStempel{
-	
+public class HistPufferElement implements IZeitStempel {
+
 	/**
-	 * der Zeitstempel, nach dem dieses Element einsortiert wird
+	 * der Zeitstempel, nach dem dieses Element einsortiert wird.
 	 */
 	private long zeitStempel = Long.MIN_VALUE;
 
-
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param zeitStempel der Zeitstempel
+	 * @param zeitStempel
+	 *            der Zeitstempel
 	 */
-	public HistPufferElement(final long zeitStempel){
+	public HistPufferElement(final long zeitStempel) {
 		this.zeitStempel = zeitStempel;
 	}
-	
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public int compareTo(IZeitStempel that) {
-		return - new Long(this.getZeitStempel()).compareTo(that.getZeitStempel());
+		return -new Long(this.getZeitStempel())
+				.compareTo(that.getZeitStempel());
 	}
 
-	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object obj) {
 		boolean gleich = false;
-		
-		if(obj != null && obj instanceof IZeitStempel){
-			IZeitStempel that = (IZeitStempel)obj;
+
+		if (obj != null && obj instanceof IZeitStempel) {
+			IZeitStempel that = (IZeitStempel) obj;
 			gleich = this.getZeitStempel() == that.getZeitStempel();
 		}
-		
+
 		return gleich;
 	}
 
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -85,7 +84,6 @@ implements IZeitStempel{
 		return new Long(this.zeitStempel).toString();
 	}
 
-	
 	/**
 	 * {@inheritDoc}
 	 */

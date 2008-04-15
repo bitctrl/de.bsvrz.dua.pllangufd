@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -24,23 +24,26 @@
  * mailto: info@bitctrl.de
  */
 
-package de.bsvrz.dua.pllangufd.parameter;
 
+package de.bsvrz.dua.pllangufd.parameter;
 
 /**
  * Hoert auf Aenderungen innerhalb der Parameter-Attributgruppen
- * <code>atg.ufdsLangzeitPLPrüfungXXX</code>
- *  
+ * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
 public interface IUniversalAtgUfdsLangzeitPLPruefungListener {
 
 	/**
-	 * Aktualisiert die Parameter
+	 * Aktualisiert die Parameter.
 	 * 
-	 * @param aktuelleParameter aktuelle Parameter
+	 * @param aktuelleParameter
+	 *            aktuelle Parameter
 	 */
-	public void aktualisiereParameter(UfdsLangZeitPlPruefungsParameter aktuelleParameter);
-	
+	void aktualisiereParameter(
+			UfdsLangZeitPlPruefungsParameter aktuelleParameter);
+
 }

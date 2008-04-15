@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -35,229 +35,236 @@ import java.util.TreeSet;
 
 import de.bsvrz.sys.funclib.debug.Debug;
 
-
 /**
- * Speichert eine Menge von Datensaetzen, die innerhalb eines bestimmten 
+ * Speichert eine Menge von Datensaetzen, die innerhalb eines bestimmten
  * Intervalls liegen. Dabei gibt das Datum innerhalb dieses Puffers mit dem
  * aeltesten Zeitstempel den Anfang bzw. das obere Ende des (abgeschlossenen)
  * Intervalls an, dessen Laenge mit <code>intervallLaenge</code> beschrieben
- * ist 
+ * ist
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @param <G> Pufferelement
+ * 
+ * @version $Id$
  */
-public class HistorischerDatenpuffer<G extends HistPufferElement>
-implements Iterable<G>{
-		
+public class HistorischerDatenpuffer<G extends HistPufferElement> implements
+		Iterable<G> {
+
 	/**
-	 * nach Zeitstempeln sortierter Datenpuffer
+	 * nach Zeitstempeln sortierter Datenpuffer.
 	 */
-	private SortedSet<G> puffer = Collections.synchronizedSortedSet(new TreeSet<G>());
-	
+	private SortedSet<G> puffer = Collections
+			.synchronizedSortedSet(new TreeSet<G>());
+
 	/**
-	 * aktuelle Maximallaenge des Pufferintervalls
+	 * aktuelle Maximallaenge des Pufferintervalls.
 	 */
 	private long intervallLaenge = Long.MIN_VALUE;
-	
-	
+
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 */
-	public HistorischerDatenpuffer(){
+	public HistorischerDatenpuffer() {
 	}
-	
-	
+
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param intervallLaenge aktuelle Maximallaenge des Pufferintervalls
+	 * @param intervallLaenge
+	 *            aktuelle Maximallaenge des Pufferintervalls
 	 */
-	public HistorischerDatenpuffer(final long intervallLaenge){
+	public HistorischerDatenpuffer(final long intervallLaenge) {
 		this.intervallLaenge = intervallLaenge;
 	}
-	
-	
+
 	/**
-	 * Fuegt ein Datum in diesen Puffer ein und loescht gleichzeitig 
-	 * alle Elemente aus dem Puffer, die nicht mehr im Intervall liegen
+	 * Fuegt ein Datum in diesen Puffer ein und loescht gleichzeitig alle
+	 * Elemente aus dem Puffer, die nicht mehr im Intervall liegen.
 	 * 
-	 * @param datum das Datum
+	 * @param datum
+	 *            das Datum
 	 */
-	public final void addDatum(final G datum){
-		if(this.intervallLaenge == Long.MIN_VALUE){
-			Debug.getLogger().error("Der historische Datenpuffer wurde noch nicht mit" + //$NON-NLS-1$
-					" einem maximalen Zeitintervall initialisiert.\n" + //$NON-NLS-1$
-					"Das Datum wird abgewiesen: " + datum); //$NON-NLS-1$
-		}else{
-			synchronized(this.puffer){
+	public final void addDatum(final G datum) {
+		if (this.intervallLaenge == Long.MIN_VALUE) {
+			Debug.getLogger().error(
+					"Der historische Datenpuffer wurde noch nicht mit" + //$NON-NLS-1$
+							" einem maximalen Zeitintervall initialisiert.\n" + //$NON-NLS-1$
+							"Das Datum wird abgewiesen: " + datum); //$NON-NLS-1$
+		} else {
+			synchronized (this.puffer) {
 				this.puffer.add(datum);
 			}
 			this.aufraeumen();
 		}
 	}
-	
-	
+
 	/**
 	 * Setzt die Intervalllaenge.<br>
-	 * Es duerfen nur Daten im Puffer stehen, die einen Zeitstempel <code>t</code>
-	 * mit folgender Eigenschaft haben:<br><br>
+	 * Es duerfen nur Daten im Puffer stehen, die einen Zeitstempel
+	 * <code>t</code> mit folgender Eigenschaft haben:<br>
+	 * <br>
 	 * 
-	 * <code>a - l <= t <= a</code>, mit<br><br>
+	 * <code>a - l <= t <= a</code>, mit<br>
+	 * <br>
 	 * 
 	 * a = aktuellster Zeitstempel im Puffer und<br>
 	 * l = Intervalllaenge
 	 * 
-	 * @param intervallLaenge neue Intervalllaenge
+	 * @param intervallLaenge
+	 *            neue Intervalllaenge
 	 */
-	public final void setIntervallLaenge(final long intervallLaenge){
-		if(this.intervallLaenge != intervallLaenge){
+	public final void setIntervallLaenge(final long intervallLaenge) {
+		if (this.intervallLaenge != intervallLaenge) {
 			this.intervallLaenge = intervallLaenge;
 			this.aufraeumen();
 		}
 	}
-	
-	
+
 	/**
 	 * Erfragt die Elemente im Puffer, deren Datenzeitstempel im Bereich
-	 * [anfang, ende] liegen
+	 * [anfang, ende] liegen.
 	 * 
-	 * @param anfang Anfang des abgeschlossenen Intervalls
-	 * @param ende Ende des abgeschlossenen Intervalls
-	 * @return eine (ggf. leere) Kopie der Menge mit den Elementen im Puffer, deren 
-	 * Datenzeitstempel im Bereich [anfang, ende] liegen
+	 * @param anfang
+	 *            Anfang des abgeschlossenen Intervalls
+	 * @param ende
+	 *            Ende des abgeschlossenen Intervalls
+	 * @return eine (ggf. leere) Kopie der Menge mit den Elementen im Puffer,
+	 *         deren Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
 	public final SortedSet<G> cloneTeilMenge(long anfang, long ende) {
 		SortedSet<G> kopie = new TreeSet<G>();
-		
-		G groesstesElement = (G)new HistPufferElement(anfang);
-		G kleinstesElement = (G)new HistPufferElement(ende);
+
+		G groesstesElement = (G) new HistPufferElement(anfang);
+		G kleinstesElement = (G) new HistPufferElement(ende);
 		synchronized (this.puffer) {
-			kopie.addAll(this.puffer.subSet(kleinstesElement, groesstesElement));	
-		}		
-		
+			kopie
+					.addAll(this.puffer.subSet(kleinstesElement,
+							groesstesElement));
+		}
+
 		return kopie;
 	}
-	
-	
+
 	/**
 	 * Erfragt die Elemente im Puffer, deren Datenzeitstempel im Bereich
-	 * [anfang, ende] liegen
+	 * [anfang, ende] liegen.
 	 * 
-	 * @param anfang Anfang des abgeschlossenen Intervalls
-	 * @param ende Ende des abgeschlossenen Intervalls
-	 * @return eine (ggf. leere) Menge mit den Elementen im Puffer, deren 
-	 * Datenzeitstempel im Bereich [anfang, ende] liegen
+	 * @param anfang
+	 *            Anfang des abgeschlossenen Intervalls
+	 * @param ende
+	 *            Ende des abgeschlossenen Intervalls
+	 * @return eine (ggf. leere) Menge mit den Elementen im Puffer, deren
+	 *         Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
 	public final SortedSet<G> getTeilMenge(long anfang, long ende) {
-		G groesstesElement = (G)new HistPufferElement(anfang);
-		G kleinstesElement = (G)new HistPufferElement(ende);
+		G groesstesElement = (G) new HistPufferElement(anfang);
+		G kleinstesElement = (G) new HistPufferElement(ende);
 		synchronized (this.puffer) {
-			return this.puffer.subSet(kleinstesElement, groesstesElement);			
+			return this.puffer.subSet(kleinstesElement, groesstesElement);
 		}
 	}
-	
-	
+
 	/**
 	 * Erfragt den Teil des Pufferinhalts, der noch innerhalb des durch die
-	 * uebergebene Intervalllange beschriebenen verkuerzten Intervalls liegt
+	 * uebergebene Intervalllange beschriebenen verkuerzten Intervalls liegt.
 	 * 
-	 * @param andereIntervallLaenge eine andere Intervalllaenge (kleiner als die
-	 * hier eingestellte)
+	 * @param andereIntervallLaenge
+	 *            eine andere Intervalllaenge (kleiner als die hier
+	 *            eingestellte)
 	 * @return der Pufferinhalt im verkuerzten Intervall
 	 */
-	public final SortedSet<G> getPufferInhalt(long andereIntervallLaenge){
+	public final SortedSet<G> getPufferInhalt(long andereIntervallLaenge) {
 		SortedSet<G> pufferClone = new TreeSet<G>();
 		synchronized (this.puffer) {
-			if(!this.puffer.isEmpty()){
+			if (!this.puffer.isEmpty()) {
 				G aktuellsterDatensatz = this.puffer.first();
-				long aeltesterErlaubterZeitStempel = aktuellsterDatensatz.getZeitStempel() - andereIntervallLaenge;
-				
-				for(G pufferElement:this.puffer){
-					if(pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel){
+				long aeltesterErlaubterZeitStempel = aktuellsterDatensatz
+						.getZeitStempel()
+						- andereIntervallLaenge;
+
+				for (G pufferElement : this.puffer) {
+					if (pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel) {
 						break;
 					}
 					pufferClone.add(pufferElement);
 				}
-			}		 
+			}
 		}
-		
+
 		return pufferClone;
 	}
-	
-	
+
 	/**
-	 * Erfragt den Pufferinhalt
+	 * Erfragt den Pufferinhalt.
 	 * 
 	 * @return der Pufferinhalt
 	 */
-	public final SortedSet<G> getPufferInhalt(){
+	public final SortedSet<G> getPufferInhalt() {
 		return this.puffer;
 	}
-	
-	
+
 	/**
-	 * Erfragt die aktelle Maximallaenge des Pufferintervalls
+	 * Erfragt die aktelle Maximallaenge des Pufferintervalls.
 	 * 
 	 * @return aktelle Maximallaenge des Pufferintervalls
 	 */
-	public final long getIntervallLaenge(){
+	public final long getIntervallLaenge() {
 		return this.intervallLaenge;
 	}
-	
-	
+
 	/**
-	 * Erfragt den Pufferinhalt als Kopie
+	 * Erfragt den Pufferinhalt als Kopie.
 	 * 
 	 * @return der Pufferinhalt als Kopie
 	 */
-	public final SortedSet<G> clonePufferInhalt(){
+	public final SortedSet<G> clonePufferInhalt() {
 		SortedSet<G> pufferClone = new TreeSet<G>();
 		synchronized (this.puffer) {
-			pufferClone.addAll(this.puffer);			
+			pufferClone.addAll(this.puffer);
 		}
 		return pufferClone;
 	}
-	
-	
+
 	/**
-	 * Loescht alle Elemente aus dem Puffer, die nicht mehr im Intervall liegen
+	 * Loescht alle Elemente aus dem Puffer, die nicht mehr im Intervall liegen.
 	 */
-	private final void aufraeumen(){
-		synchronized(this.puffer){
-			if(!this.puffer.isEmpty()){
+	private void aufraeumen() {
+		synchronized (this.puffer) {
+			if (!this.puffer.isEmpty()) {
 				this.setJetzt(this.puffer.first().getZeitStempel());
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Setzt den Jetzt-Zeitpunkt und bereinigt danach den Puffer, so dass nur
 	 * noch Elemente im Puffer sind, deren Datenzeitstempel im Intervall<br>
 	 * <code>[jetzt-intervallMax, jetzt]</code><br>
-	 * liegen
+	 * liegen.
 	 * 
-	 * @param jetzt der Jetzt-Zeitpunkt
+	 * @param jetzt
+	 *            der Jetzt-Zeitpunkt
 	 */
-	public final void setJetzt(final long jetzt){
+	public final void setJetzt(final long jetzt) {
 		synchronized (this.puffer) {
-			if(!this.puffer.isEmpty()){
-				long aeltesterErlaubterZeitStempel = jetzt - this.intervallLaenge;
-				
+			if (!this.puffer.isEmpty()) {
+				long aeltesterErlaubterZeitStempel = jetzt
+						- this.intervallLaenge;
+
 				Collection<G> zuLoeschendeElemente = new ArrayList<G>();
-				for(G pufferElement:this.puffer){
-					if(pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel){
+				for (G pufferElement : this.puffer) {
+					if (pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel) {
 						zuLoeschendeElemente.add(pufferElement);
 					}
 				}
-				
+
 				this.puffer.removeAll(zuLoeschendeElemente);
-			}		 			
+			}
 		}
 	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -265,5 +272,5 @@ implements Iterable<G>{
 	public Iterator<G> iterator() {
 		return this.puffer.iterator();
 	}
-	
+
 }

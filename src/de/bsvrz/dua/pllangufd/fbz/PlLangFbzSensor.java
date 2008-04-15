@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -38,43 +38,44 @@ import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 
 /**
  * Sensor, der die aktuellen Daten eines FBZ-Sensors zu Vergleichswerten im
- * Sinne der Pl-Pruefung langzeit UFD verarbeitet
- *  
+ * Sinne der Pl-Pruefung langzeit UFD verarbeitet.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class PlLang_Fbz_Sensor
-extends AbstraktPlLangEreignisSensor{
+public class PlLangFbzSensor extends AbstraktPlLangEreignisSensor {
 
 	/**
-	 * statische Instanzen dieser Klasse
+	 * statische Instanzen dieser Klasse.
 	 */
-	private static final Map<SystemObject, PlLang_Fbz_Sensor> INSTANZEN = new HashMap<SystemObject, PlLang_Fbz_Sensor>();
-	
-	
+	private static final Map<SystemObject, PlLangFbzSensor> INSTANZEN = new HashMap<SystemObject, PlLangFbzSensor>();
+
 	/**
-	 * Erfragt eine statische Instanz dieser Klasse
+	 * Erfragt eine statische Instanz dieser Klasse.
 	 * 
-	 * @param dav Datenverteiler-Verbindung
-	 * @param objekt ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
+	 * @param dav
+	 *            Datenverteiler-Verbindung
+	 * @param objekt
+	 *            ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
 	 * @return eine statische Instanz dieser Klasse
 	 */
-	public static final PlLang_Fbz_Sensor getInstanz(final ClientDavInterface dav, 
-													 final SystemObject objekt){
-		if(objekt == null){
+	public static final PlLangFbzSensor getInstanz(
+			final ClientDavInterface dav, final SystemObject objekt) {
+		if (objekt == null) {
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}
-		PlLang_Fbz_Sensor instanz = INSTANZEN.get(objekt);
-		
-		if(instanz == null){
-			instanz = new PlLang_Fbz_Sensor();
-			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+		PlLangFbzSensor instanz = INSTANZEN.get(objekt);
+
+		if (instanz == null) {
+			instanz = new PlLangFbzSensor();
+			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(
+					DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			INSTANZEN.put(objekt, instanz);
 		}
-		
+
 		return instanz;
 	}
-	
 
 	/**
 	 * {@inheritDoc}
@@ -83,5 +84,5 @@ extends AbstraktPlLangEreignisSensor{
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return FahrBahnZustandsEreignis.getInstanzen();
 	}
-	
+
 }

@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -35,130 +35,133 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
  * Wrapper-Klasse fuer die Daten aller Parameter-Attributgruppen
- * <code>atg.ufdsLangzeitPLPrüfungXXX</code>
- *  
+ * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class UfdsLangZeitPlPruefungsParameter
-extends AllgemeinerDatenContainer{
+public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer {
 
 	/**
-	 * Maximal zulässige Ausfallzeitdauer. Ist die Summer der Ausfallzeiten für diesen Sensor,
-	 * bei dem keine Daten im Vergleichszeitraum vorlagen, größer als msxAusfallZeit, so wird
-	 * für dieses Intervall keine PL-Langzeitprüfung durchgeführt. 
+	 * Maximal zulässige Ausfallzeitdauer. Ist die Summer der Ausfallzeiten für
+	 * diesen Sensor, bei dem keine Daten im Vergleichszeitraum vorlagen, größer
+	 * als msxAusfallZeit, so wird für dieses Intervall keine PL-Langzeitprüfung
+	 * durchgeführt.
 	 */
 	private long maxAusfallZeit = Long.MIN_VALUE;
-	
+
 	/**
-	 * Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird. 
+	 * Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird.
 	 */
-	private StundenIntervallAnteil12h vergleichsIntervall = null; 
-	
+	private StundenIntervallAnteil12h vergleichsIntervall = null;
+
 	/**
-	 * Maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den Nachbarsensoren
-	 * über das Vergleichsintervall
+	 * Maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den
+	 * Nachbarsensoren über das Vergleichsintervall.
 	 */
 	private UmfeldDatenSensorWert maxAbweichung = null;
-	
+
 	/**
 	 * Maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
-	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall
+	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
 	 */
 	private long maxAbweichungZeit = Long.MIN_VALUE;
-	
-	
+
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor.
 	 * 
-	 * @param resultat ein Parameter-Datensart der Attributgruppe
-	 * <code>atg.ufdsLangzeitPLPrüfungXXX</code>
+	 * @param resultat
+	 *            ein Parameter-Datensart der Attributgruppe
+	 *            <code>atg.ufdsLangzeitPLPrüfungXXX</code>
 	 */
-	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat){
-		if(resultat == null || resultat.getData() == null){
+	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat) {
+		if (resultat == null || resultat.getData() == null) {
 			vergleichsIntervall = null;
-		}else{
-			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(resultat.getObject());
+		} else {
+			final UmfeldDatenArt datenArt = UmfeldDatenArt
+					.getUmfeldDatenArtVon(resultat.getObject());
 
 			final String attMaxAbweichungName = "maxAbweichung" + datenArt.getAbkuerzung(); //$NON-NLS-1$
 			final Data datum = resultat.getData();
-			
-			this.vergleichsIntervall = StundenIntervallAnteil12h.getZustand(datum.getUnscaledValue("VergleichsIntervall").intValue()); //$NON-NLS-1$
-			this.maxAusfallZeit = datum.getTimeValue("maxAusfallZeit").getMillis(); //$NON-NLS-1$
 
+			this.vergleichsIntervall = StundenIntervallAnteil12h
+					.getZustand(datum
+							.getUnscaledValue("VergleichsIntervall").intValue()); //$NON-NLS-1$
+			this.maxAusfallZeit = datum
+					.getTimeValue("maxAusfallZeit").getMillis(); //$NON-NLS-1$
 
-			
-			if(datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)){
-				this.maxAbweichungZeit = datum.getTimeValue(attMaxAbweichungName).getMillis();
-			}else{
+			if (datenArt.equals(UmfeldDatenArt.ns)
+					|| datenArt.equals(UmfeldDatenArt.fbz)) {
+				this.maxAbweichungZeit = datum.getTimeValue(
+						attMaxAbweichungName).getMillis();
+			} else {
 				this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
-				this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+				this.maxAbweichung.setWert(datum.getUnscaledValue(
+						attMaxAbweichungName).longValue());
 			}
-			
-			
-//			this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
-//			this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+
+			// this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
+			// this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
 
 		}
 	}
-	
-	
+
 	/**
 	 * Erfragt die maximal zulässige Ausfallzeitdauer.<br>
 	 * Ist die Summer der Ausfallzeiten für diesen Sensor, bei dem keine Daten
-	 * im Vergleichszeitraum vorlagen, größer als msxAusfallZeit, so wird
-	 * für dieses Intervall keine PL-Langzeitprüfung durchgeführt.
+	 * im Vergleichszeitraum vorlagen, größer als msxAusfallZeit, so wird für
+	 * dieses Intervall keine PL-Langzeitprüfung durchgeführt.
 	 * 
 	 * @return die maximal zulässige Ausfallzeitdauer
 	 */
-	public final long getMaxAusfallZeit(){
+	public final long getMaxAusfallZeit() {
 		return this.maxAusfallZeit;
 	}
-	
-	
+
 	/**
-	 * Erfragt das Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird.
+	 * Erfragt das Vergleichsintervall, für das die Langzeit-PL-Prüfung
+	 * durchgeführt wird.
 	 * 
-	 * @return das Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird.
+	 * @return das Vergleichsintervall, für das die Langzeit-PL-Prüfung
+	 *         durchgeführt wird.
 	 */
-	public final StundenIntervallAnteil12h getVergleichsIntervall(){
+	public final StundenIntervallAnteil12h getVergleichsIntervall() {
 		return this.vergleichsIntervall;
 	}
-	
-	
+
 	/**
-	 * Erfragt die maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den Nachbarsensoren
-	 * über das Vergleichsintervall
-	 *  
-	 * @return maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den Nachbarsensoren
-	 * über das Vergleichsintervall
+	 * Erfragt die maximal zulässige Abweichung der Werte des Sensors im
+	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
+	 * 
+	 * @return maximal zulässige Abweichung der Werte des Sensors im Vergleich
+	 *         zu den Nachbarsensoren über das Vergleichsintervall
 	 */
-	public final UmfeldDatenSensorWert getMaxAbweichung(){
+	public final UmfeldDatenSensorWert getMaxAbweichung() {
 		return this.maxAbweichung;
 	}
-	
-	
+
 	/**
-	 * Erfragt die maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
-	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall
-	 *  
+	 * Erfragt die maximal zulässige (zeitliche) Abweichung der Werte des
+	 * Sensors im Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
+	 * 
 	 * @return maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
-	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall (int ms)
+	 *         Vergleich zu den Nachbarsensoren über das Vergleichsintervall
+	 *         (int ms)
 	 */
-	public final long getMaxAbweichungZeit(){
+	public final long getMaxAbweichungZeit() {
 		return this.maxAbweichungZeit;
-		//		return 15L *  Konstante.MINUTE_IN_MS;
+		// return 15L * Konstante.MINUTE_IN_MS;
 	}
-	
-	
+
 	/**
 	 * Erfragt, ob dieses Objekt sinnvolle Daten enthaelt (bzw. ob es schon
 	 * initialisiert wurde)
 	 * 
 	 * @return ob dieses Objekt sinnvolle Daten enthaelt
 	 */
-	public final boolean isValid(){
+	public final boolean isValid() {
 		return vergleichsIntervall != null;
 	}
-	
+
 }

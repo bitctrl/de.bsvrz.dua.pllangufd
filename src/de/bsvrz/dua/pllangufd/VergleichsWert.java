@@ -26,91 +26,87 @@
 
 package de.bsvrz.dua.pllangufd;
 
-
 /**
- * Diese Klasse repraesentiert das aktuelle Datum eines Umfelddatensensors
- * mit dem Vergleichswert der Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6, S.108)
- *  
+ * Diese Klasse repraesentiert das aktuelle Datum eines Umfelddatensensors mit
+ * dem Vergleichswert der Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6,
+ * S.108).
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class VergleichsWert {  
-	
+public class VergleichsWert {
+
 	/**
-	 * der Vergleichswert
+	 * der Vergleichswert.
 	 */
 	private double vergleichsWert = Double.NaN;
 
 	/**
-	 * der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
+	 * der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h.
 	 */
 	private double vergleichsWert24 = Double.NaN;
-		
-	
+
 	/**
-	 * Setzt den Vergleichswert der Pl-Pruefung langzeit UFD
-	 * nach Afo-4.0 (6.6.2.4.7.6, S.108)
+	 * Setzt den Vergleichswert der Pl-Pruefung langzeit UFD nach Afo-4.0
+	 * (6.6.2.4.7.6, S.108).
 	 * 
-	 * @param vergleichsWert der Vergleichswert
+	 * @param vergleichsWert
+	 *            der Vergleichswert
 	 */
-	public final void setVergleichsWert(double vergleichsWert){
-		this.vergleichsWert = vergleichsWert;		
+	public final void setVergleichsWert(double vergleichsWert) {
+		this.vergleichsWert = vergleichsWert;
 	}
-	
-	
+
 	/**
-	 * Setzt den Vergleichswert fuer einen Bezugszeitraum von 24h
-	 * der Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6, S.108)
+	 * Setzt den Vergleichswert fuer einen Bezugszeitraum von 24h der
+	 * Pl-Pruefung langzeit UFD nach Afo-4.0 (6.6.2.4.7.6, S.108).
 	 * 
-	 * @param vergleichsWert24 der Vergleichswert berechnet fuer einen
-	 * Bezugszeitraum von 24h
+	 * @param vergleichsWert24
+	 *            der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
 	 */
-	public final void setVergleichsWert24(double vergleichsWert24){
-		this.vergleichsWert24 = vergleichsWert24;		
+	public final void setVergleichsWert24(double vergleichsWert24) {
+		this.vergleichsWert24 = vergleichsWert24;
 	}
-	
-	
+
 	/**
-	 * Erfragt, ob der Vergleichswert schon gesetzt wurde
+	 * Erfragt, ob der Vergleichswert schon gesetzt wurde.
 	 * 
 	 * @return ob der Vergleichswert schon gesetzt wurde
 	 */
-	public final boolean isValid(){
+	public final boolean isValid() {
 		return !Double.isNaN(this.vergleichsWert);
 	}
-	
-	
+
 	/**
-	 * Erfragt, ob der Vergleichswert fuer den Bezugszeitraum von 24h 
-	 * schon gesetzt wurde
+	 * Erfragt, ob der Vergleichswert fuer den Bezugszeitraum von 24h schon
+	 * gesetzt wurde.
 	 * 
-	 * @return ob der Vergleichswert fuer den Bezugszeitraum von 24h 
-	 * schon gesetzt wurde
+	 * @return ob der Vergleichswert fuer den Bezugszeitraum von 24h schon
+	 *         gesetzt wurde
 	 */
-	public final boolean isValid24(){
+	public final boolean isValid24() {
 		return !Double.isNaN(this.vergleichsWert24);
 	}
-	
-	
+
 	/**
-	 * Erfragt den Vergleichswert fuer die Pl-Pruefung langzeit UFD 
+	 * Erfragt den Vergleichswert fuer die Pl-Pruefung langzeit UFD.
 	 * 
 	 * @return der Vergleichswert fuer die Pl-Pruefung langzeit UFD
 	 */
-	public final double getVergleichsWert(){
+	public final double getVergleichsWert() {
 		return this.vergleichsWert;
 	}
-	
-	
+
 	/**
-	 * Erfragt den Vergleichswert berechnet fuer einen
-	 * Bezugszeitraum von 24h fuer die Pl-Pruefung langzeit UFD 
+	 * Erfragt den Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
+	 * fuer die Pl-Pruefung langzeit UFD.
 	 * 
-	 * @return der Vergleichswert berechnet fuer einen
-	 * Bezugszeitraum von 24h fuer die Pl-Pruefung langzeit UFD
+	 * @return der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
+	 *         fuer die Pl-Pruefung langzeit UFD
 	 */
-	public final double getVergleichsWert24(){
+	public final double getVergleichsWert24() {
 		return this.vergleichsWert24;
 	}
-	
+
 }

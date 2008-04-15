@@ -1,5 +1,5 @@
 /**
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Pruefung langzeit UFD
  * Copyright (C) 2007 BitCtrl Systems GmbH 
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -37,15 +37,14 @@ import de.bsvrz.dua.pllangufd.VergleichsEreignisWerte;
 /**
  * Assoziator fuer eine Menge von NS-Sensoren der Art:<br>
  * Hauptsensor, Vorgaenger, Nachfolger,<br>
- * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD 
- * ueberprueft wird
+ * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD ueberprueft wird.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
+ * @version $Id$
  */
-public class PlLang_Ns_SensorMenge 
-extends AbstraktPlLangEreignisSensorMenge{
-	
+public class PlLangNsSensorMenge extends AbstraktPlLangEreignisSensorMenge {
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -54,14 +53,13 @@ extends AbstraktPlLangEreignisSensorMenge{
 		return NiederschlagsEreignis.getInstanzen();
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
 			SystemObject objekt) {
-		return PlLang_Ns_Sensor.getInstanz(DAV, objekt);
+		return PlLangNsSensor.getInstanz(derDav, objekt);
 	}
-	
+
 }

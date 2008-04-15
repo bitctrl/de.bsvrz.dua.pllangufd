@@ -1,21 +1,24 @@
 #!/bin/bash
 
+# In das Verzeichnis des Skripts wechseln, damit relative Pfade funktionieren
+cd `dirname $0`
+
 source ../../../skripte-bash/einstellungen.sh
 
 ################################################################################
-# SWE-Spezifische Parameter	(überprüfen und anpassen)                          #
+# SWE-Spezifische Parameter	(ï¿½berprï¿½fen und anpassen)                          #
 ################################################################################
 
 kb="KonfigurationsBereichsPid="
 
 ################################################################################
-# Folgende Parameter müssen überprüft und evtl. angepasst werden               #
+# Folgende Parameter mï¿½ssen ï¿½berprï¿½ft und evtl. angepasst werden               #
 ################################################################################
 
-# Parameter für den Java-Interpreter, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
+# Parameter fï¿½r den Java-Interpreter, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
 #jvmArgs="-Dfile.encoding=ISO-8859-1"
 
-# Parameter für den Datenverteiler, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
+# Parameter fï¿½r den Datenverteiler, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
 #dav1="-datenverteiler=localhost:8083 -benutzer=Tester -authentifizierung=passwd -debugFilePath=.."
 
 ################################################################################

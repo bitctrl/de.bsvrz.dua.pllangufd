@@ -48,12 +48,7 @@ import de.bsvrz.sys.funclib.debug.Debug;
  */
 public class HistorischerDatenpuffer<G extends HistPufferElement>
 implements Iterable<G>{
-	
-	/**
-	 * Debug-Logger
-	 */
-	private static final Debug LOGGER = Debug.getLogger();
-	
+		
 	/**
 	 * nach Zeitstempeln sortierter Datenpuffer
 	 */
@@ -90,7 +85,7 @@ implements Iterable<G>{
 	 */
 	public final void addDatum(final G datum){
 		if(this.intervallLaenge == Long.MIN_VALUE){
-			LOGGER.error("Der historische Datenpuffer wurde noch nicht mit" + //$NON-NLS-1$
+			Debug.getLogger().error("Der historische Datenpuffer wurde noch nicht mit" + //$NON-NLS-1$
 					" einem maximalen Zeitintervall initialisiert.\n" + //$NON-NLS-1$
 					"Das Datum wird abgewiesen: " + datum); //$NON-NLS-1$
 		}else{

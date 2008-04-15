@@ -91,7 +91,7 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
 			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
-					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit, nutzDaten));
 		}
 		
@@ -102,7 +102,7 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
 			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
-					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 15L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
@@ -113,7 +113,7 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
 			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
-					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 30L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
@@ -124,7 +124,7 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
 			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
-					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 45L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 
@@ -135,7 +135,7 @@ implements ClientSenderInterface{
 					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG),
 					(short)0);
 			Data nutzDaten = getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE, 
-					datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)?0:1);
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)?0:1);
 			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + 60L * Constants.MILLIS_PER_MINUTE, nutzDaten));
 		}
 

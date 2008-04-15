@@ -44,6 +44,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.dfs.typen.SWETyp;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
+import de.bsvrz.sys.funclib.debug.Debug;
 
 /**
  * Das Modul Verwaltung ist die zentrale Steuereinheit der SWE PL-Prüfung Langzeit UFD.
@@ -76,13 +77,13 @@ extends AbstraktVerwaltungsAdapter{
 		for(SystemObject obj:this.objekte){
 			infoStr += obj + "\n"; //$NON-NLS-1$
 		}
-		LOGGER.config("---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
+		Debug.getLogger().config("---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		Set<UmfeldDatenArt> ni_wfd_sw_lt = new HashSet<UmfeldDatenArt>();
-		ni_wfd_sw_lt.add(UmfeldDatenArt.NI);
-		ni_wfd_sw_lt.add(UmfeldDatenArt.WFD);
-		ni_wfd_sw_lt.add(UmfeldDatenArt.SW);
-		ni_wfd_sw_lt.add(UmfeldDatenArt.LT);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.ni);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.wfd);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.sw);
+		ni_wfd_sw_lt.add(UmfeldDatenArt.lt);
 		/**
 		 * Instanziierung
 		 */
@@ -95,13 +96,13 @@ extends AbstraktVerwaltungsAdapter{
 				}
 			}
 			
-			DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle, UmfeldDatenArt.NS);
+			DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle, UmfeldDatenArt.ns);
 			if(sensorenNS[0] != null && sensorenNS[1] != null && sensorenNS[2] != null){
 				PlLang_Ns_SensorMenge sensorMenge = new PlLang_Ns_SensorMenge();
 				sensorMenge.initialisiere(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
 			}
 
-			DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle, UmfeldDatenArt.FBZ);
+			DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle, UmfeldDatenArt.fbz);
 			if(sensorenFBZ[0] != null && sensorenFBZ[1] != null && sensorenFBZ[2] != null){
 				PlLang_Fbz_SensorMenge sensorMenge = new PlLang_Fbz_SensorMenge();
 				sensorMenge.initialisiere(this.verbindung, messStelle, sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
@@ -187,7 +188,7 @@ extends AbstraktVerwaltungsAdapter{
         				UncaughtExceptionHandler(){
             public void uncaughtException(@SuppressWarnings("unused")
 			Thread t, Throwable e) {
-                LOGGER.error("Applikation wird wegen" +  //$NON-NLS-1$
+            	Debug.getLogger().error("Applikation wird wegen" +  //$NON-NLS-1$
                 		" unerwartetem Fehler beendet", e);  //$NON-NLS-1$
             	e.printStackTrace();
                 Runtime.getRuntime().exit(0);

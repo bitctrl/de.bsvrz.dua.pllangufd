@@ -136,7 +136,7 @@ implements ClientSenderInterface{
 				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
 		nutzDatum.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
 		nutzDatum.getTimeValue("maxAusfallZeit").setMillis(maxAusfallZeit); //$NON-NLS-1$
-		if(datenArt.equals(UmfeldDatenArt.NS) || datenArt.equals(UmfeldDatenArt.FBZ)){
+		if(datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)){
 			
 			
 			

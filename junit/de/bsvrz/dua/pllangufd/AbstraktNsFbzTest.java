@@ -551,11 +551,12 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i15min, 0);
 		nSender.sende(new ResultData(nSender.getObjekt(),
 				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+		DAVTest.getDav().disconnect(false, "Ok.");
 
 	}
 
 	/**
-	 * Erfragt die Datenbeschreibung der Onlinedaten dieses Systemobjekts
+	 * Erfragt die Datenbeschreibung der Onlinedaten dieses Systemobjekts.
 	 * 
 	 * @param objekt
 	 *            SystemObjekt

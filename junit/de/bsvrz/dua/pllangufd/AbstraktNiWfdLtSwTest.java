@@ -138,11 +138,11 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
 						+ //$NON-NLS-1$
-						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:15 - 01.01.1970 08:15 (1 Stunde) ab.",//$NON-NLS-1$
+						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:15 - 01.01.1970 08:15 (1 Stunde) ab.",
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
 						+ //$NON-NLS-1$
-						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:30 - 01.01.1970 08:30 (1 Stunde) ab.",//$NON-NLS-1$				
+						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:30 - 01.01.1970 08:30 (1 Stunde) ab.",				
 				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
 						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden,"
 						+ //$NON-NLS-1$
@@ -439,6 +439,8 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
 				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+
+		DAVTest.getDav().disconnect(false, "Ok.");
 	}
 
 	/**

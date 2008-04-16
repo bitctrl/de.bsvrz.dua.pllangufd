@@ -6,20 +6,26 @@ cd `dirname $0`
 source ../../../skripte-bash/einstellungen.sh
 
 ################################################################################
-# SWE-Spezifische Parameter	(ï¿½berprï¿½fen und anpassen)                          #
+# SWE-Spezifische Parameter	(überprüfen und anpassen)                          #
 ################################################################################
 
 kb="KonfigurationsBereichsPid="
 
 ################################################################################
-# Folgende Parameter mï¿½ssen ï¿½berprï¿½ft und evtl. angepasst werden               #
+# Folgende Parameter müssen überprüft und evtl. angepasst werden               #
 ################################################################################
 
-# Parameter fï¿½r den Java-Interpreter, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
+# Parameter für den Java-Interpreter, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
 #jvmArgs="-Dfile.encoding=ISO-8859-1"
 
-# Parameter fï¿½r den Datenverteiler, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
+# Parameter für den Datenverteiler, als Standard werden die Einstellungen aus # einstellungen.sh verwendet.
 #dav1="-datenverteiler=localhost:8083 -benutzer=Tester -authentifizierung=passwd -debugFilePath=.."
+
+jconPort="10413"
+
+if [ "$testlauf" ]; then
+	jvmArgs=$jvmArgs" -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port="$jconPort" -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+fi
 
 ################################################################################
 # Ab hier muss nichts mehr angepasst werden                                    #

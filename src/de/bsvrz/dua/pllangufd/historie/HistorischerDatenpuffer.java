@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.historie;
 
 import java.util.ArrayList;
@@ -33,8 +32,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import de.bsvrz.sys.funclib.debug.Debug;
 
 /**
  * Speichert eine Menge von Datensaetzen, die innerhalb eines bestimmten
@@ -45,7 +42,8 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @param <G> Pufferelement
+ * @param <G>
+ *            Pufferelement
  * 
  * @version $Id$
  */
@@ -87,12 +85,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 *            das Datum
 	 */
 	public final void addDatum(final G datum) {
-		if (this.intervallLaenge == Long.MIN_VALUE) {
-			Debug.getLogger().error(
-					"Der historische Datenpuffer wurde noch nicht mit" + //$NON-NLS-1$
-							" einem maximalen Zeitintervall initialisiert.\n" + //$NON-NLS-1$
-							"Das Datum wird abgewiesen: " + datum); //$NON-NLS-1$
-		} else {
+		if (this.intervallLaenge >= Long.MIN_VALUE) {
 			synchronized (this.puffer) {
 				this.puffer.add(datum);
 			}

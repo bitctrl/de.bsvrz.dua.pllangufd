@@ -32,7 +32,7 @@ fi
 ################################################################################
 
 # Applikation starten
-java $jvmArgs -jar ../de.bsvrz.dua.pllangufd-runtime.jar \
+$java $jvmArgs -jar ../de.bsvrz.dua.pllangufd-runtime.jar \
 	$dav1 \
 	$kb \
 	-debugLevelFileText=all \

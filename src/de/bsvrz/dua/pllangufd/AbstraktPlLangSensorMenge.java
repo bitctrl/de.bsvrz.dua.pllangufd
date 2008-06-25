@@ -182,10 +182,10 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
 				MessageSender nachrichtenSender = MessageSender.getInstance();
 				nachrichtenSender.sendMessage(MessageType.APPLICATION_DOMAIN,
-						zusatz, MessageGrade.WARNING, objekt,
+						null, MessageGrade.WARNING, objekt,
 						new MessageCauser(derDav.getLocalUser(),
 								Constants.EMPTY_STRING,
-								"Pl-Prüfung langzeit UFD"), //$NON-NLS-1$
+								"Pl-Prüfung langzeit UFD " + zusatz), //$NON-NLS-1$
 						nachricht);
 			}
 		}

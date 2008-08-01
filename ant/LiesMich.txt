@@ -20,17 +20,17 @@ den Operator als Betriebsmeldung ausgegeben.
 Versionsgeschichte
 ==================
 
-1.0.0
+1.2.0
 
-  - Erste Auslieferung
+  - Bash-Startskript hinzu
 
 1.1.0
 
   - Hinzufuegen von Skripten zur Konsolenausfuehrung von JUnit-Tests
+  
+1.0.0
 
-1.1.1
-
-  - Bash-Startskript hinzu
+  - Erste Auslieferung
   
 Bemerkungen
 ===========

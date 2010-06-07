@@ -83,8 +83,7 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 		DataDescription parameterBeschreibung = new DataDescription(
 				dav.getDataModel().getAttributeGroup(
 						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
-				dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL),
-				(short) 0);
+				dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL));
 		dav.subscribeReceiver(this, objekt, parameterBeschreibung,
 				ReceiveOptions.normal(), ReceiverRole.receiver());
 	}

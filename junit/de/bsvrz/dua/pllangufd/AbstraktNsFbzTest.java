@@ -572,7 +572,7 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 				.getDav().getDataModel().getAttributeGroup(
 						"atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 				DAVTest.getDav().getDataModel().getAspect(
-						DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+						DUAKonstanten.ASP_MESSWERTERSETZUNG));
 
 		return datenBeschreibung;
 	}

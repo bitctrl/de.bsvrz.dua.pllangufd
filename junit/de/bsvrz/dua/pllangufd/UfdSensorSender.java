@@ -96,7 +96,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 			DataDescription dd = new DataDescription(dav.getDataModel()
 					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+							DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			Data nutzDaten = getSensorDatum(sender.getObjekt(),
 					15L * Constants.MILLIS_PER_MINUTE, datenArt
 							.equals(UmfeldDatenArt.ns)
@@ -111,7 +111,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 			DataDescription dd = new DataDescription(dav.getDataModel()
 					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+							DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			Data nutzDaten = getSensorDatum(sender.getObjekt(),
 					15L * Constants.MILLIS_PER_MINUTE, datenArt
 							.equals(UmfeldDatenArt.ns)
@@ -126,7 +126,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 			DataDescription dd = new DataDescription(dav.getDataModel()
 					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+							DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			Data nutzDaten = getSensorDatum(sender.getObjekt(),
 					15L * Constants.MILLIS_PER_MINUTE, datenArt
 							.equals(UmfeldDatenArt.ns)
@@ -141,7 +141,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 			DataDescription dd = new DataDescription(dav.getDataModel()
 					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+							DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			Data nutzDaten = getSensorDatum(sender.getObjekt(),
 					15L * Constants.MILLIS_PER_MINUTE, datenArt
 							.equals(UmfeldDatenArt.ns)
@@ -156,7 +156,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 			DataDescription dd = new DataDescription(dav.getDataModel()
 					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+							DUAKonstanten.ASP_MESSWERTERSETZUNG));
 			Data nutzDaten = getSensorDatum(sender.getObjekt(),
 					15L * Constants.MILLIS_PER_MINUTE, datenArt
 							.equals(UmfeldDatenArt.ns)
@@ -204,7 +204,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 		DataDescription dd = new DataDescription(dav.getDataModel()
 				.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 				dav.getDataModel().getAspect(
-						DUAKonstanten.ASP_MESSWERTERSETZUNG), (short) 0);
+						DUAKonstanten.ASP_MESSWERTERSETZUNG));
 		dav.subscribeSender(this, objekt, dd, SenderRole.source());
 	}
 

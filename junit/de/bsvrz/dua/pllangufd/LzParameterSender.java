@@ -105,7 +105,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 				.getAttributeGroup(
 						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
 				dav.getDataModel().getAspect(
-						DaVKonstanten.ASP_PARAMETER_VORGABE), (short) 0);
+						DaVKonstanten.ASP_PARAMETER_VORGABE));
 
 		try {
 			dav.subscribeSender(this, obj, dd, SenderRole.sender());
@@ -137,7 +137,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 				.getAttributeGroup(
 						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
 				sDAV.getDataModel().getAspect(
-						DaVKonstanten.ASP_PARAMETER_VORGABE), (short) 0);
+						DaVKonstanten.ASP_PARAMETER_VORGABE));
 
 		Data nutzDatum = sDAV.createData(sDAV.getDataModel().getAttributeGroup(
 				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$

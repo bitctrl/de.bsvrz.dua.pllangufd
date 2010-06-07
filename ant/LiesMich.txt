@@ -20,6 +20,11 @@ den Operator als Betriebsmeldung ausgegeben.
 Versionsgeschichte
 ==================
 
+1.2.1
+
+  - Sämtliche Konstruktoren DataDescription(atg, asp, sim)
+    ersetzt durch DataDescription(atg, asp)
+
 1.2.0
 
   - Bash-Startskript hinzu

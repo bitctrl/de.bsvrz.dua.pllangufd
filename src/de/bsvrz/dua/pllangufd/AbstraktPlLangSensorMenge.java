@@ -35,12 +35,15 @@ import com.bitctrl.Constants;
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
+import de.bsvrz.sys.funclib.bitctrl.daf.BetriebsmeldungDaten;
+import de.bsvrz.sys.funclib.bitctrl.daf.DefaultBetriebsMeldungsIdKonverter;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.IOnlineUfdSensorListener;
 import de.bsvrz.sys.funclib.operatingMessage.MessageCauser;
 import de.bsvrz.sys.funclib.operatingMessage.MessageGrade;
 import de.bsvrz.sys.funclib.operatingMessage.MessageSender;
+import de.bsvrz.sys.funclib.operatingMessage.MessageState;
 import de.bsvrz.sys.funclib.operatingMessage.MessageType;
 
 /**
@@ -50,12 +53,15 @@ import de.bsvrz.sys.funclib.operatingMessage.MessageType;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @param <G> Art
+ * @param <G>
+ *            Art
  * 
  * @version $Id$
  */
 public abstract class AbstraktPlLangSensorMenge<G> implements
 		IOnlineUfdSensorListener<ResultData> {
+
+	private static final DefaultBetriebsMeldungsIdKonverter KONVERTER = new DefaultBetriebsMeldungsIdKonverter();
 
 	/**
 	 * <code>Langzeit-Pl-Prüfung</code>.
@@ -159,8 +165,8 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 
 	/**
 	 * Sendet eine Betriebsmeldung als Warnung an den Operator. <br>
-	 * <b>Achtung:</b> Es koennen nur zwei unterschiedliche Nachrichten in
-	 * Folge versendet werden (Zeitstempel)
+	 * <b>Achtung:</b> Es koennen nur zwei unterschiedliche Nachrichten in Folge
+	 * versendet werden (Zeitstempel)
 	 * 
 	 * @param objekt
 	 *            das betroffene Systemobjekt
@@ -181,8 +187,10 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 
 				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
 				MessageSender nachrichtenSender = MessageSender.getInstance();
-				nachrichtenSender.sendMessage(MessageType.APPLICATION_DOMAIN,
-						null, MessageGrade.WARNING, objekt,
+				nachrichtenSender.sendMessage(KONVERTER.konvertiere(
+						new BetriebsmeldungDaten(objekt), null, new Object[0]),
+						MessageType.APPLICATION_DOMAIN, null,
+						MessageGrade.WARNING, objekt, MessageState.MESSAGE,
 						new MessageCauser(derDav.getLocalUser(),
 								Constants.EMPTY_STRING,
 								"Pl-Prüfung langzeit UFD " + zusatz), //$NON-NLS-1$

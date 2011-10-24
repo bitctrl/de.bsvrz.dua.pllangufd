@@ -20,6 +20,11 @@ den Operator als Betriebsmeldung ausgegeben.
 Versionsgeschichte
 ==================
 
+1.2.2
+
+  - Senden von reinen Betriebsmeldungen in DUA um die Umsetzung von Objekt-PID/ID nach
+    Betriebsmeldungs-ID erweitert.  
+
 1.2.1
 
   - Sämtliche Konstruktoren DataDescription(atg, asp, sim)

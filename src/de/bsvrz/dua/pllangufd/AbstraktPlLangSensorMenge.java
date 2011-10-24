@@ -187,6 +187,7 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 
 				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
 				MessageSender nachrichtenSender = MessageSender.getInstance();
+				nachrichtenSender.setApplicationLabel("PL-Langzeit UFD");
 				nachrichtenSender.sendMessage(KONVERTER.konvertiere(
 						new BetriebsmeldungDaten(objekt), null, new Object[0]),
 						MessageType.APPLICATION_DOMAIN, null,

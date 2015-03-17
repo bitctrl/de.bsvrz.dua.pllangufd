@@ -26,18 +26,21 @@
 
 package de.bsvrz.dua.pllangufd.rest;
 
+import org.junit.Ignore;
+
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktNiWfdLtSwTest;
 import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
- * Testet auf Versenden von Betriebsmeldungen fuer WFD-Sensoren.
+ * Testet auf Versenden von Betriebsmeldungen fuer NI-Sensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
  * @version $Id$
  */
-public class WfdTest extends AbstraktNiWfdLtSwTest {
+@Ignore ("Datenverteilerverbindung prüfen")
+public class NiTest extends AbstraktNiWfdLtSwTest {
 
 	/**
 	 * {@inheritDoc}
@@ -45,7 +48,7 @@ public class WfdTest extends AbstraktNiWfdLtSwTest {
 	@Override
 	protected SystemObject getNachfolger() throws Exception {
 		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.nachfolger.wfd"); //$NON-NLS-1$;
+				"ufdSensor.nachfolger.ni"); //$NON-NLS-1$;
 	}
 
 	/**
@@ -54,7 +57,7 @@ public class WfdTest extends AbstraktNiWfdLtSwTest {
 	@Override
 	protected SystemObject getPruefling() throws Exception {
 		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.pruefling.wfd"); //$NON-NLS-1$;
+				"ufdSensor.pruefling.ni"); //$NON-NLS-1$;
 	}
 
 	/**
@@ -63,7 +66,7 @@ public class WfdTest extends AbstraktNiWfdLtSwTest {
 	@Override
 	protected SystemObject getVorgaenger() throws Exception {
 		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.vorgaenger.wfd"); //$NON-NLS-1$;
+				"ufdSensor.vorgaenger.ni"); //$NON-NLS-1$;
 	}
 
 	/**
@@ -71,7 +74,7 @@ public class WfdTest extends AbstraktNiWfdLtSwTest {
 	 */
 	@Override
 	protected long getMaxAbweichung() {
-		return 100;
+		return 10;
 	}
 
 }

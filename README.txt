@@ -2,7 +2,7 @@
 *  Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 Pl-Prüfung langzeit UFD  *
 ***************************************************************************************
 
-Version: @Version@
+Version: 1.3.0
 
 
 Übersicht
@@ -19,6 +19,9 @@ den Operator als Betriebsmeldung ausgegeben.
 
 Versionsgeschichte
 ==================
+
+1.3.0
+- Umstellung auf Maven-Build
 
 1.2.2
 

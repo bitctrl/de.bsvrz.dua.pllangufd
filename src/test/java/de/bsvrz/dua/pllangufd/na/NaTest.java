@@ -24,20 +24,23 @@
  * mailto: info@bitctrl.de
  */
 
-package de.bsvrz.dua.pllangufd.rest;
+package de.bsvrz.dua.pllangufd.na;
+
+import org.junit.Ignore;
 
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.dua.pllangufd.AbstraktNiWfdLtSwTest;
+import de.bsvrz.dua.pllangufd.AbstraktNsFbzTest;
 import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
- * Testet auf Versenden von Betriebsmeldungen fuer NI-Sensoren.
+ * Testet auf Versenden von Betriebsmeldungen fuer NA-Sensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
  * @version $Id$
  */
-public class NiTest extends AbstraktNiWfdLtSwTest {
+@Ignore ("Testdatenverteiler prüfen")
+public class NaTest extends AbstraktNsFbzTest {
 
 	/**
 	 * {@inheritDoc}
@@ -45,7 +48,7 @@ public class NiTest extends AbstraktNiWfdLtSwTest {
 	@Override
 	protected SystemObject getNachfolger() throws Exception {
 		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.nachfolger.ni"); //$NON-NLS-1$;
+				"ufdSensor.nachfolger.ns"); //$NON-NLS-1$;
 	}
 
 	/**
@@ -54,7 +57,7 @@ public class NiTest extends AbstraktNiWfdLtSwTest {
 	@Override
 	protected SystemObject getPruefling() throws Exception {
 		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.pruefling.ni"); //$NON-NLS-1$;
+				"ufdSensor.pruefling.ns"); //$NON-NLS-1$;
 	}
 
 	/**
@@ -63,15 +66,7 @@ public class NiTest extends AbstraktNiWfdLtSwTest {
 	@Override
 	protected SystemObject getVorgaenger() throws Exception {
 		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.vorgaenger.ni"); //$NON-NLS-1$;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected long getMaxAbweichung() {
-		return 10;
+				"ufdSensor.vorgaenger.ns"); //$NON-NLS-1$;
 	}
 
 }

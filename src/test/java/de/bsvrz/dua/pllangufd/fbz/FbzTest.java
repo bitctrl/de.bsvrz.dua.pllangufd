@@ -26,6 +26,8 @@
 
 package de.bsvrz.dua.pllangufd.fbz;
 
+import org.junit.Ignore;
+
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktNsFbzTest;
 import de.bsvrz.dua.pllangufd.DAVTest;
@@ -37,6 +39,7 @@ import de.bsvrz.dua.pllangufd.DAVTest;
  * 
  * @version $Id$
  */
+@Ignore ("Testdatenverteiler prüfen")
 public class FbzTest extends AbstraktNsFbzTest {
 
 	/**

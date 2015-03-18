@@ -26,6 +26,7 @@
 
 package de.bsvrz.dua.pllangufd;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -217,8 +218,9 @@ public final class UfdSensorSender implements ClientSenderInterface {
 	public void sende(ResultData resultat) {
 		try {
 			DAVTest.getDav().sendData(resultat);
+			final SimpleDateFormat dateFormat = new SimpleDateFormat(DUAKonstanten.ZEIT_FORMAT_GENAU_STR);
 			System.out
-					.println(DUAKonstanten.ZEIT_FORMAT_GENAU.format(new Date(
+					.println(dateFormat.format(new Date(
 							resultat.getDataTime()))
 							+ ", " + //$NON-NLS-1$ 
 							resultat.getObject().getPid()

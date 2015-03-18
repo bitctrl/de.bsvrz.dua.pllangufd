@@ -87,7 +87,7 @@ public final class DAVTest {
 
 		if (dieVerbindung == null) {
 
-			String[] conDataApp = new String[CON_DATA.length + 1];
+			final String[] conDataApp = new String[CON_DATA.length + 1];
 			int i = 0;
 			for (String str : CON_DATA) {
 				conDataApp[i++] = new String(str.getBytes());
@@ -96,14 +96,14 @@ public final class DAVTest {
 
 			StandardApplicationRunner.run(new StandardApplication() {
 
-				public void initialize(ClientDavInterface connection)
+				public void initialize(final ClientDavInterface connection)
 						throws Exception {
 					DAVTest.dieVerbindung = connection;
 					UmfeldDatenArt.initialisiere(dieVerbindung);
 					UfdSensorSender.initialisiere(dieVerbindung, START_ZEIT);
 				}
 
-				public void parseArguments(ArgumentList argumentList)
+				public void parseArguments(final ArgumentList argumentList)
 						throws Exception {
 					//
 				}

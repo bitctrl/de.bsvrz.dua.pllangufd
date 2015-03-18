@@ -55,7 +55,7 @@ public abstract class AbstraktPlLangEreignisSensor extends
 	@Override
 	public VergleichsEreignisWerte getAktuellenVergleichsWert(
 			final UfdsLangZeitPlPruefungsParameter parameter,
-			long aktuellerZeitStempel) {
+			final long aktuellerZeitStempel) {
 		VergleichsEreignisWerte ergebnis = null;
 
 		synchronized (this) {
@@ -67,9 +67,9 @@ public abstract class AbstraktPlLangEreignisSensor extends
 				 * berechne Vergleichswerte fuer parametriertes
 				 * Vergleichsintervall
 				 */
-				long intervallAnfang = aktuellerZeitStempel
+				final long intervallAnfang = aktuellerZeitStempel
 						- parameter.getVergleichsIntervall().getMillis();
-				SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
+				final SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
 						.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
 
 				if (!historieVergleich.isEmpty()) {
@@ -79,9 +79,9 @@ public abstract class AbstraktPlLangEreignisSensor extends
 				/**
 				 * berechne Vergleichswerte fuer letzte 24h
 				 */
-				long intervallAnfang24 = aktuellerZeitStempel
+				final long intervallAnfang24 = aktuellerZeitStempel
 						- Constants.MILLIS_PER_DAY;
-				SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
+				final SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
 						.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 
 				if (!historieVergleich24.isEmpty()) {
@@ -109,9 +109,9 @@ public abstract class AbstraktPlLangEreignisSensor extends
 	 *            Ausfallzeit
 	 */
 	protected final void setVergleichsWerte(final boolean intervall24,
-			SortedSet<HistorischerUfdsWert> historischeWerte,
-			VergleichsEreignisWerte vergleichsEreignisWerte) {
-		Map<AbstraktEreignis, Double> ergebnisse = new HashMap<AbstraktEreignis, Double>();
+			final SortedSet<HistorischerUfdsWert> historischeWerte,
+			final VergleichsEreignisWerte vergleichsEreignisWerte) {
+		final Map<AbstraktEreignis, Double> ergebnisse = new HashMap<AbstraktEreignis, Double>();
 		long datenzeitGesamt = 0;
 
 		for (HistorischerUfdsWert historischerWert : historischeWerte) {
@@ -121,7 +121,7 @@ public abstract class AbstraktPlLangEreignisSensor extends
 				for (AbstraktEreignis ereignis : this.getEreignisInstanzen()) {
 					if (ereignis.isZustandInEreignis((int) historischerWert
 							.getWert().getWert())) {
-						Double ergebnisWert = ergebnisse.get(ereignis);
+						final Double ergebnisWert = ergebnisse.get(ereignis);
 						if (ergebnisWert == null) {
 							ergebnisse.put(ereignis, new Double(
 									historischerWert.getT()));

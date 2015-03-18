@@ -47,7 +47,7 @@ public class HistorischerDatenpufferTest {
 	 */
 	@Test
 	public void testAddDatum() throws Exception {
-		HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
+		final HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
 
 		Assert.assertEquals("1", 0, puffer.getPufferInhalt().size()); //$NON-NLS-1$
 		Assert.assertEquals("2", 0, puffer.getPufferInhalt(10).size()); //$NON-NLS-1$
@@ -178,13 +178,13 @@ public class HistorischerDatenpufferTest {
 		puffer.addDatum(new HistPufferElement(63));
 		puffer.addDatum(new HistPufferElement(64));
 
-		long[] werte = new long[] { 64, 63, 62, 61, 60 };
+		final long[] werte = new long[] { 64, 63, 62, 61, 60 };
 		int i = 0;
 		for (HistPufferElement elem : puffer) {
 			Assert.assertEquals(werte[i++], elem.getZeitStempel());
 		}
 
-		long[] werte2 = new long[] { 64, 63, 62 };
+		final long[] werte2 = new long[] { 64, 63, 62 };
 		i = 0;
 		for (HistPufferElement elem : puffer.getPufferInhalt(2)) {
 			Assert.assertEquals(werte2[i++], elem.getZeitStempel());
@@ -200,7 +200,7 @@ public class HistorischerDatenpufferTest {
 	 */
 	@Test
 	public void testGetTeilMenge() throws Exception {
-		HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
+		final HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
 
 		Assert.assertEquals(0, puffer.getPufferInhalt().size());
 		Assert.assertEquals(0, puffer.getPufferInhalt(10).size());

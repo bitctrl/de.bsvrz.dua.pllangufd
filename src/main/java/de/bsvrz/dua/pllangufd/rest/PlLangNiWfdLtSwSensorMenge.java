@@ -56,21 +56,21 @@ public class PlLangNiWfdLtSwSensorMenge extends
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiereDaten(ResultData datum) {
+	public void aktualisiereDaten(final ResultData datum) {
 		synchronized (this) {
-			VergleichsWert aktuellesSensorDatum = this.prueflingSensor
+			final VergleichsWert aktuellesSensorDatum = this.prueflingSensor
 					.getAktuellenVergleichsWert(prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
 
-			VergleichsWert aktuellesNachfolgerDatum = this.nachfolgerSensor
+			final VergleichsWert aktuellesNachfolgerDatum = this.nachfolgerSensor
 					.getAktuellenVergleichsWert(prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
 
-			VergleichsWert aktuellesVorgaengerDatum = this.vorgaengerSensor
+			final VergleichsWert aktuellesVorgaengerDatum = this.vorgaengerSensor
 					.getAktuellenVergleichsWert(prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
 
-			UfdsLangZeitPlPruefungsParameter parameter = this.prueflingSensor
+			final UfdsLangZeitPlPruefungsParameter parameter = this.prueflingSensor
 					.getAktuelleParameter();
 
 			if (parameter != null && parameter.isValid()
@@ -78,14 +78,14 @@ public class PlLangNiWfdLtSwSensorMenge extends
 
 				if (datum.getDataTime() - this.prueflingSensor.getAktivSeit() >= Constants.MILLIS_PER_DAY) {
 
-					double abweichung24 = this.getAbweichung(true,
+					final double abweichung24 = this.getAbweichung(true,
 							aktuellesSensorDatum, aktuellesVorgaengerDatum,
 							aktuellesNachfolgerDatum);
 					if (!Double.isNaN(abweichung24)) {
 						synchronized (this) {
 							if (abweichung24 > parameter.getMaxAbweichung()
 									.getSkaliertenWert()) {
-								String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT
+								final String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT
 										.format(new Date(datum.getDataTime()
 												- Constants.MILLIS_PER_DAY))
 										+ " - " + //$NON-NLS-1$
@@ -130,14 +130,14 @@ public class PlLangNiWfdLtSwSensorMenge extends
 					}
 				}
 
-				double abweichung = this.getAbweichung(false,
+				final double abweichung = this.getAbweichung(false,
 						aktuellesSensorDatum, aktuellesVorgaengerDatum,
 						aktuellesNachfolgerDatum);
 				if (!Double.isNaN(abweichung)) {
 					synchronized (this) {
 						if (abweichung > parameter.getMaxAbweichung()
 								.getSkaliertenWert()) {
-							String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT
+							final String vergleichsZeitBereich = DUAKonstanten.BM_ZEIT_FORMAT
 									.format(new Date(datum.getDataTime()
 											- parameter
 													.getVergleichsIntervall()
@@ -208,9 +208,9 @@ public class PlLangNiWfdLtSwSensorMenge extends
 	 * @return die Abweichung analog Afo-4.0, S.108
 	 */
 	private synchronized double getAbweichung(final boolean intervall24,
-			VergleichsWert aktuellesSensorDatum,
-			VergleichsWert aktuellesVorgaengerDatum,
-			VergleichsWert aktuellesNachfolgerDatum) {
+			final VergleichsWert aktuellesSensorDatum,
+			final VergleichsWert aktuellesVorgaengerDatum,
+			final VergleichsWert aktuellesNachfolgerDatum) {
 		double abweichung = Double.NaN;
 
 		if (aktuellesSensorDatum != null && aktuellesVorgaengerDatum != null
@@ -260,7 +260,7 @@ public class PlLangNiWfdLtSwSensorMenge extends
 	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsWert> getSensorInstanz(
-			SystemObject objekt) {
+			final SystemObject objekt) {
 		return PlLangNiWfdLtSwSensor.getInstanz(derDav, objekt);
 	}
 

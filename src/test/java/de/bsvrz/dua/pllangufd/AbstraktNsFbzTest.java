@@ -54,7 +54,7 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 	/**
 	 * Zaehlt die Betriebsmeldungen pro Sensor-Art.
 	 */
-	private static int bmZaehler = 0;
+	private static int bmZaehler;
 
 	/**
 	 * Erfragt das Systemobjekt des Prueflings-Sensors.
@@ -161,24 +161,24 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 	public void testAufLangzeitMessfehler() throws Exception {
 		bmZaehler = 0;
 
-		ClientDavInterface dav = DAVTest.getDav();
+		final ClientDavInterface dav = DAVTest.getDav();
 
 		BmClient.getInstanz(dav).addListener(this);
 
-		SystemObject prueflingNI = this.getPruefling();
-		SystemObject vorgaengerNI = this.getVorgaenger();
-		SystemObject nachfolgerNI = this.getNachfolger();
+		final SystemObject prueflingNI = this.getPruefling();
+		final SystemObject vorgaengerNI = this.getVorgaenger();
+		final SystemObject nachfolgerNI = this.getNachfolger();
 
-		UfdSensorSender pSender = UfdSensorSender.getInstanz(prueflingNI);
-		UfdSensorSender vSender = UfdSensorSender.getInstanz(vorgaengerNI);
-		UfdSensorSender nSender = UfdSensorSender.getInstanz(nachfolgerNI);
+		final UfdSensorSender pSender = UfdSensorSender.getInstanz(prueflingNI);
+		final UfdSensorSender vSender = UfdSensorSender.getInstanz(vorgaengerNI);
+		final UfdSensorSender nSender = UfdSensorSender.getInstanz(nachfolgerNI);
 
 		LzParameterSender.getInstanz(dav, prueflingNI).setParameter(
 				StundenIntervallAnteil12h.STUNDEN_1,
 				30 * Constants.MILLIS_PER_MINUTE,
 				15L * Constants.MILLIS_PER_MINUTE);
 
-		long i15min = 15L * Constants.MILLIS_PER_MINUTE;
+		final long i15min = 15L * Constants.MILLIS_PER_MINUTE;
 
 		long time = Constants.MILLIS_PER_HOUR;
 
@@ -564,11 +564,11 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 	 * @throws Exception
 	 *             wird weitergereicht
 	 */
-	public static final DataDescription getDatenBeschreibung(SystemObject objekt)
+	public static final DataDescription getDatenBeschreibung(final SystemObject objekt)
 			throws Exception {
-		UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
+		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
 
-		DataDescription datenBeschreibung = new DataDescription(DAVTest
+		final DataDescription datenBeschreibung = new DataDescription(DAVTest
 				.getDav().getDataModel().getAttributeGroup(
 						"atg.ufds" + datenArt.getName()), //$NON-NLS-1$
 				DAVTest.getDav().getDataModel().getAspect(
@@ -580,8 +580,8 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiereBetriebsMeldungen(SystemObject obj, long zeit,
-			String meldungsText) {
+	public void aktualisiereBetriebsMeldungen(final SystemObject obj, final long zeit,
+			final String meldungsText) {
 		System.out.println(meldungsText);
 
 		try {
@@ -593,7 +593,7 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 			if (bmZaehler == this.getBetriebsmeldungen().length) {
 				BmClient.getInstanz(DAVTest.getDav()).removeListener(this);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

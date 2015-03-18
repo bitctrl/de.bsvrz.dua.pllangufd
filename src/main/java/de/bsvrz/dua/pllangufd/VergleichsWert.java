@@ -54,7 +54,7 @@ public class VergleichsWert {
 	 * @param vergleichsWert
 	 *            der Vergleichswert
 	 */
-	public final void setVergleichsWert(double vergleichsWert) {
+	public final void setVergleichsWert(final double vergleichsWert) {
 		this.vergleichsWert = vergleichsWert;
 	}
 
@@ -65,7 +65,7 @@ public class VergleichsWert {
 	 * @param vergleichsWert24
 	 *            der Vergleichswert berechnet fuer einen Bezugszeitraum von 24h
 	 */
-	public final void setVergleichsWert24(double vergleichsWert24) {
+	public final void setVergleichsWert24(final double vergleichsWert24) {
 		this.vergleichsWert24 = vergleichsWert24;
 	}
 

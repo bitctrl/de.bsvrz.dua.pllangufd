@@ -59,7 +59,7 @@ public class PlLangFbzSensorMenge extends AbstraktPlLangEreignisSensorMenge {
 	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
-			SystemObject objekt) {
+			final SystemObject objekt) {
 		return PlLangFbzSensor.getInstanz(derDav, objekt);
 	}
 

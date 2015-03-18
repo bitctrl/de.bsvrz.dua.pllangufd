@@ -60,6 +60,8 @@ import de.bsvrz.sys.funclib.debug.Debug;
  */
 public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 
+	private static final Debug LOGGER = Debug.getLogger();
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -79,10 +81,10 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		for (SystemObject obj : this.objekte) {
 			infoStr += obj + "\n"; //$NON-NLS-1$
 		}
-		Debug.getLogger().config(
+		LOGGER.config(
 				"---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
-		Set<UmfeldDatenArt> niWfdSwLt = new HashSet<UmfeldDatenArt>();
+		final Set<UmfeldDatenArt> niWfdSwLt = new HashSet<UmfeldDatenArt>();
 		niWfdSwLt.add(UmfeldDatenArt.ni);
 		niWfdSwLt.add(UmfeldDatenArt.wfd);
 		niWfdSwLt.add(UmfeldDatenArt.sw);
@@ -93,30 +95,30 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		for (DUAUmfeldDatenMessStelle messStelle : DUAUmfeldDatenMessStelle
 				.getInstanzen()) {
 			for (UmfeldDatenArt datenArt : niWfdSwLt) {
-				DUAUmfeldDatenSensor[] sensoren = this.getSensoren(messStelle,
+				final DUAUmfeldDatenSensor[] sensoren = this.getSensoren(messStelle,
 						datenArt);
 				if (sensoren[0] != null && sensoren[1] != null
 						&& sensoren[2] != null) {
-					PlLangNiWfdLtSwSensorMenge sensorMenge = new PlLangNiWfdLtSwSensorMenge();
+					final PlLangNiWfdLtSwSensorMenge sensorMenge = new PlLangNiWfdLtSwSensorMenge();
 					sensorMenge.initialisiere(this.verbindung, messStelle,
 							sensoren[0], sensoren[1], sensoren[2]);
 				}
 			}
 
-			DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle,
+			final DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle,
 					UmfeldDatenArt.ns);
 			if (sensorenNS[0] != null && sensorenNS[1] != null
 					&& sensorenNS[2] != null) {
-				PlLangNsSensorMenge sensorMenge = new PlLangNsSensorMenge();
+				final PlLangNsSensorMenge sensorMenge = new PlLangNsSensorMenge();
 				sensorMenge.initialisiere(this.verbindung, messStelle,
 						sensorenNS[0], sensorenNS[1], sensorenNS[2]);
 			}
 
-			DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle,
+			final DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle,
 					UmfeldDatenArt.fbz);
 			if (sensorenFBZ[0] != null && sensorenFBZ[1] != null
 					&& sensorenFBZ[2] != null) {
-				PlLangFbzSensorMenge sensorMenge = new PlLangFbzSensorMenge();
+				final PlLangFbzSensorMenge sensorMenge = new PlLangFbzSensorMenge();
 				sensorMenge.initialisiere(this.verbindung, messStelle,
 						sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
 			}
@@ -141,15 +143,15 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 	 *         <code>null</code>, wenn dieser nicht ermittelt werden konnte<br>
 	 */
 	private DUAUmfeldDatenSensor[] getSensoren(
-			DUAUmfeldDatenMessStelle messStelle, UmfeldDatenArt datenArt) {
-		DUAUmfeldDatenSensor sensor = messStelle.getHauptSensor(datenArt);
+			final DUAUmfeldDatenMessStelle messStelle, final UmfeldDatenArt datenArt) {
+		final DUAUmfeldDatenSensor sensor = messStelle.getHauptSensor(datenArt);
 		DUAUmfeldDatenSensor sensorVor = null;
 		DUAUmfeldDatenSensor sensorNach = null;
 
 		if (sensor != null) {
-			SystemObject vorgaengerObjekt = sensor.getVorgaenger();
+			final SystemObject vorgaengerObjekt = sensor.getVorgaenger();
 			if (vorgaengerObjekt != null) {
-				DUAUmfeldDatenMessStelle messStelleVorher = DUAUmfeldDatenMessStelle
+				final DUAUmfeldDatenMessStelle messStelleVorher = DUAUmfeldDatenMessStelle
 						.getInstanz(vorgaengerObjekt);
 				if (messStelleVorher != null) {
 					sensorVor = messStelleVorher.getHauptSensor(datenArt);
@@ -165,9 +167,9 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 				}
 			}
 
-			SystemObject nachfolgerObjekt = sensor.getNachfolger();
+			final SystemObject nachfolgerObjekt = sensor.getNachfolger();
 			if (nachfolgerObjekt != null) {
-				DUAUmfeldDatenMessStelle messStelleNachher = DUAUmfeldDatenMessStelle
+				final DUAUmfeldDatenMessStelle messStelleNachher = DUAUmfeldDatenMessStelle
 						.getInstanz(nachfolgerObjekt);
 				if (messStelleNachher != null) {
 					sensorNach = messStelleNachher.getHauptSensor(datenArt);
@@ -184,7 +186,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 			}
 		}
 
-		DUAUmfeldDatenSensor[] ergebnis = new DUAUmfeldDatenSensor[3];
+		final DUAUmfeldDatenSensor[] ergebnis = new DUAUmfeldDatenSensor[3];
 		ergebnis[0] = sensor;
 		ergebnis[1] = sensorVor;
 		ergebnis[2] = sensorNach;
@@ -198,7 +200,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 	 * @param argumente
 	 *            Argumente der Kommandozeile
 	 */
-	public static void main(String[] argumente) {
+	public static void main(final String[] argumente) {
 		StandardApplicationRunner.run(new VerwaltungPlLangzeitUFD(), argumente);
 	}
 
@@ -212,7 +214,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void update(ResultData[] results) {
+	public void update(final ResultData[] results) {
 		// Die Datenverarbeitung findet in den Submodulen statt
 	}
 

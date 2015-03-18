@@ -90,10 +90,10 @@ public abstract class AbstraktPlLangSensor<G> extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void initialisiere(ClientDavInterface dav, SystemObject objekt,
-			Aspect aspekt) {
+	protected void initialisiere(final ClientDavInterface dav, final SystemObject objekt,
+			final Aspect aspekt) {
 		super.initialisiere(dav, objekt, aspekt);
-		UniversalAtgUfdsLangzeitPLPruefung parameter = new UniversalAtgUfdsLangzeitPLPruefung(
+		final UniversalAtgUfdsLangzeitPLPruefung parameter = new UniversalAtgUfdsLangzeitPLPruefung(
 				dav, objekt);
 		parameter.addListener(this, true);
 	}
@@ -102,12 +102,12 @@ public abstract class AbstraktPlLangSensor<G> extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void berechneOnlineWert(ResultData resultat) {
+	protected void berechneOnlineWert(final ResultData resultat) {
 		if (this.aktivSeit == Long.MIN_VALUE) {
 			this.aktivSeit = resultat.getDataTime();
 		}
 		this.onlineWert = resultat;
-		HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(
+		final HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(
 				resultat);
 		this.hitorie24.addDatum(historischerWert);
 	}
@@ -134,7 +134,7 @@ public abstract class AbstraktPlLangSensor<G> extends
 	 * {@inheritDoc}
 	 */
 	public void aktualisiereParameter(
-			UfdsLangZeitPlPruefungsParameter aktuelleParameter1) {
+			final UfdsLangZeitPlPruefungsParameter aktuelleParameter1) {
 		this.aktuelleParameter = aktuelleParameter1;
 	}
 

@@ -74,7 +74,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 *            Systemobjekt
 	 * @return eine statische Instanz dieser Klasse
 	 */
-	public static LzParameterSender getInstanz(ClientDavInterface dav,
+	public static LzParameterSender getInstanz(final ClientDavInterface dav,
 			final SystemObject obj) {
 		if (sDAV == null) {
 			sDAV = dav;
@@ -97,11 +97,11 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 * @param obj
 	 *            Systemobjekt
 	 */
-	private LzParameterSender(ClientDavInterface dav, SystemObject obj) {
+	private LzParameterSender(final ClientDavInterface dav, final SystemObject obj) {
 		this.objekt = obj;
-		UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(obj);
+		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(obj);
 
-		DataDescription dd = new DataDescription(dav.getDataModel()
+		final DataDescription dd = new DataDescription(dav.getDataModel()
 				.getAttributeGroup(
 						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
 				dav.getDataModel().getAspect(
@@ -109,7 +109,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 
 		try {
 			dav.subscribeSender(this, obj, dd, SenderRole.sender());
-		} catch (OneSubscriptionPerSendData e) {
+		} catch (final OneSubscriptionPerSendData e) {
 			e.printStackTrace();
 		}
 	}
@@ -126,20 +126,20 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 * @return ob das Senden erfolgreich war
 	 */
 	public boolean setParameter(
-			StundenIntervallAnteil12h vergleichsIntervall, long maxAusfallZeit,
-			long maxAbweichung) {
+			final StundenIntervallAnteil12h vergleichsIntervall, final long maxAusfallZeit,
+			final long maxAbweichung) {
 		boolean erfolg = false;
 
-		UmfeldDatenArt datenArt = UmfeldDatenArt
+		final UmfeldDatenArt datenArt = UmfeldDatenArt
 				.getUmfeldDatenArtVon(this.objekt);
 
-		DataDescription dd = new DataDescription(sDAV.getDataModel()
+		final DataDescription dd = new DataDescription(sDAV.getDataModel()
 				.getAttributeGroup(
 						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
 				sDAV.getDataModel().getAspect(
 						DaVKonstanten.ASP_PARAMETER_VORGABE));
 
-		Data nutzDatum = sDAV.createData(sDAV.getDataModel().getAttributeGroup(
+		final Data nutzDatum = sDAV.createData(sDAV.getDataModel().getAttributeGroup(
 				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
 		nutzDatum
 				.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
@@ -163,7 +163,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 			sDAV.sendData(new ResultData(this.objekt, dd, System
 					.currentTimeMillis(), nutzDatum));
 			erfolg = true;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 
@@ -173,16 +173,16 @@ public final class LzParameterSender implements ClientSenderInterface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void dataRequest(SystemObject object,
-			DataDescription dataDescription, byte state) {
+	public void dataRequest(final SystemObject object,
+			final DataDescription dataDescription, final byte state) {
 		// 		
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public boolean isRequestSupported(SystemObject object,
-			DataDescription dataDescription) {
+	public boolean isRequestSupported(final SystemObject object,
+			final DataDescription dataDescription) {
 		return false;
 	}
 }

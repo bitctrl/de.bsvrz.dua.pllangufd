@@ -73,14 +73,14 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 	 */
 	public UniversalAtgUfdsLangzeitPLPruefung(final ClientDavInterface dav,
 			final SystemObject objekt) {
-		UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
+		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
 
 		if (datenArt == null) {
 			throw new NullPointerException("Die Datenart von " + objekt + //$NON-NLS-1$
 					" konnte nicht bestimmt werden"); //$NON-NLS-1$
 		}
 
-		DataDescription parameterBeschreibung = new DataDescription(
+		final DataDescription parameterBeschreibung = new DataDescription(
 				dav.getDataModel().getAttributeGroup(
 						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
 				dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL));
@@ -108,7 +108,7 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 	/**
 	 * {@inheritDoc}
 	 */
-	public void update(ResultData[] resultate) {
+	public void update(final ResultData[] resultate) {
 		if (resultate != null) {
 			for (ResultData resultat : resultate) {
 				if (resultat != null) {

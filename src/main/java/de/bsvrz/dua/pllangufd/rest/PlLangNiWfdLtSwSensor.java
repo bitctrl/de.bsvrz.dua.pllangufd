@@ -89,8 +89,8 @@ public class PlLangNiWfdLtSwSensor extends
 	@Override
 	public VergleichsWert getAktuellenVergleichsWert(
 			final UfdsLangZeitPlPruefungsParameter parameter,
-			long aktuellerZeitStempel) {
-		VergleichsWert onlineWert = new VergleichsWert();
+			final long aktuellerZeitStempel) {
+		final VergleichsWert onlineWert = new VergleichsWert();
 
 		synchronized (this) {
 			/**
@@ -100,11 +100,11 @@ public class PlLangNiWfdLtSwSensor extends
 			if (parameter != null && parameter.isValid()) {
 				double ergebnis = Double.NaN;
 
-				long intervallAnfang = aktuellerZeitStempel
+				final long intervallAnfang = aktuellerZeitStempel
 						- parameter.getVergleichsIntervall().getMillis();
-				SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
+				final SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
 						.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
-				long intervallLaenge = aktuellerZeitStempel - intervallAnfang;
+				final long intervallLaenge = aktuellerZeitStempel - intervallAnfang;
 
 				if (!historieVergleich.isEmpty()) {
 					long summeD = -1;
@@ -137,11 +137,11 @@ public class PlLangNiWfdLtSwSensor extends
 				 */
 				double ergebnis24 = Double.NaN;
 
-				long intervallAnfang24 = aktuellerZeitStempel
+				final long intervallAnfang24 = aktuellerZeitStempel
 						- Constants.MILLIS_PER_DAY;
-				SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
+				final SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
 						.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
-				long intervallLaenge24 = aktuellerZeitStempel
+				final long intervallLaenge24 = aktuellerZeitStempel
 						- intervallAnfang24;
 
 				if (!historieVergleich24.isEmpty()) {

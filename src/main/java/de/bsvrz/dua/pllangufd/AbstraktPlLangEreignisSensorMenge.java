@@ -61,17 +61,17 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 	/**
 	 * {@inheritDoc}
 	 */
-	public void aktualisiereDaten(ResultData datum) {
+	public void aktualisiereDaten(final ResultData datum) {
 		synchronized (this) {
-			VergleichsEreignisWerte aktuellesSensorDatum = this.prueflingSensor
+			final VergleichsEreignisWerte aktuellesSensorDatum = this.prueflingSensor
 					.getAktuellenVergleichsWert(this.prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
 
-			VergleichsEreignisWerte aktuellesNachfolgerDatum = this.nachfolgerSensor
+			final VergleichsEreignisWerte aktuellesNachfolgerDatum = this.nachfolgerSensor
 					.getAktuellenVergleichsWert(this.prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
 
-			VergleichsEreignisWerte aktuellesVorgaengerDatum = this.vorgaengerSensor
+			final VergleichsEreignisWerte aktuellesVorgaengerDatum = this.vorgaengerSensor
 					.getAktuellenVergleichsWert(this.prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
 
@@ -79,7 +79,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 					&& aktuellesNachfolgerDatum != null
 					&& aktuellesVorgaengerDatum != null) {
 
-				UfdsLangZeitPlPruefungsParameter parameter = this.prueflingSensor
+				final UfdsLangZeitPlPruefungsParameter parameter = this.prueflingSensor
 						.getAktuelleParameter();
 
 				if (parameter != null && parameter.isValid()
@@ -111,7 +111,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 											LZ_PL_PR, datum.getDataTime());
 						}
 					} else {
-						double abweichung = this.getAbweichung(false,
+						final double abweichung = this.getAbweichung(false,
 								aktuellesSensorDatum, aktuellesVorgaengerDatum,
 								aktuellesNachfolgerDatum);
 
@@ -193,7 +193,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 											LZ_PL_PR24, datum.getDataTime());
 						}
 					} else {
-						double abweichung = this.getAbweichung(true,
+						final double abweichung = this.getAbweichung(true,
 								aktuellesSensorDatum, aktuellesVorgaengerDatum,
 								aktuellesNachfolgerDatum);
 						if (abweichung >= 0
@@ -268,9 +268,9 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 	 *         ein Wert < 0, wenn die AbweichungXY nicht ermittelt werden konnte
 	 */
 	private double getAbweichung(final boolean intervall24,
-			VergleichsEreignisWerte aktuellesSensorDatum,
-			VergleichsEreignisWerte aktuellesVorgaengerDatum,
-			VergleichsEreignisWerte aktuellesNachfolgerDatum) {
+			final VergleichsEreignisWerte aktuellesSensorDatum,
+			final VergleichsEreignisWerte aktuellesVorgaengerDatum,
+			final VergleichsEreignisWerte aktuellesNachfolgerDatum) {
 		double ergebnis = Double.MIN_VALUE;
 
 		if (aktuellesSensorDatum != null && aktuellesNachfolgerDatum != null
@@ -296,17 +296,17 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 			}
 
 			for (AbstraktEreignis ereignis : getEreignisInstanzen()) {
-				Double sensorVergleichsWert = sensorVergleichsWerte
+				final Double sensorVergleichsWert = sensorVergleichsWerte
 						.get(ereignis);
-				Double vorgaengerVergleichsWert = vorgaengerVergleichsWerte
+				final Double vorgaengerVergleichsWert = vorgaengerVergleichsWerte
 						.get(ereignis);
-				Double nachfolgerVergleichsWert = nachfolgerVergleichsWerte
+				final Double nachfolgerVergleichsWert = nachfolgerVergleichsWerte
 						.get(ereignis);
 
 				if (sensorVergleichsWert != null
 						&& vorgaengerVergleichsWert != null
 						&& nachfolgerVergleichsWert != null) {
-					double ereignisAbweichung = Math
+					final double ereignisAbweichung = Math
 							.abs(sensorVergleichsWert
 									- ((vorgaengerVergleichsWert + nachfolgerVergleichsWert) / 2));
 					if (ereignisAbweichung > ergebnis) {

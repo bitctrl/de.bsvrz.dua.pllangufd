@@ -59,7 +59,7 @@ public class PlLangNsSensorMenge extends AbstraktPlLangEreignisSensorMenge {
 	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
-			SystemObject objekt) {
+			final SystemObject objekt) {
 		return PlLangNsSensor.getInstanz(derDav, objekt);
 	}
 

@@ -64,11 +64,11 @@ public class HistorischerUfdsWert extends HistPufferElement {
 	 * @param resultat
 	 *            ein Umfelddatenresultat
 	 */
-	public HistorischerUfdsWert(ResultData resultat) {
+	public HistorischerUfdsWert(final ResultData resultat) {
 		super(resultat.getDataTime());
 
 		if (resultat.getData() != null) {
-			UmfeldDatenSensorDatum datum = new UmfeldDatenSensorDatum(resultat);
+			final UmfeldDatenSensorDatum datum = new UmfeldDatenSensorDatum(resultat);
 			this.plausibel = datum.getStatusMessWertErsetzungImplausibel() == DUAKonstanten.NEIN;
 			this.wert = datum.getWert();
 			this.tT = datum.getT();

@@ -142,11 +142,11 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 * @param sensorNachfolger
 	 *            sein Nachfolger
 	 */
-	public final void initialisiere(ClientDavInterface dav,
-			DUAUmfeldDatenMessStelle messStelle1,
-			DUAUmfeldDatenSensor sensorSelbst,
-			DUAUmfeldDatenSensor sensorVorgaenger,
-			DUAUmfeldDatenSensor sensorNachfolger) {
+	public final void initialisiere(final ClientDavInterface dav,
+			final DUAUmfeldDatenMessStelle messStelle1,
+			final DUAUmfeldDatenSensor sensorSelbst,
+			final DUAUmfeldDatenSensor sensorVorgaenger,
+			final DUAUmfeldDatenSensor sensorNachfolger) {
 		if (derDav == null) {
 			derDav = dav;
 		}
@@ -178,15 +178,15 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 *            der Zeitstempel des Datums, das diese Fehlermeldung provoziert
 	 *            hat
 	 */
-	protected final void sendeBetriebsmeldung(SystemObject objekt,
-			String nachricht, String zusatz, long datenzeit) {
+	protected final void sendeBetriebsmeldung(final SystemObject objekt,
+			final String nachricht, final String zusatz, final long datenzeit) {
 
 		synchronized (this.zusatzAufLetzteDatenzeit) {
 			if (this.zusatzAufLetzteDatenzeit.get(zusatz) == null
 					|| this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit) {
 
 				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
-				MessageSender nachrichtenSender = MessageSender.getInstance();
+				final MessageSender nachrichtenSender = MessageSender.getInstance();
 				nachrichtenSender.setApplicationLabel("PL-Langzeit UFD");
 				nachrichtenSender.sendMessage(KONVERTER.konvertiere(
 						new BetriebsmeldungDaten(objekt), null, new Object[0]),

@@ -57,7 +57,7 @@ public class HistPufferElement implements IZeitStempel {
 	/**
 	 * {@inheritDoc}
 	 */
-	public int compareTo(IZeitStempel that) {
+	public int compareTo(final IZeitStempel that) {
 		return -new Long(this.getZeitStempel())
 				.compareTo(that.getZeitStempel());
 	}
@@ -66,11 +66,11 @@ public class HistPufferElement implements IZeitStempel {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		boolean gleich = false;
 
 		if (obj != null && obj instanceof IZeitStempel) {
-			IZeitStempel that = (IZeitStempel) obj;
+			final IZeitStempel that = (IZeitStempel) obj;
 			gleich = this.getZeitStempel() == that.getZeitStempel();
 		}
 

@@ -127,11 +127,11 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 *         deren Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
-	public final SortedSet<G> cloneTeilMenge(long anfang, long ende) {
-		SortedSet<G> kopie = new TreeSet<G>();
+	public final SortedSet<G> cloneTeilMenge(final long anfang, final long ende) {
+		final SortedSet<G> kopie = new TreeSet<G>();
 
-		G groesstesElement = (G) new HistPufferElement(anfang);
-		G kleinstesElement = (G) new HistPufferElement(ende);
+		final G groesstesElement = (G) new HistPufferElement(anfang);
+		final G kleinstesElement = (G) new HistPufferElement(ende);
 		synchronized (this.puffer) {
 			kopie
 					.addAll(this.puffer.subSet(kleinstesElement,
@@ -153,9 +153,9 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 *         Datenzeitstempel im Bereich [anfang, ende] liegen
 	 */
 	@SuppressWarnings("unchecked")
-	public final SortedSet<G> getTeilMenge(long anfang, long ende) {
-		G groesstesElement = (G) new HistPufferElement(anfang);
-		G kleinstesElement = (G) new HistPufferElement(ende);
+	public final SortedSet<G> getTeilMenge(final long anfang, final long ende) {
+		final G groesstesElement = (G) new HistPufferElement(anfang);
+		final G kleinstesElement = (G) new HistPufferElement(ende);
 		synchronized (this.puffer) {
 			return this.puffer.subSet(kleinstesElement, groesstesElement);
 		}
@@ -170,12 +170,12 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 *            eingestellte)
 	 * @return der Pufferinhalt im verkuerzten Intervall
 	 */
-	public final SortedSet<G> getPufferInhalt(long andereIntervallLaenge) {
-		SortedSet<G> pufferClone = new TreeSet<G>();
+	public final SortedSet<G> getPufferInhalt(final long andereIntervallLaenge) {
+		final SortedSet<G> pufferClone = new TreeSet<G>();
 		synchronized (this.puffer) {
 			if (!this.puffer.isEmpty()) {
-				G aktuellsterDatensatz = this.puffer.first();
-				long aeltesterErlaubterZeitStempel = aktuellsterDatensatz
+				final G aktuellsterDatensatz = this.puffer.first();
+				final long aeltesterErlaubterZeitStempel = aktuellsterDatensatz
 						.getZeitStempel()
 						- andereIntervallLaenge;
 
@@ -215,7 +215,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 * @return der Pufferinhalt als Kopie
 	 */
 	public final SortedSet<G> clonePufferInhalt() {
-		SortedSet<G> pufferClone = new TreeSet<G>();
+		final SortedSet<G> pufferClone = new TreeSet<G>();
 		synchronized (this.puffer) {
 			pufferClone.addAll(this.puffer);
 		}
@@ -245,10 +245,10 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	public final void setJetzt(final long jetzt) {
 		synchronized (this.puffer) {
 			if (!this.puffer.isEmpty()) {
-				long aeltesterErlaubterZeitStempel = jetzt
+				final long aeltesterErlaubterZeitStempel = jetzt
 						- this.intervallLaenge;
 
-				Collection<G> zuLoeschendeElemente = new ArrayList<G>();
+				final Collection<G> zuLoeschendeElemente = new ArrayList<G>();
 				for (G pufferElement : this.puffer) {
 					if (pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel) {
 						zuLoeschendeElemente.add(pufferElement);

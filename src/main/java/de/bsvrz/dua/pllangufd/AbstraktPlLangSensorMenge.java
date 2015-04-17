@@ -37,6 +37,7 @@ import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.bitctrl.daf.BetriebsmeldungDaten;
 import de.bsvrz.sys.funclib.bitctrl.daf.DefaultBetriebsMeldungsIdKonverter;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.IOnlineUfdSensorListener;
@@ -123,9 +124,10 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 *            ein Systemobjekt eines Umfelddatensensors
 	 * @return eine statische Instanz des Online-Sensors, der mit dem
 	 *         uebergebenen Systemobjekt assoziiert ist
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	protected abstract AbstraktPlLangSensor<G> getSensorInstanz(
-			final SystemObject objekt);
+			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException;
 
 	/**
 	 * Initialisiert dieses Objekt (Instanziierung und Anmeldung der einzelnen
@@ -141,12 +143,13 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 *            sein Vorgaenger
 	 * @param sensorNachfolger
 	 *            sein Nachfolger
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public final void initialisiere(final ClientDavInterface dav,
 			final DUAUmfeldDatenMessStelle messStelle1,
 			final DUAUmfeldDatenSensor sensorSelbst,
 			final DUAUmfeldDatenSensor sensorVorgaenger,
-			final DUAUmfeldDatenSensor sensorNachfolger) {
+			final DUAUmfeldDatenSensor sensorNachfolger) throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (derDav == null) {
 			derDav = dav;
 		}

@@ -39,7 +39,9 @@ import de.bsvrz.dav.daf.main.ReceiverRole;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.bitctrl.daf.DaVKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
+import de.bsvrz.sys.funclib.debug.Debug;
 
 /**
  * Klasse zum Auslesen aller der Parameter-Attributgruppen
@@ -55,7 +57,7 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 	/**
 	 * aktueller Parametersatz.
 	 */
-	private UfdsLangZeitPlPruefungsParameter parameterSatz = null;
+	private UfdsLangZeitPlPruefungsParameter parameterSatz;
 
 	/**
 	 * beobachter dieses Objektes (werden ueber aktuelle Parameter informiert).
@@ -70,15 +72,11 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 	 *            Datenverteiler-Verbindung
 	 * @param objekt
 	 *            Systemobjekt eines beliebigen Umfelddatensensors
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public UniversalAtgUfdsLangzeitPLPruefung(final ClientDavInterface dav,
-			final SystemObject objekt) {
+			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
-
-		if (datenArt == null) {
-			throw new NullPointerException("Die Datenart von " + objekt + //$NON-NLS-1$
-					" konnte nicht bestimmt werden"); //$NON-NLS-1$
-		}
 
 		final DataDescription parameterBeschreibung = new DataDescription(
 				dav.getDataModel().getAttributeGroup(
@@ -108,13 +106,19 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void update(final ResultData[] resultate) {
 		if (resultate != null) {
 			for (ResultData resultat : resultate) {
 				if (resultat != null) {
 					synchronized (this) {
-						this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(
-								resultat);
+						try {
+							this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(
+									resultat);
+						} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
+							Debug.getLogger().warning(e.getMessage());
+							continue;
+						}
 						for (IUniversalAtgUfdsLangzeitPLPruefungListener listener : listenerMenge) {
 							listener.aktualisiereParameter(this.parameterSatz);
 						}

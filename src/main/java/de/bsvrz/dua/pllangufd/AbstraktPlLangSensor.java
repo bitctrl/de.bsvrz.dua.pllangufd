@@ -37,6 +37,7 @@ import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
 import de.bsvrz.dua.pllangufd.parameter.IUniversalAtgUfdsLangzeitPLPruefungListener;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.dua.pllangufd.parameter.UniversalAtgUfdsLangzeitPLPruefung;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.AbstraktOnlineUfdSensor;
 
 /**
@@ -61,7 +62,7 @@ public abstract class AbstraktPlLangSensor<G> extends
 	/**
 	 * aktuelle Parameter fuer die Langzeitpruefung.
 	 */
-	protected UfdsLangZeitPlPruefungsParameter aktuelleParameter = null;
+	protected UfdsLangZeitPlPruefungsParameter aktuelleParameter;
 
 	/**
 	 * Messwerthistorie dieses Sensors fuer die letzten 24 Stunden.
@@ -88,10 +89,11 @@ public abstract class AbstraktPlLangSensor<G> extends
 
 	/**
 	 * {@inheritDoc}
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	@Override
 	protected void initialisiere(final ClientDavInterface dav, final SystemObject objekt,
-			final Aspect aspekt) {
+			final Aspect aspekt) throws UmfeldDatenSensorUnbekannteDatenartException {
 		super.initialisiere(dav, objekt, aspekt);
 		final UniversalAtgUfdsLangzeitPLPruefung parameter = new UniversalAtgUfdsLangzeitPLPruefung(
 				dav, objekt);
@@ -133,6 +135,7 @@ public abstract class AbstraktPlLangSensor<G> extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void aktualisiereParameter(
 			final UfdsLangZeitPlPruefungsParameter aktuelleParameter1) {
 		this.aktuelleParameter = aktuelleParameter1;

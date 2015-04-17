@@ -43,6 +43,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAUtensilien;
 import de.bsvrz.sys.funclib.bitctrl.dua.adapter.AbstraktVerwaltungsAdapter;
 import de.bsvrz.sys.funclib.bitctrl.dua.dfs.typen.SWETyp;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
@@ -100,8 +101,12 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 				if (sensoren[0] != null && sensoren[1] != null
 						&& sensoren[2] != null) {
 					final PlLangNiWfdLtSwSensorMenge sensorMenge = new PlLangNiWfdLtSwSensorMenge();
-					sensorMenge.initialisiere(this.verbindung, messStelle,
-							sensoren[0], sensoren[1], sensoren[2]);
+					try {
+						sensorMenge.initialisiere(this.verbindung, messStelle,
+								sensoren[0], sensoren[1], sensoren[2]);
+					} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
+						LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
+					}
 				}
 			}
 
@@ -110,8 +115,12 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 			if (sensorenNS[0] != null && sensorenNS[1] != null
 					&& sensorenNS[2] != null) {
 				final PlLangNsSensorMenge sensorMenge = new PlLangNsSensorMenge();
-				sensorMenge.initialisiere(this.verbindung, messStelle,
-						sensorenNS[0], sensorenNS[1], sensorenNS[2]);
+				try {
+					sensorMenge.initialisiere(this.verbindung, messStelle,
+							sensorenNS[0], sensorenNS[1], sensorenNS[2]);
+				} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
+					LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
+				}
 			}
 
 			final DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle,
@@ -119,8 +128,12 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 			if (sensorenFBZ[0] != null && sensorenFBZ[1] != null
 					&& sensorenFBZ[2] != null) {
 				final PlLangFbzSensorMenge sensorMenge = new PlLangFbzSensorMenge();
-				sensorMenge.initialisiere(this.verbindung, messStelle,
-						sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
+				try {
+					sensorMenge.initialisiere(this.verbindung, messStelle,
+							sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
+				} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
+					LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
+				}
 			}
 		}
 	}

@@ -30,6 +30,7 @@ package de.bsvrz.dua.pllangufd.parameter;
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
@@ -55,13 +56,13 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	/**
 	 * Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird.
 	 */
-	private StundenIntervallAnteil12h vergleichsIntervall = null;
+	private StundenIntervallAnteil12h vergleichsIntervall;
 
 	/**
 	 * Maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den
 	 * Nachbarsensoren über das Vergleichsintervall.
 	 */
-	private UmfeldDatenSensorWert maxAbweichung = null;
+	private UmfeldDatenSensorWert maxAbweichung;
 
 	/**
 	 * Maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
@@ -75,8 +76,9 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	 * @param resultat
 	 *            ein Parameter-Datensart der Attributgruppe
 	 *            <code>atg.ufdsLangzeitPLPrüfungXXX</code>
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
-	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat) {
+	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat) throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (resultat == null || resultat.getData() == null) {
 			vergleichsIntervall = null;
 		} else {

@@ -40,6 +40,7 @@ import de.bsvrz.dua.pllangufd.VergleichsWert;
 import de.bsvrz.dua.pllangufd.historie.HistorischerUfdsWert;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 
 /**
  * Sensor, der die aktuellen Daten eines NI-, WFD-, LT-, oder SW-Sensors zu
@@ -65,9 +66,10 @@ public class PlLangNiWfdLtSwSensor extends
 	 * @param objekt
 	 *            ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
 	 * @return eine statische Instanz dieser Klasse
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public static final PlLangNiWfdLtSwSensor getInstanz(
-			final ClientDavInterface dav, final SystemObject objekt) {
+			final ClientDavInterface dav, final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (objekt == null) {
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}

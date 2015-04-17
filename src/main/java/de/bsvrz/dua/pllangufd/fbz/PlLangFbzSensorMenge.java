@@ -34,6 +34,7 @@ import de.bsvrz.dua.pllangufd.AbstraktEreignis;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensorMenge;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
 import de.bsvrz.dua.pllangufd.VergleichsEreignisWerte;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 
 /**
  * Assoziator fuer eine Menge von FBZ-Sensoren der Art:<br>
@@ -56,10 +57,11 @@ public class PlLangFbzSensorMenge extends AbstraktPlLangEreignisSensorMenge {
 
 	/**
 	 * {@inheritDoc}
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
-			final SystemObject objekt) {
+			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
 		return PlLangFbzSensor.getInstanz(derDav, objekt);
 	}
 

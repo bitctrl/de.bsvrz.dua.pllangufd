@@ -36,6 +36,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktEreignis;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 
 /**
  * Sensor, der die aktuellen Daten eines NS-Sensors zu Vergleichswerten im Sinne
@@ -60,9 +61,10 @@ public class PlLangNsSensor extends AbstraktPlLangEreignisSensor {
 	 * @param objekt
 	 *            ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
 	 * @return eine statische Instanz dieser Klasse
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public static final PlLangNsSensor getInstanz(
-			final ClientDavInterface dav, final SystemObject objekt) {
+			final ClientDavInterface dav, final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (objekt == null) {
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}

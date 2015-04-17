@@ -38,6 +38,7 @@ import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.SenderRole;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.bitctrl.daf.DaVKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
@@ -73,9 +74,10 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 * @param obj
 	 *            Systemobjekt
 	 * @return eine statische Instanz dieser Klasse
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public static LzParameterSender getInstanz(final ClientDavInterface dav,
-			final SystemObject obj) {
+			final SystemObject obj) throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (sDAV == null) {
 			sDAV = dav;
 		}
@@ -96,8 +98,9 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 *            Datenverteiler-Verbindung
 	 * @param obj
 	 *            Systemobjekt
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
-	private LzParameterSender(final ClientDavInterface dav, final SystemObject obj) {
+	private LzParameterSender(final ClientDavInterface dav, final SystemObject obj) throws UmfeldDatenSensorUnbekannteDatenartException {
 		this.objekt = obj;
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(obj);
 
@@ -124,10 +127,11 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 * @param maxAbweichung
 	 *            die maximale Abweichung
 	 * @return ob das Senden erfolgreich war
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public boolean setParameter(
 			final StundenIntervallAnteil12h vergleichsIntervall, final long maxAusfallZeit,
-			final long maxAbweichung) {
+			final long maxAbweichung) throws UmfeldDatenSensorUnbekannteDatenartException {
 		boolean erfolg = false;
 
 		final UmfeldDatenArt datenArt = UmfeldDatenArt

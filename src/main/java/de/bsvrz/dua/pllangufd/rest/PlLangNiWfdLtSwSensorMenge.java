@@ -39,7 +39,9 @@ import de.bsvrz.dua.pllangufd.VergleichsWert;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAUtensilien;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
+import de.bsvrz.sys.funclib.debug.Debug;
 
 /**
  * Assoziator fuer eine Menge von NI-, WFD-, LT-, oder SW-Sensoren der Art:<br>
@@ -56,7 +58,17 @@ public class PlLangNiWfdLtSwSensorMenge extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void aktualisiereDaten(final ResultData datum) {
+		UmfeldDatenArt umfeldDatenArt;
+		
+		try {
+			umfeldDatenArt = UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt());
+		} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
+			Debug.getLogger().warning(e.getMessage());
+			return;
+		}
+		
 		synchronized (this) {
 			final VergleichsWert aktuellesSensorDatum = this.prueflingSensor
 					.getAktuellenVergleichsWert(prueflingSensor
@@ -99,9 +111,7 @@ public class PlLangNiWfdLtSwSensorMenge extends
 												this.prueflingSensor
 														.getObjekt(),
 												"Der Wert " + //$NON-NLS-1$
-														UmfeldDatenArt
-																.getUmfeldDatenArtVon(this.prueflingSensor
-																		.getObjekt())
+														umfeldDatenArt
 														+ " für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
 														+ DUAUtensilien
 																.runde(
@@ -121,9 +131,7 @@ public class PlLangNiWfdLtSwSensorMenge extends
 								.sendeBetriebsmeldung(
 										this.prueflingSensor.getObjekt(),
 										"Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
-												UmfeldDatenArt
-														.getUmfeldDatenArtVon(this.prueflingSensor
-																.getObjekt())
+												umfeldDatenArt
 												+ " für die Messstelle " + this.messStelle + " konnte nicht durchgeführt werden," + //$NON-NLS-1$ //$NON-NLS-2$
 												" da ein Vergleichswert nicht bestimmt werden konnte.",
 										LZ_PL_PR24, datum.getDataTime()); //$NON-NLS-1$
@@ -156,9 +164,7 @@ public class PlLangNiWfdLtSwSensorMenge extends
 												this.prueflingSensor
 														.getObjekt(),
 												"Der Wert " + //$NON-NLS-1$
-														UmfeldDatenArt
-																.getUmfeldDatenArtVon(this.prueflingSensor
-																		.getObjekt())
+														umfeldDatenArt
 														+ " für die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
 														+ DUAUtensilien.runde(
 																abweichung, 2)
@@ -180,9 +186,7 @@ public class PlLangNiWfdLtSwSensorMenge extends
 								.sendeBetriebsmeldung(
 										this.prueflingSensor.getObjekt(),
 										"Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
-												UmfeldDatenArt
-														.getUmfeldDatenArtVon(this.prueflingSensor
-																.getObjekt())
+												umfeldDatenArt
 												+ " für die Messstelle " + this.messStelle + " konnte nicht durchgeführt werden," + //$NON-NLS-1$ //$NON-NLS-2$
 												" da ein Vergleichswert nicht bestimmt werden konnte.",
 										LZ_PL_PR, datum.getDataTime()); //$NON-NLS-1$
@@ -257,10 +261,11 @@ public class PlLangNiWfdLtSwSensorMenge extends
 
 	/**
 	 * {@inheritDoc}
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsWert> getSensorInstanz(
-			final SystemObject objekt) {
+			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
 		return PlLangNiWfdLtSwSensor.getInstanz(derDav, objekt);
 	}
 

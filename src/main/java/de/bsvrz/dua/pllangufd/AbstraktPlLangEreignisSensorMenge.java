@@ -38,7 +38,9 @@ import com.bitctrl.Constants;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
+import de.bsvrz.sys.funclib.debug.Debug;
 
 /**
  * Abstrakter Assoziator fuer eine Menge von NS- bzw. FBZ-Sensoren der Art:<br>
@@ -61,8 +63,19 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void aktualisiereDaten(final ResultData datum) {
 		synchronized (this) {
+			UmfeldDatenArt umfeldDatenArt;
+			
+			try {
+				umfeldDatenArt = UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt());
+			} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
+				Debug.getLogger().warning(e.getMessage());
+				return;
+			}
+			
+			
 			final VergleichsEreignisWerte aktuellesSensorDatum = this.prueflingSensor
 					.getAktuellenVergleichsWert(this.prueflingSensor
 							.getAktuelleParameter(), datum.getDataTime());
@@ -101,9 +114,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 									.sendeBetriebsmeldung(
 											this.messStelle,
 											"Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
-													UmfeldDatenArt
-															.getUmfeldDatenArtVon(this.prueflingSensor
-																	.getObjekt())
+													umfeldDatenArt
 													+ " für die Messstelle " + //$NON-NLS-1$ 
 													this.messStelle
 													+ " konnte nicht durchgeführt werden, da keine" + //$NON-NLS-1$
@@ -144,9 +155,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 										.sendeBetriebsmeldung(
 												this.messStelle,
 												"Der Wert " + //$NON-NLS-1$
-														UmfeldDatenArt
-																.getUmfeldDatenArtVon(this.prueflingSensor
-																		.getObjekt())
+														umfeldDatenArt
 														+ " für die Messstelle " + //$NON-NLS-1$ 
 														this.messStelle
 														+ " weicht um " + ZEIT_FORMAT.format(new Date((long) abweichung - Constants.MILLIS_PER_HOUR)) + " (>" + ZEIT_FORMAT.format(new Date(parameter.getMaxAbweichungZeit() - Constants.MILLIS_PER_HOUR)) + //$NON-NLS-1$ //$NON-NLS-2$ 
@@ -183,9 +192,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 									.sendeBetriebsmeldung(
 											this.messStelle,
 											"Die Plausibilitätsprüfung zur " + //$NON-NLS-1$
-													UmfeldDatenArt
-															.getUmfeldDatenArtVon(this.prueflingSensor
-																	.getObjekt())
+													umfeldDatenArt
 													+ " für die Messstelle " + //$NON-NLS-1$ 
 													this.messStelle
 													+ " konnte nicht durchgeführt werden, da keine" + //$NON-NLS-1$
@@ -222,9 +229,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 										.sendeBetriebsmeldung(
 												this.messStelle,
 												"Der Wert " + //$NON-NLS-1$
-														UmfeldDatenArt
-																.getUmfeldDatenArtVon(this.prueflingSensor
-																		.getObjekt())
+														umfeldDatenArt
 														+ " für die Messstelle " + //$NON-NLS-1$ 
 														this.messStelle
 														+ " weicht um " + ZEIT_FORMAT.format(new Date((long) abweichung - Constants.MILLIS_PER_HOUR)) + " (>" + ZEIT_FORMAT.format(new Date(parameter.getMaxAbweichungZeit() - Constants.MILLIS_PER_HOUR)) + //$NON-NLS-1$ //$NON-NLS-2$ 

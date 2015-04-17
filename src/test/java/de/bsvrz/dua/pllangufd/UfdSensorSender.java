@@ -44,6 +44,7 @@ import de.bsvrz.dav.daf.main.SendSubscriptionNotConfirmed;
 import de.bsvrz.dav.daf.main.SenderRole;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.bitctrl.dua.DUAKonstanten;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
@@ -197,9 +198,10 @@ public final class UfdSensorSender implements ClientSenderInterface {
 	 *            Systemobjekt eines Umfelddatensensors
 	 * @throws OneSubscriptionPerSendData
 	 *             wird weitergereicht
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	private UfdSensorSender(final ClientDavInterface dav, final SystemObject objekt)
-			throws OneSubscriptionPerSendData {
+			throws OneSubscriptionPerSendData, UmfeldDatenSensorUnbekannteDatenartException {
 		this.objekt = objekt;
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
 		final DataDescription dd = new DataDescription(dav.getDataModel()

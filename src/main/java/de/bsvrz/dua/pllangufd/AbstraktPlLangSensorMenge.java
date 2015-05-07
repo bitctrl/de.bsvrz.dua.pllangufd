@@ -51,16 +51,16 @@ import de.bsvrz.sys.funclib.operatingMessage.MessageType;
  * Abstraktes Rohgeruest fuer eine Menge von Sensoren der Art:<br>
  * Hauptsensor (Pruefling), Vorgaenger, Nachfolger,<br>
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD ueberprueft wird.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
+ *
  * @param <G>
  *            Art
- * 
- * @version $Id$
+ *
+ * @version $Id: AbstraktPlLangSensorMenge.java 54549 2015-04-17 13:40:51Z
+ *          gieseler $
  */
-public abstract class AbstraktPlLangSensorMenge<G> implements
-		IOnlineUfdSensorListener<ResultData> {
+public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorListener<ResultData> {
 
 	private static final DefaultBetriebsMeldungsIdKonverter KONVERTER = new DefaultBetriebsMeldungsIdKonverter();
 
@@ -113,26 +113,25 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 * Bildet den Nachrichtenzusatz auf die letzte Datenzeit ab, fuer die eine
 	 * Nachricht mit diesem Zusatz publiziert worden ist.
 	 */
-	private Map<String, Long> zusatzAufLetzteDatenzeit = Collections
-			.synchronizedMap(new HashMap<String, Long>());
+	private final Map<String, Long> zusatzAufLetzteDatenzeit = Collections.synchronizedMap(new HashMap<String, Long>());
 
 	/**
 	 * Erfragt eine statische Instanz des Online-Sensors, der mit dem
 	 * uebergebenen Systemobjekt assoziiert ist.
-	 * 
+	 *
 	 * @param objekt
 	 *            ein Systemobjekt eines Umfelddatensensors
 	 * @return eine statische Instanz des Online-Sensors, der mit dem
 	 *         uebergebenen Systemobjekt assoziiert ist
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	protected abstract AbstraktPlLangSensor<G> getSensorInstanz(
-			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException;
+	protected abstract AbstraktPlLangSensor<G> getSensorInstanz(final SystemObject objekt)
+			throws UmfeldDatenSensorUnbekannteDatenartException;
 
 	/**
 	 * Initialisiert dieses Objekt (Instanziierung und Anmeldung der einzelnen
 	 * Sensoren auf Daten und Parameter usw.).
-	 * 
+	 *
 	 * @param dav
 	 *            Verbindung zum Datenverteiler
 	 * @param messStelle1
@@ -143,23 +142,20 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 *            sein Vorgaenger
 	 * @param sensorNachfolger
 	 *            sein Nachfolger
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
+	 *             die Datenart des übergebenen Sensors wird nicht unterstützt
 	 */
-	public final void initialisiere(final ClientDavInterface dav,
-			final DUAUmfeldDatenMessStelle messStelle1,
-			final DUAUmfeldDatenSensor sensorSelbst,
-			final DUAUmfeldDatenSensor sensorVorgaenger,
+	public final void initialisiere(final ClientDavInterface dav, final DUAUmfeldDatenMessStelle messStelle1,
+			final DUAUmfeldDatenSensor sensorSelbst, final DUAUmfeldDatenSensor sensorVorgaenger,
 			final DUAUmfeldDatenSensor sensorNachfolger) throws UmfeldDatenSensorUnbekannteDatenartException {
-		if (derDav == null) {
-			derDav = dav;
+		if (AbstraktPlLangSensorMenge.derDav == null) {
+			AbstraktPlLangSensorMenge.derDav = dav;
 		}
 		this.messStelle = messStelle1.getObjekt();
 
 		this.prueflingSensor = this.getSensorInstanz(sensorSelbst.getObjekt());
-		this.vorgaengerSensor = this.getSensorInstanz(sensorVorgaenger
-				.getObjekt());
-		this.nachfolgerSensor = this.getSensorInstanz(sensorNachfolger
-				.getObjekt());
+		this.vorgaengerSensor = this.getSensorInstanz(sensorVorgaenger.getObjekt());
+		this.nachfolgerSensor = this.getSensorInstanz(sensorNachfolger.getObjekt());
 
 		this.prueflingSensor.addListener(this, true);
 		this.vorgaengerSensor.addListener(this, true);
@@ -170,7 +166,7 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 * Sendet eine Betriebsmeldung als Warnung an den Operator. <br>
 	 * <b>Achtung:</b> Es koennen nur zwei unterschiedliche Nachrichten in Folge
 	 * versendet werden (Zeitstempel)
-	 * 
+	 *
 	 * @param objekt
 	 *            das betroffene Systemobjekt
 	 * @param nachricht
@@ -181,24 +177,23 @@ public abstract class AbstraktPlLangSensorMenge<G> implements
 	 *            der Zeitstempel des Datums, das diese Fehlermeldung provoziert
 	 *            hat
 	 */
-	protected final void sendeBetriebsmeldung(final SystemObject objekt,
-			final String nachricht, final String zusatz, final long datenzeit) {
+	protected final void sendeBetriebsmeldung(final SystemObject objekt, final String nachricht, final String zusatz,
+			final long datenzeit) {
 
 		synchronized (this.zusatzAufLetzteDatenzeit) {
-			if (this.zusatzAufLetzteDatenzeit.get(zusatz) == null
-					|| this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit) {
+			if ((this.zusatzAufLetzteDatenzeit.get(zusatz) == null)
+					|| (this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit)) {
 
 				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
 				final MessageSender nachrichtenSender = MessageSender.getInstance();
 				nachrichtenSender.setApplicationLabel("PL-Langzeit UFD");
-				nachrichtenSender.sendMessage(KONVERTER.konvertiere(
-						new BetriebsmeldungDaten(objekt), null, new Object[0]),
-						MessageType.APPLICATION_DOMAIN, null,
-						MessageGrade.WARNING, objekt, MessageState.MESSAGE,
-						new MessageCauser(derDav.getLocalUser(),
-								Constants.EMPTY_STRING,
+				nachrichtenSender.sendMessage(
+						AbstraktPlLangSensorMenge.KONVERTER.konvertiere(new BetriebsmeldungDaten(objekt), null,
+								new Object[0]),
+						MessageType.APPLICATION_DOMAIN, null, MessageGrade.WARNING, objekt, MessageState.MESSAGE,
+						new MessageCauser(AbstraktPlLangSensorMenge.derDav.getLocalUser(), Constants.EMPTY_STRING,
 								"Pl-Prüfung langzeit UFD " + zusatz), //$NON-NLS-1$
-						nachricht);
+								nachricht);
 			}
 		}
 	}

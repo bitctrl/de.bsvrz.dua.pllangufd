@@ -43,15 +43,13 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartE
  * der Pl-Pruefung langzeit UFD verarbeitet.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class PlLangNsSensor extends AbstraktPlLangEreignisSensor {
 
 	/**
 	 * statische Instanzen dieser Klasse.
 	 */
-	private static final Map<SystemObject, PlLangNsSensor> INSTANZEN = new HashMap<SystemObject, PlLangNsSensor>();
+	private static final Map<SystemObject, PlLangNsSensor> INSTANZEN = new HashMap<>();
 
 	/**
 	 * Erfragt eine statische Instanz dieser Klasse.

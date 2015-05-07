@@ -37,8 +37,6 @@ import java.util.Map;
  * bereitsgestellt.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class VergleichsEreignisWerte {
 
@@ -46,12 +44,12 @@ public class VergleichsEreignisWerte {
 	 * Das Ereignis mit seinem Vergleichswert in Bezug auf das parametrierbare
 	 * Bezugsintervall.
 	 */
-	private Map<AbstraktEreignis, Double> vergleichsWerte = new HashMap<AbstraktEreignis, Double>();
+	private Map<AbstraktEreignis, Double> vergleichsWerte = new HashMap<>();
 
 	/**
 	 * Das Ereignis mit seinem Vergleichswert in Bezug auf die letzten 24h.
 	 */
-	private Map<AbstraktEreignis, Double> vergleichsWerte24 = new HashMap<AbstraktEreignis, Double>();
+	private Map<AbstraktEreignis, Double> vergleichsWerte24 = new HashMap<>();
 
 	/**
 	 * die Zeit, innerhalb der (sinnvolle) Daten vorliegen (bezogen auf

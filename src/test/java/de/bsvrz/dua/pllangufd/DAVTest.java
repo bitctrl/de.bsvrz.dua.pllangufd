@@ -39,8 +39,6 @@ import de.bsvrz.sys.funclib.commandLineArgs.ArgumentList;
  * Stellt eine Datenverteiler-Verbindung zur Verfügung.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public final class DAVTest {
 

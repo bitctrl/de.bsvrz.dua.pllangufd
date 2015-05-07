@@ -46,8 +46,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * Abstrakter Test fuer die Pl-Pruefung langzeit UFD der UFD-Arten NS und FBZ.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public abstract class AbstraktNsFbzTest implements IBmListener {
 

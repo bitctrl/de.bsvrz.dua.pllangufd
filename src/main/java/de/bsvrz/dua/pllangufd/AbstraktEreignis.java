@@ -33,8 +33,6 @@ package de.bsvrz.dua.pllangufd;
  * PL-Pruefung langzeit UFD benoetigt wird.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class AbstraktEreignis {
 

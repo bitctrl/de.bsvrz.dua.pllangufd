@@ -32,8 +32,6 @@ package de.bsvrz.dua.pllangufd;
  * S.108).
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class VergleichsWert {
 

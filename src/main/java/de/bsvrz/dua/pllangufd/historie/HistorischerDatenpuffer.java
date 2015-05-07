@@ -44,8 +44,6 @@ import java.util.TreeSet;
  * 
  * @param <G>
  *            Pufferelement
- * 
- * @version $Id$
  */
 public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 		Iterable<G> {
@@ -128,7 +126,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 */
 	@SuppressWarnings("unchecked")
 	public final SortedSet<G> cloneTeilMenge(final long anfang, final long ende) {
-		final SortedSet<G> kopie = new TreeSet<G>();
+		final SortedSet<G> kopie = new TreeSet<>();
 
 		final G groesstesElement = (G) new HistPufferElement(anfang);
 		final G kleinstesElement = (G) new HistPufferElement(ende);
@@ -171,7 +169,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 * @return der Pufferinhalt im verkuerzten Intervall
 	 */
 	public final SortedSet<G> getPufferInhalt(final long andereIntervallLaenge) {
-		final SortedSet<G> pufferClone = new TreeSet<G>();
+		final SortedSet<G> pufferClone = new TreeSet<>();
 		synchronized (this.puffer) {
 			if (!this.puffer.isEmpty()) {
 				final G aktuellsterDatensatz = this.puffer.first();
@@ -215,7 +213,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 * @return der Pufferinhalt als Kopie
 	 */
 	public final SortedSet<G> clonePufferInhalt() {
-		final SortedSet<G> pufferClone = new TreeSet<G>();
+		final SortedSet<G> pufferClone = new TreeSet<>();
 		synchronized (this.puffer) {
 			pufferClone.addAll(this.puffer);
 		}
@@ -248,7 +246,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 				final long aeltesterErlaubterZeitStempel = jetzt
 						- this.intervallLaenge;
 
-				final Collection<G> zuLoeschendeElemente = new ArrayList<G>();
+				final Collection<G> zuLoeschendeElemente = new ArrayList<>();
 				for (G pufferElement : this.puffer) {
 					if (pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel) {
 						zuLoeschendeElemente.add(pufferElement);

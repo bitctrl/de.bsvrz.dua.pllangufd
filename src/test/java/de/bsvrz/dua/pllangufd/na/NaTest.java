@@ -36,8 +36,6 @@ import de.bsvrz.dua.pllangufd.DAVTest;
  * Testet auf Versenden von Betriebsmeldungen fuer NA-Sensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 @Ignore ("Testdatenverteiler prüfen")
 public class NaTest extends AbstraktNsFbzTest {

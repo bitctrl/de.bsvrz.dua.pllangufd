@@ -34,8 +34,6 @@ import org.junit.Test;
  * Testet den historischen Datenpuffer.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 @Ignore ("Test überprüfen")
 public class HistorischerDatenpufferTest {
@@ -47,7 +45,7 @@ public class HistorischerDatenpufferTest {
 	 */
 	@Test
 	public void testAddDatum() throws Exception {
-		final HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
+		final HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<>();
 
 		Assert.assertEquals("1", 0, puffer.getPufferInhalt().size()); //$NON-NLS-1$
 		Assert.assertEquals("2", 0, puffer.getPufferInhalt(10).size()); //$NON-NLS-1$
@@ -200,7 +198,7 @@ public class HistorischerDatenpufferTest {
 	 */
 	@Test
 	public void testGetTeilMenge() throws Exception {
-		final HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<HistPufferElement>();
+		final HistorischerDatenpuffer<HistPufferElement> puffer = new HistorischerDatenpuffer<>();
 
 		Assert.assertEquals(0, puffer.getPufferInhalt().size());
 		Assert.assertEquals(0, puffer.getPufferInhalt(10).size());

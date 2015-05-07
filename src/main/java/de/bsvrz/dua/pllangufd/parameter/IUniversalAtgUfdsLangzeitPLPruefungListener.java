@@ -33,8 +33,6 @@ package de.bsvrz.dua.pllangufd.parameter;
  * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public interface IUniversalAtgUfdsLangzeitPLPruefungListener {
 

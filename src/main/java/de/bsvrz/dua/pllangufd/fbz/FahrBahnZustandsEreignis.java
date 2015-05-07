@@ -38,15 +38,13 @@ import de.bsvrz.dua.pllangufd.AbstraktEreignis;
  * Pl-Pruefung langzeit UFD benoetigte Ereignisse ab.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public final class FahrBahnZustandsEreignis extends AbstraktEreignis {
 
 	/**
 	 * die statischen Instanzen dieser Klasse.
 	 */
-	private static Set<FahrBahnZustandsEreignis> instanzen = new HashSet<FahrBahnZustandsEreignis>();
+	private static Set<FahrBahnZustandsEreignis> instanzen = new HashSet<>();
 
 	/**
 	 * Wert <code>nicht ermittelbar/fehlerhaft</code>.

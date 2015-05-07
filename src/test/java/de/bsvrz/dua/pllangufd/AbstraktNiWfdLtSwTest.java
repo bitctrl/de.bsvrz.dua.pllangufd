@@ -48,8 +48,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * und SW.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 

@@ -48,8 +48,6 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class UniversalAtgUfdsLangzeitPLPruefung implements
 		ClientReceiverInterface {

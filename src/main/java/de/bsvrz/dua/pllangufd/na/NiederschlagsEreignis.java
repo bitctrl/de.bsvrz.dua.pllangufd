@@ -38,15 +38,13 @@ import de.bsvrz.dua.pllangufd.AbstraktEreignis;
  * ab.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public final class NiederschlagsEreignis extends AbstraktEreignis {
 
 	/**
 	 * die statischen Instanzen dieser Klasse.
 	 */
-	private static final Set<NiederschlagsEreignis> INSTANZEN = new HashSet<NiederschlagsEreignis>();
+	private static final Set<NiederschlagsEreignis> INSTANZEN = new HashSet<>();
 
 	/**
 	 * die statischen Instanzen dieser Klasse.

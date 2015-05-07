@@ -43,8 +43,6 @@ import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
  * Parametern fuer Ereignis-getriggerte Pruefung.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public abstract class AbstraktPlLangEreignisSensor extends
 		AbstraktPlLangSensor<VergleichsEreignisWerte> {

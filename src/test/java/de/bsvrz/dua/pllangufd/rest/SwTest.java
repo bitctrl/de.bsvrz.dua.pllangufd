@@ -36,8 +36,6 @@ import de.bsvrz.dua.pllangufd.DAVTest;
  * Testet auf Versenden von Betriebsmeldungen fuer SW-Sensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 @Ignore ("Datenverteilerverbindung prüfen")
 public class SwTest extends AbstraktNiWfdLtSwTest {

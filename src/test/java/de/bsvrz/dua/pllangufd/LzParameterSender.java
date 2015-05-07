@@ -46,15 +46,13 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * Sendet Parameter eines Sensors fuer die Pl-Pruefung langzeit UFD.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public final class LzParameterSender implements ClientSenderInterface {
 
 	/**
 	 * statische Instanzen.
 	 */
-	private static Map<SystemObject, LzParameterSender> instanzen = new HashMap<SystemObject, LzParameterSender>();
+	private static Map<SystemObject, LzParameterSender> instanzen = new HashMap<>();
 
 	/**
 	 * Datenverteiler-Verbindung.

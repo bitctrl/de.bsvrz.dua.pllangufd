@@ -56,8 +56,6 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * aller Auswertungsmodule.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 
@@ -85,7 +83,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		LOGGER.config(
 				"---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
-		final Set<UmfeldDatenArt> niWfdSwLt = new HashSet<UmfeldDatenArt>();
+		final Set<UmfeldDatenArt> niWfdSwLt = new HashSet<>();
 		niWfdSwLt.add(UmfeldDatenArt.ni);
 		niWfdSwLt.add(UmfeldDatenArt.wfd);
 		niWfdSwLt.add(UmfeldDatenArt.sw);

@@ -47,8 +47,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartE
  * Vergleichswerten im Sinne der Pl-Pruefung langzeit UFD verarbeitet.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class PlLangNiWfdLtSwSensor extends
 		AbstraktPlLangSensor<VergleichsWert> {
@@ -56,7 +54,7 @@ public class PlLangNiWfdLtSwSensor extends
 	/**
 	 * statische Instanzen dieser Klasse.
 	 */
-	private static final Map<SystemObject, PlLangNiWfdLtSwSensor> INSTANZEN = new HashMap<SystemObject, PlLangNiWfdLtSwSensor>();
+	private static final Map<SystemObject, PlLangNiWfdLtSwSensor> INSTANZEN = new HashMap<>();
 
 	/**
 	 * Erfragt eine statische Instanz dieser Klasse.

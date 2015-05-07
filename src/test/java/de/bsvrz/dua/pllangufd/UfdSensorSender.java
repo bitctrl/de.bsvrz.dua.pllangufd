@@ -51,15 +51,13 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * Sendet Daten von Umfelddatensensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public final class UfdSensorSender implements ClientSenderInterface {
 
 	/**
 	 * statische Instanzen dieser Klasse.
 	 */
-	private static HashMap<SystemObject, UfdSensorSender> instanzen = new HashMap<SystemObject, UfdSensorSender>();
+	private static HashMap<SystemObject, UfdSensorSender> instanzen = new HashMap<>();
 
 	/**
 	 * Objekt.

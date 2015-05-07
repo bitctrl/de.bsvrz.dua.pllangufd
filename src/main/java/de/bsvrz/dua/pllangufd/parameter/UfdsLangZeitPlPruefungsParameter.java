@@ -40,8 +40,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer {
 

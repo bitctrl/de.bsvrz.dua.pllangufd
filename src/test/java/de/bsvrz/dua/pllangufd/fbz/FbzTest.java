@@ -37,8 +37,6 @@ import de.bsvrz.dua.pllangufd.DAVTest;
  * Testet auf Versenden von Betriebsmeldungen fuer FBZ-Sensoren.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 @Ignore ("Testdatenverteiler prüfen")
 public class FbzTest extends AbstraktNsFbzTest {

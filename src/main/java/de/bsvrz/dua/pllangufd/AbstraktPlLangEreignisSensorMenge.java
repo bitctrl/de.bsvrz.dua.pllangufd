@@ -48,8 +48,6 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD ueberprueft wird
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id$
  */
 public abstract class AbstraktPlLangEreignisSensorMenge extends
 		AbstraktPlLangSensorMenge<VergleichsEreignisWerte> {

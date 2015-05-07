@@ -47,8 +47,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.AbstraktOnlineUfdSensor;
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
  * @param <G> Sensor
- * 
- * @version $Id$
  */
 public abstract class AbstraktPlLangSensor<G> extends
 		AbstraktOnlineUfdSensor<ResultData> implements
@@ -67,7 +65,7 @@ public abstract class AbstraktPlLangSensor<G> extends
 	/**
 	 * Messwerthistorie dieses Sensors fuer die letzten 24 Stunden.
 	 */
-	protected HistorischerDatenpuffer<HistorischerUfdsWert> hitorie24 = new HistorischerDatenpuffer<HistorischerUfdsWert>(
+	protected HistorischerDatenpuffer<HistorischerUfdsWert> hitorie24 = new HistorischerDatenpuffer<>(
 			Constants.MILLIS_PER_DAY);
 
 	/**

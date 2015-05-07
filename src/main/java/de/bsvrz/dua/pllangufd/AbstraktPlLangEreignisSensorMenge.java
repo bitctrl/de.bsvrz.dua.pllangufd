@@ -268,9 +268,9 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 	 *            aktuelle Daten des Vorgaengers
 	 * @param aktuellesNachfolgerDatum
 	 *            aktuelle Daten des Nachfolgers
-	 * @return der Wert AbweichungXY (>= 0) auf Basis der aktuellen
+	 * @return der Wert AbweichungXY (&gt;= 0) auf Basis der aktuellen
 	 *         Vergleichswerte pro XY-Ereignis aller assoziierten Sensoren oder
-	 *         ein Wert < 0, wenn die AbweichungXY nicht ermittelt werden konnte
+	 *         ein Wert &lt; 0, wenn die AbweichungXY nicht ermittelt werden konnte
 	 */
 	private double getAbweichung(final boolean intervall24,
 			final VergleichsEreignisWerte aktuellesSensorDatum,

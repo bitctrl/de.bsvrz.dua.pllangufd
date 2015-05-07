@@ -99,7 +99,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 * <code>t</code> mit folgender Eigenschaft haben:<br>
 	 * <br>
 	 * 
-	 * <code>a - l <= t <= a</code>, mit<br>
+	 * <code>a - l &lt;= t &lt;= a</code>, mit<br>
 	 * <br>
 	 * 
 	 * a = aktuellster Zeitstempel im Puffer und<br>

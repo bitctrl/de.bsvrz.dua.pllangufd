@@ -24,8 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
-
 package de.bsvrz.dua.pllangufd;
 
 import java.util.HashMap;
@@ -41,34 +39,27 @@ import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 /**
  * Abstrakter Umfelddatensensor fuer die PL-Pruefung langzeit UFD mit aktuellen
  * Parametern fuer Ereignis-getriggerte Pruefung.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-public abstract class AbstraktPlLangEreignisSensor extends
-		AbstraktPlLangSensor<VergleichsEreignisWerte> {
+public abstract class AbstraktPlLangEreignisSensor extends AbstraktPlLangSensor<VergleichsEreignisWerte> {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public VergleichsEreignisWerte getAktuellenVergleichsWert(
-			final UfdsLangZeitPlPruefungsParameter parameter,
+	public VergleichsEreignisWerte getAktuellenVergleichsWert(final UfdsLangZeitPlPruefungsParameter parameter,
 			final long aktuellerZeitStempel) {
 		VergleichsEreignisWerte ergebnis = null;
 
 		synchronized (this) {
-			if (!this.hitorie24.getPufferInhalt().isEmpty()
-					&& parameter != null && parameter.isValid()) {
+			if (!this.hitorie24.getPufferInhalt().isEmpty() && (parameter != null) && parameter.isValid()) {
 
 				ergebnis = new VergleichsEreignisWerte();
 				/**
 				 * berechne Vergleichswerte fuer parametriertes
 				 * Vergleichsintervall
 				 */
-				final long intervallAnfang = aktuellerZeitStempel
-						- parameter.getVergleichsIntervall().getMillis();
-				final SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
-						.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
+				final long intervallAnfang = aktuellerZeitStempel - parameter.getVergleichsIntervall().getMillis();
+				final SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24.cloneTeilMenge(intervallAnfang,
+						aktuellerZeitStempel);
 
 				if (!historieVergleich.isEmpty()) {
 					this.setVergleichsWerte(false, historieVergleich, ergebnis);
@@ -77,15 +68,12 @@ public abstract class AbstraktPlLangEreignisSensor extends
 				/**
 				 * berechne Vergleichswerte fuer letzte 24h
 				 */
-				final long intervallAnfang24 = aktuellerZeitStempel
-						- Constants.MILLIS_PER_DAY;
+				final long intervallAnfang24 = aktuellerZeitStempel - Constants.MILLIS_PER_DAY;
 				final SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
 						.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
 
 				if (!historieVergleich24.isEmpty()) {
-					this
-							.setVergleichsWerte(true, historieVergleich24,
-									ergebnis);
+					this.setVergleichsWerte(true, historieVergleich24, ergebnis);
 				}
 			}
 		}
@@ -96,7 +84,7 @@ public abstract class AbstraktPlLangEreignisSensor extends
 	/**
 	 * Berechnet aus den uebergebenen historischen Werten die Vergleichswerte
 	 * pro Ereignis und die gesamte Datenzeit.
-	 * 
+	 *
 	 * @param intervall24
 	 *            indiziert, dass die Werte fuer das Vergleichsintervall von 24
 	 *            Stunden gesendet gesetzt werden sollen
@@ -112,20 +100,16 @@ public abstract class AbstraktPlLangEreignisSensor extends
 		final Map<AbstraktEreignis, Double> ergebnisse = new HashMap<AbstraktEreignis, Double>();
 		long datenzeitGesamt = 0;
 
-		for (HistorischerUfdsWert historischerWert : historischeWerte) {
-			if (historischerWert.getWert() != null
-					&& historischerWert.getWert().isOk()) {
+		for (final HistorischerUfdsWert historischerWert : historischeWerte) {
+			if ((historischerWert.getWert() != null) && historischerWert.getWert().isOk()) {
 				datenzeitGesamt += historischerWert.getT();
-				for (AbstraktEreignis ereignis : this.getEreignisInstanzen()) {
-					if (ereignis.isZustandInEreignis((int) historischerWert
-							.getWert().getWert())) {
+				for (final AbstraktEreignis ereignis : this.getEreignisInstanzen()) {
+					if (ereignis.isZustandInEreignis((int) historischerWert.getWert().getWert())) {
 						final Double ergebnisWert = ergebnisse.get(ereignis);
 						if (ergebnisWert == null) {
-							ergebnisse.put(ereignis, new Double(
-									historischerWert.getT()));
+							ergebnisse.put(ereignis, new Double(historischerWert.getT()));
 						} else {
-							ergebnisse.put(ereignis, ergebnisWert
-									+ new Double(historischerWert.getT()));
+							ergebnisse.put(ereignis, ergebnisWert + new Double(historischerWert.getT()));
 						}
 						break;
 					}
@@ -133,14 +117,13 @@ public abstract class AbstraktPlLangEreignisSensor extends
 			}
 		}
 
-		vergleichsEreignisWerte.setInhalt(intervall24, datenzeitGesamt,
-				ergebnisse);
+		vergleichsEreignisWerte.setInhalt(intervall24, datenzeitGesamt, ergebnisse);
 	}
 
 	/**
 	 * Erfragt die Menge von Ereignissen, fuer die die Abweichung bzw. ueber
 	 * denen die Vergleichswerte berechnet werden sollen
-	 * 
+	 *
 	 * @return die Menge von Ereignissen, fuer die die Abweichung bzw. ueber
 	 *         denen die Vergleichswerte berechnet werden sollen
 	 */

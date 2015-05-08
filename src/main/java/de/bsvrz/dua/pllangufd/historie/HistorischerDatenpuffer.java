@@ -37,22 +37,19 @@ import java.util.TreeSet;
  * Speichert eine Menge von Datensaetzen, die innerhalb eines bestimmten
  * Intervalls liegen. Dabei gibt das Datum innerhalb dieses Puffers mit dem
  * aeltesten Zeitstempel den Anfang bzw. das obere Ende des (abgeschlossenen)
- * Intervalls an, dessen Laenge mit <code>intervallLaenge</code> beschrieben
- * ist
- * 
+ * Intervalls an, dessen Laenge mit <code>intervallLaenge</code> beschrieben ist
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
+ *
  * @param <G>
  *            Pufferelement
  */
-public class HistorischerDatenpuffer<G extends HistPufferElement> implements
-		Iterable<G> {
+public class HistorischerDatenpuffer<G extends HistPufferElement> implements Iterable<G> {
 
 	/**
 	 * nach Zeitstempeln sortierter Datenpuffer.
 	 */
-	private SortedSet<G> puffer = Collections
-			.synchronizedSortedSet(new TreeSet<G>());
+	private final SortedSet<G> puffer = Collections.synchronizedSortedSet(new TreeSet<G>());
 
 	/**
 	 * aktuelle Maximallaenge des Pufferintervalls.
@@ -67,7 +64,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 
 	/**
 	 * Standardkonstruktor.
-	 * 
+	 *
 	 * @param intervallLaenge
 	 *            aktuelle Maximallaenge des Pufferintervalls
 	 */
@@ -78,7 +75,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	/**
 	 * Fuegt ein Datum in diesen Puffer ein und loescht gleichzeitig alle
 	 * Elemente aus dem Puffer, die nicht mehr im Intervall liegen.
-	 * 
+	 *
 	 * @param datum
 	 *            das Datum
 	 */
@@ -96,13 +93,13 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 * Es duerfen nur Daten im Puffer stehen, die einen Zeitstempel
 	 * <code>t</code> mit folgender Eigenschaft haben:<br>
 	 * <br>
-	 * 
+	 *
 	 * <code>a - l &lt;= t &lt;= a</code>, mit<br>
 	 * <br>
-	 * 
+	 *
 	 * a = aktuellster Zeitstempel im Puffer und<br>
 	 * l = Intervalllaenge
-	 * 
+	 *
 	 * @param intervallLaenge
 	 *            neue Intervalllaenge
 	 */
@@ -116,7 +113,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	/**
 	 * Erfragt die Elemente im Puffer, deren Datenzeitstempel im Bereich
 	 * [anfang, ende] liegen.
-	 * 
+	 *
 	 * @param anfang
 	 *            Anfang des abgeschlossenen Intervalls
 	 * @param ende
@@ -131,9 +128,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 		final G groesstesElement = (G) new HistPufferElement(anfang);
 		final G kleinstesElement = (G) new HistPufferElement(ende);
 		synchronized (this.puffer) {
-			kopie
-					.addAll(this.puffer.subSet(kleinstesElement,
-							groesstesElement));
+			kopie.addAll(this.puffer.subSet(kleinstesElement, groesstesElement));
 		}
 
 		return kopie;
@@ -142,7 +137,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	/**
 	 * Erfragt die Elemente im Puffer, deren Datenzeitstempel im Bereich
 	 * [anfang, ende] liegen.
-	 * 
+	 *
 	 * @param anfang
 	 *            Anfang des abgeschlossenen Intervalls
 	 * @param ende
@@ -162,7 +157,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	/**
 	 * Erfragt den Teil des Pufferinhalts, der noch innerhalb des durch die
 	 * uebergebene Intervalllange beschriebenen verkuerzten Intervalls liegt.
-	 * 
+	 *
 	 * @param andereIntervallLaenge
 	 *            eine andere Intervalllaenge (kleiner als die hier
 	 *            eingestellte)
@@ -173,11 +168,10 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 		synchronized (this.puffer) {
 			if (!this.puffer.isEmpty()) {
 				final G aktuellsterDatensatz = this.puffer.first();
-				final long aeltesterErlaubterZeitStempel = aktuellsterDatensatz
-						.getZeitStempel()
+				final long aeltesterErlaubterZeitStempel = aktuellsterDatensatz.getZeitStempel()
 						- andereIntervallLaenge;
 
-				for (G pufferElement : this.puffer) {
+				for (final G pufferElement : this.puffer) {
 					if (pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel) {
 						break;
 					}
@@ -191,7 +185,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 
 	/**
 	 * Erfragt den Pufferinhalt.
-	 * 
+	 *
 	 * @return der Pufferinhalt
 	 */
 	public final SortedSet<G> getPufferInhalt() {
@@ -200,7 +194,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 
 	/**
 	 * Erfragt die aktelle Maximallaenge des Pufferintervalls.
-	 * 
+	 *
 	 * @return aktelle Maximallaenge des Pufferintervalls
 	 */
 	public final long getIntervallLaenge() {
@@ -209,7 +203,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 
 	/**
 	 * Erfragt den Pufferinhalt als Kopie.
-	 * 
+	 *
 	 * @return der Pufferinhalt als Kopie
 	 */
 	public final SortedSet<G> clonePufferInhalt() {
@@ -236,18 +230,17 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 	 * noch Elemente im Puffer sind, deren Datenzeitstempel im Intervall<br>
 	 * <code>[jetzt-intervallMax, jetzt]</code><br>
 	 * liegen.
-	 * 
+	 *
 	 * @param jetzt
 	 *            der Jetzt-Zeitpunkt
 	 */
 	public final void setJetzt(final long jetzt) {
 		synchronized (this.puffer) {
 			if (!this.puffer.isEmpty()) {
-				final long aeltesterErlaubterZeitStempel = jetzt
-						- this.intervallLaenge;
+				final long aeltesterErlaubterZeitStempel = jetzt - this.intervallLaenge;
 
 				final Collection<G> zuLoeschendeElemente = new ArrayList<>();
-				for (G pufferElement : this.puffer) {
+				for (final G pufferElement : this.puffer) {
 					if (pufferElement.getZeitStempel() < aeltesterErlaubterZeitStempel) {
 						zuLoeschendeElemente.add(pufferElement);
 					}
@@ -258,9 +251,7 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	public Iterator<G> iterator() {
 		return this.puffer.iterator();
 	}

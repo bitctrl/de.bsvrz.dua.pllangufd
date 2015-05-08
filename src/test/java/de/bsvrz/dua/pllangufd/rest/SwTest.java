@@ -34,42 +34,27 @@ import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
  * Testet auf Versenden von Betriebsmeldungen fuer SW-Sensoren.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-@Ignore ("Datenverteilerverbindung prüfen")
+@Ignore("Datenverteilerverbindung prüfen")
 public class SwTest extends AbstraktNiWfdLtSwTest {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getNachfolger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.nachfolger.sw"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.nachfolger.sw"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getPruefling() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.pruefling.sw"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.pruefling.sw"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getVorgaenger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.vorgaenger.sw"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.vorgaenger.sw"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected long getMaxAbweichung() {
 		return 1;

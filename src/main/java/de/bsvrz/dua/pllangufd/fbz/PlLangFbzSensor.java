@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.fbz;
 
 import java.util.HashMap;
@@ -41,7 +40,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartE
 /**
  * Sensor, der die aktuellen Daten eines FBZ-Sensors zu Vergleichswerten im
  * Sinne der Pl-Pruefung langzeit UFD verarbeitet.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public class PlLangFbzSensor extends AbstraktPlLangEreignisSensor {
@@ -53,34 +52,31 @@ public class PlLangFbzSensor extends AbstraktPlLangEreignisSensor {
 
 	/**
 	 * Erfragt eine statische Instanz dieser Klasse.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param objekt
-	 *            ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
+	 *            ein Systemobjekt eines Umfelddatensensors (
+	 *            <code>!= null</code>)
 	 * @return eine statische Instanz dieser Klasse
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	public static final PlLangFbzSensor getInstanz(
-			final ClientDavInterface dav, final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
+	public static final PlLangFbzSensor getInstanz(final ClientDavInterface dav, final SystemObject objekt)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (objekt == null) {
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}
-		PlLangFbzSensor instanz = INSTANZEN.get(objekt);
+		PlLangFbzSensor instanz = PlLangFbzSensor.INSTANZEN.get(objekt);
 
 		if (instanz == null) {
 			instanz = new PlLangFbzSensor();
-			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(
-					DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			INSTANZEN.put(objekt, instanz);
+			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			PlLangFbzSensor.INSTANZEN.put(objekt, instanz);
 		}
 
 		return instanz;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return FahrBahnZustandsEreignis.getInstanzen();

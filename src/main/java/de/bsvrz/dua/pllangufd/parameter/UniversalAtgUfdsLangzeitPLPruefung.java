@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.parameter;
 
 import java.util.Collections;
@@ -46,11 +45,10 @@ import de.bsvrz.sys.funclib.debug.Debug;
 /**
  * Klasse zum Auslesen aller der Parameter-Attributgruppen
  * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-public class UniversalAtgUfdsLangzeitPLPruefung implements
-		ClientReceiverInterface {
+public class UniversalAtgUfdsLangzeitPLPruefung implements ClientReceiverInterface {
 
 	/**
 	 * aktueller Parametersatz.
@@ -60,64 +58,57 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements
 	/**
 	 * beobachter dieses Objektes (werden ueber aktuelle Parameter informiert).
 	 */
-	private Set<IUniversalAtgUfdsLangzeitPLPruefungListener> listenerMenge = Collections
+	private final Set<IUniversalAtgUfdsLangzeitPLPruefungListener> listenerMenge = Collections
 			.synchronizedSet(new HashSet<IUniversalAtgUfdsLangzeitPLPruefungListener>());
 
 	/**
 	 * Standardkonstruktor.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param objekt
 	 *            Systemobjekt eines beliebigen Umfelddatensensors
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	public UniversalAtgUfdsLangzeitPLPruefung(final ClientDavInterface dav,
-			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
+	public UniversalAtgUfdsLangzeitPLPruefung(final ClientDavInterface dav, final SystemObject objekt)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
 
 		final DataDescription parameterBeschreibung = new DataDescription(
-				dav.getDataModel().getAttributeGroup(
-						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
-				dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL));
-		dav.subscribeReceiver(this, objekt, parameterBeschreibung,
-				ReceiveOptions.normal(), ReceiverRole.receiver());
+				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+						dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL));
+		dav.subscribeReceiver(this, objekt, parameterBeschreibung, ReceiveOptions.normal(), ReceiverRole.receiver());
 	}
 
 	/**
 	 * Fuegt der Menge aller Listener einen Listener hinzu.
-	 * 
+	 *
 	 * @param listener
 	 *            ein neuer Listener
 	 * @param sofortInformieren
 	 *            ob der neue Listener sofort ueber das aktuelle Datum
 	 *            informiert werden soll
 	 */
-	public final synchronized void addListener(
-			final IUniversalAtgUfdsLangzeitPLPruefungListener listener,
+	public final synchronized void addListener(final IUniversalAtgUfdsLangzeitPLPruefungListener listener,
 			final boolean sofortInformieren) {
-		if (this.listenerMenge.add(listener) && this.parameterSatz != null) {
+		if (this.listenerMenge.add(listener) && (this.parameterSatz != null)) {
 			listener.aktualisiereParameter(this.parameterSatz);
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void update(final ResultData[] resultate) {
 		if (resultate != null) {
-			for (ResultData resultat : resultate) {
+			for (final ResultData resultat : resultate) {
 				if (resultat != null) {
 					synchronized (this) {
 						try {
-							this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(
-									resultat);
+							this.parameterSatz = new UfdsLangZeitPlPruefungsParameter(resultat);
 						} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
 							Debug.getLogger().warning(e.getMessage());
 							continue;
 						}
-						for (IUniversalAtgUfdsLangzeitPLPruefungListener listener : listenerMenge) {
+						for (final IUniversalAtgUfdsLangzeitPLPruefungListener listener : listenerMenge) {
 							listener.aktualisiereParameter(this.parameterSatz);
 						}
 					}

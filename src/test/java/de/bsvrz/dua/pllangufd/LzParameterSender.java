@@ -44,7 +44,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
  * Sendet Parameter eines Sensors fuer die Pl-Pruefung langzeit UFD.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public final class LzParameterSender implements ClientSenderInterface {
@@ -66,24 +66,24 @@ public final class LzParameterSender implements ClientSenderInterface {
 
 	/**
 	 * Erfragt eine statische Instanz dieser Klasse.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param obj
 	 *            Systemobjekt
 	 * @return eine statische Instanz dieser Klasse
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	public static LzParameterSender getInstanz(final ClientDavInterface dav,
-			final SystemObject obj) throws UmfeldDatenSensorUnbekannteDatenartException {
-		if (sDAV == null) {
-			sDAV = dav;
+	public static LzParameterSender getInstanz(final ClientDavInterface dav, final SystemObject obj)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
+		if (LzParameterSender.sDAV == null) {
+			LzParameterSender.sDAV = dav;
 		}
-		LzParameterSender sender = instanzen.get(obj);
+		LzParameterSender sender = LzParameterSender.instanzen.get(obj);
 
 		if (sender == null) {
 			sender = new LzParameterSender(dav, obj);
-			instanzen.put(obj, sender);
+			LzParameterSender.instanzen.put(obj, sender);
 		}
 
 		return sender;
@@ -91,22 +91,21 @@ public final class LzParameterSender implements ClientSenderInterface {
 
 	/**
 	 * Standardkonstruktor.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param obj
 	 *            Systemobjekt
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	private LzParameterSender(final ClientDavInterface dav, final SystemObject obj) throws UmfeldDatenSensorUnbekannteDatenartException {
+	private LzParameterSender(final ClientDavInterface dav, final SystemObject obj)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
 		this.objekt = obj;
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(obj);
 
-		final DataDescription dd = new DataDescription(dav.getDataModel()
-				.getAttributeGroup(
-						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
-				dav.getDataModel().getAspect(
-						DaVKonstanten.ASP_PARAMETER_VORGABE));
+		final DataDescription dd = new DataDescription(
+				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+						dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_VORGABE));
 
 		try {
 			dav.subscribeSender(this, obj, dd, SenderRole.sender());
@@ -117,7 +116,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 
 	/**
 	 * Sendet Parameter.
-	 * 
+	 *
 	 * @param vergleichsIntervall
 	 *            der Vergleichsintervall
 	 * @param maxAusfallZeit
@@ -125,45 +124,36 @@ public final class LzParameterSender implements ClientSenderInterface {
 	 * @param maxAbweichung
 	 *            die maximale Abweichung
 	 * @return ob das Senden erfolgreich war
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	public boolean setParameter(
-			final StundenIntervallAnteil12h vergleichsIntervall, final long maxAusfallZeit,
+	public boolean setParameter(final StundenIntervallAnteil12h vergleichsIntervall, final long maxAusfallZeit,
 			final long maxAbweichung) throws UmfeldDatenSensorUnbekannteDatenartException {
 		boolean erfolg = false;
 
-		final UmfeldDatenArt datenArt = UmfeldDatenArt
-				.getUmfeldDatenArtVon(this.objekt);
+		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(this.objekt);
 
-		final DataDescription dd = new DataDescription(sDAV.getDataModel()
-				.getAttributeGroup(
-						"atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
-				sDAV.getDataModel().getAspect(
-						DaVKonstanten.ASP_PARAMETER_VORGABE));
+		final DataDescription dd = new DataDescription(
+				LzParameterSender.sDAV.getDataModel()
+						.getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+						LzParameterSender.sDAV.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_VORGABE));
 
-		final Data nutzDatum = sDAV.createData(sDAV.getDataModel().getAttributeGroup(
-				"atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
-		nutzDatum
-				.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
+		final Data nutzDatum = LzParameterSender.sDAV.createData(LzParameterSender.sDAV.getDataModel()
+				.getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
+		nutzDatum.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
 		nutzDatum.getTimeValue("maxAusfallZeit").setMillis(maxAusfallZeit); //$NON-NLS-1$
-		if (datenArt.equals(UmfeldDatenArt.ns)
-				|| datenArt.equals(UmfeldDatenArt.fbz)) {
+		if (datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)) {
 
 			// nutzDatum.getUnscaledValue("maxAbweichung" +
 			// datenArt.getAbkuerzung()).set(0); //$NON-NLS-1$
 
-			nutzDatum
-					.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$ 
+			nutzDatum.getTimeValue("maxAbweichung" + datenArt.getAbkuerzung()).setMillis(maxAbweichung); //$NON-NLS-1$
 
 		} else {
-			nutzDatum
-					.getUnscaledValue(
-							"maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$
+			nutzDatum.getUnscaledValue("maxAbweichung" + datenArt.getAbkuerzung()).set(maxAbweichung); //$NON-NLS-1$
 		}
 
 		try {
-			sDAV.sendData(new ResultData(this.objekt, dd, System
-					.currentTimeMillis(), nutzDatum));
+			LzParameterSender.sDAV.sendData(new ResultData(this.objekt, dd, System.currentTimeMillis(), nutzDatum));
 			erfolg = true;
 		} catch (final Exception e) {
 			e.printStackTrace();
@@ -172,19 +162,13 @@ public final class LzParameterSender implements ClientSenderInterface {
 		return erfolg;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void dataRequest(final SystemObject object,
-			final DataDescription dataDescription, final byte state) {
-		// 		
+	@Override
+	public void dataRequest(final SystemObject object, final DataDescription dataDescription, final byte state) {
+		//
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isRequestSupported(final SystemObject object,
-			final DataDescription dataDescription) {
+	@Override
+	public boolean isRequestSupported(final SystemObject object, final DataDescription dataDescription) {
 		return false;
 	}
 }

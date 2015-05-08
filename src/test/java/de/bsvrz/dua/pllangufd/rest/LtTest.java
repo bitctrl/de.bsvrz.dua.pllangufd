@@ -34,42 +34,27 @@ import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
  * Testet auf Versenden von Betriebsmeldungen fuer LT-Sensoren.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-@Ignore ("Datenverteilerverbindung prüfen")
+@Ignore("Datenverteilerverbindung prüfen")
 public class LtTest extends AbstraktNiWfdLtSwTest {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getNachfolger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.nachfolger.lt"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.nachfolger.lt"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getPruefling() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.pruefling.lt"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.pruefling.lt"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getVorgaenger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.vorgaenger.lt"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.vorgaenger.lt"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected long getMaxAbweichung() {
 		return 10;

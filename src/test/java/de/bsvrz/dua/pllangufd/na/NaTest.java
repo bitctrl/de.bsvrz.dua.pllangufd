@@ -34,37 +34,25 @@ import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
  * Testet auf Versenden von Betriebsmeldungen fuer NA-Sensoren.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-@Ignore ("Testdatenverteiler prüfen")
+@Ignore("Testdatenverteiler prüfen")
 public class NaTest extends AbstraktNsFbzTest {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getNachfolger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.nachfolger.ns"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.nachfolger.ns"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getPruefling() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.pruefling.ns"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.pruefling.ns"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getVorgaenger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.vorgaenger.ns"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.vorgaenger.ns"); //$NON-NLS-1$ ;
 	}
 
 }

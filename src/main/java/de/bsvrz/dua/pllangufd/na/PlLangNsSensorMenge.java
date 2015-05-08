@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.na;
 
 import java.util.Set;
@@ -33,6 +32,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.dua.pllangufd.AbstraktEreignis;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangEreignisSensorMenge;
 import de.bsvrz.dua.pllangufd.AbstraktPlLangSensor;
+import de.bsvrz.dua.pllangufd.AbstraktPlLangSensorMenge;
 import de.bsvrz.dua.pllangufd.VergleichsEreignisWerte;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 
@@ -40,27 +40,20 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartE
  * Assoziator fuer eine Menge von NS-Sensoren der Art:<br>
  * Hauptsensor, Vorgaenger, Nachfolger,<br>
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD ueberprueft wird.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public class PlLangNsSensorMenge extends AbstraktPlLangEreignisSensorMenge {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return NiederschlagsEreignis.getInstanzen();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
-	 */
 	@Override
-	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
-			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
-		return PlLangNsSensor.getInstanz(derDav, objekt);
+	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(final SystemObject objekt)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
+		return PlLangNsSensor.getInstanz(AbstraktPlLangSensorMenge.derDav, objekt);
 	}
 
 }

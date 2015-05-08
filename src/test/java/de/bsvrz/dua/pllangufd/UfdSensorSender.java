@@ -49,7 +49,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
  * Sendet Daten von Umfelddatensensoren.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public final class UfdSensorSender implements ClientSenderInterface {
@@ -66,7 +66,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 
 	/**
 	 * Initialisiert alle Umfelddatensensoren.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param ersteDatenZeit
@@ -75,11 +75,9 @@ public final class UfdSensorSender implements ClientSenderInterface {
 	 * @throws Exception
 	 *             wird weitergereicht
 	 */
-	public static void initialisiere(final ClientDavInterface dav,
-			final long ersteDatenZeit) throws Exception {
-		for (SystemObject objekt : dav.getDataModel().getType(
-				"typ.umfeldDatenSensor").getElements()) { //$NON-NLS-1$
-			instanzen.put(objekt, new UfdSensorSender(dav, objekt));
+	public static void initialisiere(final ClientDavInterface dav, final long ersteDatenZeit) throws Exception {
+		for (final SystemObject objekt : dav.getDataModel().getType("typ.umfeldDatenSensor").getElements()) { //$NON-NLS-1$
+			UfdSensorSender.instanzen.put(objekt, new UfdSensorSender(dav, objekt));
 		}
 		try {
 			Thread.sleep(1000L);
@@ -90,128 +88,106 @@ public final class UfdSensorSender implements ClientSenderInterface {
 		/**
 		 * Warte bis alle Anmeldungenen durchgeführt sind
 		 */
-		for (UfdSensorSender sender : instanzen.values()) {
-			final UmfeldDatenArt datenArt = UmfeldDatenArt
-					.getUmfeldDatenArtVon(sender.getObjekt());
-			final DataDescription dd = new DataDescription(dav.getDataModel()
-					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			final Data nutzDaten = getSensorDatum(sender.getObjekt(),
-					15L * Constants.MILLIS_PER_MINUTE, datenArt
-							.equals(UmfeldDatenArt.ns)
-							|| datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit,
+		for (final UfdSensorSender sender : UfdSensorSender.instanzen.values()) {
+			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sender.getObjekt());
+			final DataDescription dd = new DataDescription(
+					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			final Data nutzDaten = UfdSensorSender.getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE,
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit, nutzDaten));
+		}
+
+		for (final UfdSensorSender sender : UfdSensorSender.instanzen.values()) {
+			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sender.getObjekt());
+			final DataDescription dd = new DataDescription(
+					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			final Data nutzDaten = UfdSensorSender.getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE,
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + (15L * Constants.MILLIS_PER_MINUTE),
 					nutzDaten));
 		}
 
-		for (UfdSensorSender sender : instanzen.values()) {
-			final UmfeldDatenArt datenArt = UmfeldDatenArt
-					.getUmfeldDatenArtVon(sender.getObjekt());
-			final DataDescription dd = new DataDescription(dav.getDataModel()
-					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			final Data nutzDaten = getSensorDatum(sender.getObjekt(),
-					15L * Constants.MILLIS_PER_MINUTE, datenArt
-							.equals(UmfeldDatenArt.ns)
-							|| datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit
-					+ 15L * Constants.MILLIS_PER_MINUTE, nutzDaten));
+		for (final UfdSensorSender sender : UfdSensorSender.instanzen.values()) {
+			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sender.getObjekt());
+			final DataDescription dd = new DataDescription(
+					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			final Data nutzDaten = UfdSensorSender.getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE,
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + (30L * Constants.MILLIS_PER_MINUTE),
+					nutzDaten));
 		}
 
-		for (UfdSensorSender sender : instanzen.values()) {
-			final UmfeldDatenArt datenArt = UmfeldDatenArt
-					.getUmfeldDatenArtVon(sender.getObjekt());
-			final DataDescription dd = new DataDescription(dav.getDataModel()
-					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			final Data nutzDaten = getSensorDatum(sender.getObjekt(),
-					15L * Constants.MILLIS_PER_MINUTE, datenArt
-							.equals(UmfeldDatenArt.ns)
-							|| datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit
-					+ 30L * Constants.MILLIS_PER_MINUTE, nutzDaten));
+		for (final UfdSensorSender sender : UfdSensorSender.instanzen.values()) {
+			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sender.getObjekt());
+			final DataDescription dd = new DataDescription(
+					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			final Data nutzDaten = UfdSensorSender.getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE,
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + (45L * Constants.MILLIS_PER_MINUTE),
+					nutzDaten));
 		}
 
-		for (UfdSensorSender sender : instanzen.values()) {
-			final UmfeldDatenArt datenArt = UmfeldDatenArt
-					.getUmfeldDatenArtVon(sender.getObjekt());
-			final DataDescription dd = new DataDescription(dav.getDataModel()
-					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			final Data nutzDaten = getSensorDatum(sender.getObjekt(),
-					15L * Constants.MILLIS_PER_MINUTE, datenArt
-							.equals(UmfeldDatenArt.ns)
-							|| datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit
-					+ 45L * Constants.MILLIS_PER_MINUTE, nutzDaten));
-		}
-
-		for (UfdSensorSender sender : instanzen.values()) {
-			final UmfeldDatenArt datenArt = UmfeldDatenArt
-					.getUmfeldDatenArtVon(sender.getObjekt());
-			final DataDescription dd = new DataDescription(dav.getDataModel()
-					.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-					dav.getDataModel().getAspect(
-							DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			final Data nutzDaten = getSensorDatum(sender.getObjekt(),
-					15L * Constants.MILLIS_PER_MINUTE, datenArt
-							.equals(UmfeldDatenArt.ns)
-							|| datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
-			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit
-					+ 60L * Constants.MILLIS_PER_MINUTE, nutzDaten));
+		for (final UfdSensorSender sender : UfdSensorSender.instanzen.values()) {
+			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sender.getObjekt());
+			final DataDescription dd = new DataDescription(
+					dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+					dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			final Data nutzDaten = UfdSensorSender.getSensorDatum(sender.getObjekt(), 15L * Constants.MILLIS_PER_MINUTE,
+					datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz) ? 0 : 1);
+			sender.sende(new ResultData(sender.getObjekt(), dd, ersteDatenZeit + (60L * Constants.MILLIS_PER_MINUTE),
+					nutzDaten));
 		}
 
 	}
 
 	/**
 	 * Erfragt alle statischen Instanzen dieser Klasse.
-	 * 
+	 *
 	 * @return eine statische Instanz dieser Klasse
 	 */
 	public static Collection<UfdSensorSender> getInstanzen() {
-		return instanzen.values();
+		return UfdSensorSender.instanzen.values();
 	}
 
 	/**
 	 * Erfragt eine statische Instanz dieser Klasse.
-	 * 
+	 *
 	 * @param obj
 	 *            Systemobjekt eines Umfelddatensensors
 	 * @return eine statische Instanz dieser Klasse
 	 */
 	public static UfdSensorSender getInstanz(final SystemObject obj) {
-		return instanzen.get(obj);
+		return UfdSensorSender.instanzen.get(obj);
 	}
 
 	/**
 	 * Standardkonstruktor.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param objekt
 	 *            Systemobjekt eines Umfelddatensensors
 	 * @throws OneSubscriptionPerSendData
 	 *             wird weitergereicht
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
 	private UfdSensorSender(final ClientDavInterface dav, final SystemObject objekt)
 			throws OneSubscriptionPerSendData, UmfeldDatenSensorUnbekannteDatenartException {
 		this.objekt = objekt;
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
-		final DataDescription dd = new DataDescription(dav.getDataModel()
-				.getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-				dav.getDataModel().getAspect(
-						DUAKonstanten.ASP_MESSWERTERSETZUNG));
+		final DataDescription dd = new DataDescription(
+				dav.getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+				dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
 		dav.subscribeSender(this, objekt, dd, SenderRole.source());
 	}
 
 	/**
 	 * Sendet Daten.
-	 * 
+	 *
 	 * @param resultat
 	 *            ein UFD
 	 */
@@ -220,16 +196,15 @@ public final class UfdSensorSender implements ClientSenderInterface {
 			DAVTest.getDav().sendData(resultat);
 			final SimpleDateFormat dateFormat = new SimpleDateFormat(DUAKonstanten.ZEIT_FORMAT_GENAU_STR);
 			System.out
-					.println(dateFormat.format(new Date(
-							resultat.getDataTime()))
-							+ ", " + //$NON-NLS-1$ 
-							resultat.getObject().getPid()
-							+ " (" + //$NON-NLS-1$
-							(resultat.getData().getTimeValue("T").getMillis() / Constants.MILLIS_PER_MINUTE) + "min): " + //$NON-NLS-1$ //$NON-NLS-2$
-							resultat.getData().getItem(
-									UmfeldDatenArt.getUmfeldDatenArtVon(
-											resultat.getObject()).getName())
-									.getUnscaledValue("Wert").longValue()); //$NON-NLS-1$
+			.println(
+							dateFormat.format(new Date(resultat.getDataTime())) + ", " + //$NON-NLS-1$
+									resultat.getObject().getPid() + " (" + //$NON-NLS-1$
+									(resultat.getData().getTimeValue("T").getMillis() / Constants.MILLIS_PER_MINUTE) //$NON-NLS-1$
+									+ "min): " + //$NON-NLS-1$
+									resultat.getData()
+											.getItem(
+													UmfeldDatenArt.getUmfeldDatenArtVon(resultat.getObject()).getName())
+											.getUnscaledValue("Wert").longValue()); //$NON-NLS-1$
 			try {
 				Thread.sleep(50L);
 			} catch (final InterruptedException ex) {
@@ -247,7 +222,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 	/**
 	 * Erzeugt einen Messwert mit der Datenbeschreibung
 	 * <code>asp.messWertErsetzung</code>.
-	 * 
+	 *
 	 * @param intervall
 	 *            das Erfassungeintervall
 	 * @param sensor
@@ -261,63 +236,49 @@ public final class UfdSensorSender implements ClientSenderInterface {
 	 * @throws Exception
 	 *             wird weitergereicht
 	 */
-	public static Data getSensorDatum(final SystemObject sensor,
-			final long intervall, final long wert) throws Exception {
+	public static Data getSensorDatum(final SystemObject sensor, final long intervall, final long wert)
+			throws Exception {
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sensor);
 
-		final Data datum = DAVTest.getDav().createData(
-				DAVTest.getDav().getDataModel().getAttributeGroup(
-						"atg.ufds" + datenArt.getName())); //$NON-NLS-1$
+		final Data datum = DAVTest.getDav()
+				.createData(DAVTest.getDav().getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName())); //$NON-NLS-1$
 
 		datum.getTimeValue("T").setMillis(intervall); //$NON-NLS-1$
 		datum.getItem(datenArt.getName()).getUnscaledValue("Wert").set(wert); //$NON-NLS-1$
-		datum.getItem(datenArt.getName())
-				.getItem("Status").getItem("Erfassung").
-				getUnscaledValue("NichtErfasst").set(DUAKonstanten.NEIN); //$NON-NLS-1$
-		datum.getItem(datenArt.getName())
-				.getItem("Status").getItem("PlFormal").
-				getUnscaledValue("WertMax").set(DUAKonstanten.NEIN); //$NON-NLS-1$
-		datum.getItem(datenArt.getName())
-				.getItem("Status").getItem("PlFormal").
-				getUnscaledValue("WertMin").set(DUAKonstanten.NEIN); //$NON-NLS-1$
+		datum.getItem(datenArt.getName()).getItem("Status").getItem("Erfassung").getUnscaledValue("NichtErfasst") //$NON-NLS-3$
+				.set(DUAKonstanten.NEIN);
+		datum.getItem(datenArt.getName()).getItem("Status").getItem("PlFormal").getUnscaledValue("WertMax") //$NON-NLS-3$
+				.set(DUAKonstanten.NEIN);
+		datum.getItem(datenArt.getName()).getItem("Status").getItem("PlFormal").getUnscaledValue("WertMin") //$NON-NLS-3$
+				.set(DUAKonstanten.NEIN);
 
-		datum.getItem(datenArt.getName())
-				.getItem("Status").getItem("MessWertErsetzung").
-				getUnscaledValue("Implausibel").set(DUAKonstanten.NEIN); //$NON-NLS-1$
-		datum.getItem(datenArt.getName())
-				.getItem("Status").getItem("MessWertErsetzung").
-				getUnscaledValue("Interpoliert").set(DUAKonstanten.NEIN); //$NON-NLS-1$
+		datum.getItem(datenArt.getName()).getItem("Status").getItem("MessWertErsetzung").getUnscaledValue("Implausibel") //$NON-NLS-3$
+				.set(DUAKonstanten.NEIN);
+		datum.getItem(datenArt.getName()).getItem("Status").getItem("MessWertErsetzung")
+				.getUnscaledValue("Interpoliert").set(DUAKonstanten.NEIN); //$NON-NLS-1$
 
-		datum.getItem(datenArt.getName())
-				.getItem("Güte").getUnscaledValue("Index").set(10000); //$NON-NLS-1$ //$NON-NLS-2$
-		datum.getItem(datenArt.getName())
-				.getItem("Güte").getUnscaledValue("Verfahren").set(0); //$NON-NLS-1$ //$NON-NLS-2$
+		datum.getItem(datenArt.getName()).getItem("Güte").getUnscaledValue("Index").set(10000); //$NON-NLS-1$ //$NON-NLS-2$
+		datum.getItem(datenArt.getName()).getItem("Güte").getUnscaledValue("Verfahren").set(0); //$NON-NLS-1$ //$NON-NLS-2$
 
 		return datum;
 	}
 
 	/**
 	 * Erfragt das Objekt.
-	 * 
+	 *
 	 * @return das Objekt
 	 */
 	public SystemObject getObjekt() {
 		return this.objekt;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void dataRequest(final SystemObject object,
-			final DataDescription dataDescription, final byte state) {
-		// 	
+	@Override
+	public void dataRequest(final SystemObject object, final DataDescription dataDescription, final byte state) {
+		//
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean isRequestSupported(final SystemObject object,
-			final DataDescription dataDescription) {
+	@Override
+	public boolean isRequestSupported(final SystemObject object, final DataDescription dataDescription) {
 		return false;
 	}
 

@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.rest;
 
 import java.util.HashMap;
@@ -45,11 +44,10 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartE
 /**
  * Sensor, der die aktuellen Daten eines NI-, WFD-, LT-, oder SW-Sensors zu
  * Vergleichswerten im Sinne der Pl-Pruefung langzeit UFD verarbeitet.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-public class PlLangNiWfdLtSwSensor extends
-		AbstraktPlLangSensor<VergleichsWert> {
+public class PlLangNiWfdLtSwSensor extends AbstraktPlLangSensor<VergleichsWert> {
 
 	/**
 	 * statische Instanzen dieser Klasse.
@@ -58,37 +56,33 @@ public class PlLangNiWfdLtSwSensor extends
 
 	/**
 	 * Erfragt eine statische Instanz dieser Klasse.
-	 * 
+	 *
 	 * @param dav
 	 *            Datenverteiler-Verbindung
 	 * @param objekt
-	 *            ein Systemobjekt eines Umfelddatensensors (<code>!= null</code>)
+	 *            ein Systemobjekt eines Umfelddatensensors (
+	 *            <code>!= null</code>)
 	 * @return eine statische Instanz dieser Klasse
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	public static final PlLangNiWfdLtSwSensor getInstanz(
-			final ClientDavInterface dav, final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {
+	public static final PlLangNiWfdLtSwSensor getInstanz(final ClientDavInterface dav, final SystemObject objekt)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (objekt == null) {
 			throw new NullPointerException("Sensor-Objekt ist <<null>>"); //$NON-NLS-1$
 		}
-		PlLangNiWfdLtSwSensor instanz = INSTANZEN.get(objekt);
+		PlLangNiWfdLtSwSensor instanz = PlLangNiWfdLtSwSensor.INSTANZEN.get(objekt);
 
 		if (instanz == null) {
 			instanz = new PlLangNiWfdLtSwSensor();
-			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(
-					DUAKonstanten.ASP_MESSWERTERSETZUNG));
-			INSTANZEN.put(objekt, instanz);
+			instanz.initialisiere(dav, objekt, dav.getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
+			PlLangNiWfdLtSwSensor.INSTANZEN.put(objekt, instanz);
 		}
 
 		return instanz;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public VergleichsWert getAktuellenVergleichsWert(
-			final UfdsLangZeitPlPruefungsParameter parameter,
+	public VergleichsWert getAktuellenVergleichsWert(final UfdsLangZeitPlPruefungsParameter parameter,
 			final long aktuellerZeitStempel) {
 		final VergleichsWert onlineWert = new VergleichsWert();
 
@@ -97,35 +91,31 @@ public class PlLangNiWfdLtSwSensor extends
 			 * berechne Vergleichswert fuer parametriertes Vergleichsintervall
 			 */
 
-			if (parameter != null && parameter.isValid()) {
+			if ((parameter != null) && parameter.isValid()) {
 				double ergebnis = Double.NaN;
 
-				final long intervallAnfang = aktuellerZeitStempel
-						- parameter.getVergleichsIntervall().getMillis();
-				final SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24
-						.cloneTeilMenge(intervallAnfang, aktuellerZeitStempel);
+				final long intervallAnfang = aktuellerZeitStempel - parameter.getVergleichsIntervall().getMillis();
+				final SortedSet<HistorischerUfdsWert> historieVergleich = this.hitorie24.cloneTeilMenge(intervallAnfang,
+						aktuellerZeitStempel);
 				final long intervallLaenge = aktuellerZeitStempel - intervallAnfang;
 
 				if (!historieVergleich.isEmpty()) {
 					long summeD = -1;
 					long summeWmalD = -1;
-					for (HistorischerUfdsWert wert : historieVergleich) {
-						if (wert.getWert() != null && wert.getWert().isOk()) {
+					for (final HistorischerUfdsWert wert : historieVergleich) {
+						if ((wert.getWert() != null) && wert.getWert().isOk()) {
 							if (summeD == -1) {
 								summeD = 0; // Initialisierung
 								summeWmalD = 0; // Initialisierung
 							}
 							summeD += wert.getT();
-							summeWmalD += wert.getWert().getWert()
-									* wert.getT();
+							summeWmalD += wert.getWert().getWert() * wert.getT();
 						}
 					}
 
 					if (summeD >= 0) {
-						if (intervallLaenge - summeD <= parameter
-								.getMaxAusfallZeit()) {
-							ergebnis = ((double) summeWmalD)
-									/ ((double) summeD);
+						if ((intervallLaenge - summeD) <= parameter.getMaxAusfallZeit()) {
+							ergebnis = ((double) summeWmalD) / ((double) summeD);
 						}
 					}
 				}
@@ -137,33 +127,28 @@ public class PlLangNiWfdLtSwSensor extends
 				 */
 				double ergebnis24 = Double.NaN;
 
-				final long intervallAnfang24 = aktuellerZeitStempel
-						- Constants.MILLIS_PER_DAY;
+				final long intervallAnfang24 = aktuellerZeitStempel - Constants.MILLIS_PER_DAY;
 				final SortedSet<HistorischerUfdsWert> historieVergleich24 = this.hitorie24
 						.cloneTeilMenge(intervallAnfang24, aktuellerZeitStempel);
-				final long intervallLaenge24 = aktuellerZeitStempel
-						- intervallAnfang24;
+				final long intervallLaenge24 = aktuellerZeitStempel - intervallAnfang24;
 
 				if (!historieVergleich24.isEmpty()) {
 					long summeD24 = -1;
 					long summeWmalD24 = -1;
-					for (HistorischerUfdsWert wert : historieVergleich24) {
-						if (wert.getWert() != null && wert.getWert().isOk()) {
+					for (final HistorischerUfdsWert wert : historieVergleich24) {
+						if ((wert.getWert() != null) && wert.getWert().isOk()) {
 							if (summeD24 == -1) {
 								summeD24 = 0; // Initialisierung
 								summeWmalD24 = 0; // Initialisierung
 							}
 							summeD24 += wert.getT();
-							summeWmalD24 += wert.getWert().getWert()
-									* wert.getT();
+							summeWmalD24 += wert.getWert().getWert() * wert.getT();
 						}
 					}
 
 					if (summeD24 >= 0) {
-						if (intervallLaenge24 - summeD24 <= parameter
-								.getMaxAusfallZeit()) {
-							ergebnis24 = ((double) summeWmalD24)
-									/ ((double) summeD24);
+						if ((intervallLaenge24 - summeD24) <= parameter.getMaxAusfallZeit()) {
+							ergebnis24 = ((double) summeWmalD24) / ((double) summeD24);
 						}
 					}
 				}

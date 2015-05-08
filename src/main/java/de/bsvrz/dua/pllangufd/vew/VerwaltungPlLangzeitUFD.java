@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.vew;
 
 import java.util.HashSet;
@@ -54,34 +53,30 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * Langzeit UFD. Seine Aufgabe besteht in der Auswertung der Aufrufparameter,
  * der Anmeldung beim Datenverteiler und der entsprechenden Initialisierung
  * aller Auswertungsmodule.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 
 	private static final Debug LOGGER = Debug.getLogger();
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialisiere() throws DUAInitialisierungsException {
 
 		UmfeldDatenArt.initialisiere(this.verbindung);
 
-		this.objekte = DUAUtensilien.getBasisInstanzen(
-				this.verbindung.getDataModel().getType(
-						DUAKonstanten.TYP_UFD_MESSSTELLE), this.verbindung,
-				this.getKonfigurationsBereiche()).toArray(new SystemObject[0]);
+		this.objekte = DUAUtensilien
+				.getBasisInstanzen(this.verbindung.getDataModel().getType(DUAKonstanten.TYP_UFD_MESSSTELLE),
+						this.verbindung, this.getKonfigurationsBereiche())
+						.toArray(new SystemObject[0]);
 
 		DUAUmfeldDatenMessStelle.initialisiere(this.verbindung, this.objekte);
 
 		String infoStr = Constants.EMPTY_STRING;
-		for (SystemObject obj : this.objekte) {
+		for (final SystemObject obj : this.objekte) {
 			infoStr += obj + "\n"; //$NON-NLS-1$
 		}
-		LOGGER.config(
-				"---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
+		VerwaltungPlLangzeitUFD.LOGGER.config("---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		final Set<UmfeldDatenArt> niWfdSwLt = new HashSet<>();
 		niWfdSwLt.add(UmfeldDatenArt.ni);
@@ -91,46 +86,37 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		/**
 		 * Instanziierung
 		 */
-		for (DUAUmfeldDatenMessStelle messStelle : DUAUmfeldDatenMessStelle
-				.getInstanzen()) {
-			for (UmfeldDatenArt datenArt : niWfdSwLt) {
-				final DUAUmfeldDatenSensor[] sensoren = this.getSensoren(messStelle,
-						datenArt);
-				if (sensoren[0] != null && sensoren[1] != null
-						&& sensoren[2] != null) {
+		for (final DUAUmfeldDatenMessStelle messStelle : DUAUmfeldDatenMessStelle.getInstanzen()) {
+			for (final UmfeldDatenArt datenArt : niWfdSwLt) {
+				final DUAUmfeldDatenSensor[] sensoren = this.getSensoren(messStelle, datenArt);
+				if ((sensoren[0] != null) && (sensoren[1] != null) && (sensoren[2] != null)) {
 					final PlLangNiWfdLtSwSensorMenge sensorMenge = new PlLangNiWfdLtSwSensorMenge();
 					try {
-						sensorMenge.initialisiere(this.verbindung, messStelle,
-								sensoren[0], sensoren[1], sensoren[2]);
+						sensorMenge.initialisiere(this.verbindung, messStelle, sensoren[0], sensoren[1], sensoren[2]);
 					} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
-						LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
+						VerwaltungPlLangzeitUFD.LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
 					}
 				}
 			}
 
-			final DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle,
-					UmfeldDatenArt.ns);
-			if (sensorenNS[0] != null && sensorenNS[1] != null
-					&& sensorenNS[2] != null) {
+			final DUAUmfeldDatenSensor[] sensorenNS = this.getSensoren(messStelle, UmfeldDatenArt.ns);
+			if ((sensorenNS[0] != null) && (sensorenNS[1] != null) && (sensorenNS[2] != null)) {
 				final PlLangNsSensorMenge sensorMenge = new PlLangNsSensorMenge();
 				try {
-					sensorMenge.initialisiere(this.verbindung, messStelle,
-							sensorenNS[0], sensorenNS[1], sensorenNS[2]);
+					sensorMenge.initialisiere(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
 				} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
-					LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
+					VerwaltungPlLangzeitUFD.LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
 				}
 			}
 
-			final DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle,
-					UmfeldDatenArt.fbz);
-			if (sensorenFBZ[0] != null && sensorenFBZ[1] != null
-					&& sensorenFBZ[2] != null) {
+			final DUAUmfeldDatenSensor[] sensorenFBZ = this.getSensoren(messStelle, UmfeldDatenArt.fbz);
+			if ((sensorenFBZ[0] != null) && (sensorenFBZ[1] != null) && (sensorenFBZ[2] != null)) {
 				final PlLangFbzSensorMenge sensorMenge = new PlLangFbzSensorMenge();
 				try {
-					sensorMenge.initialisiere(this.verbindung, messStelle,
-							sensorenFBZ[0], sensorenFBZ[1], sensorenFBZ[2]);
+					sensorMenge.initialisiere(this.verbindung, messStelle, sensorenFBZ[0], sensorenFBZ[1],
+							sensorenFBZ[2]);
 				} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
-					LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
+					VerwaltungPlLangzeitUFD.LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
 				}
 			}
 		}
@@ -140,21 +126,23 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 	 * Erfragt eine Liste mit dem Vergleichssensor, dessen Vorgaenger und
 	 * Nachfolger in Bezug auf eine bestimmte Messstelle und eine bestimmte
 	 * Datenart.
-	 * 
+	 *
 	 * @param messStelle
 	 *            eine Umfelddatenmessstelle
 	 * @param datenArt
 	 *            eine Datenart
 	 * @return eine Liste mit dem Vergleichssensor, dessen Vorgaenger und
 	 *         Nachfolger in Bezug auf eine bestimmte Messstelle und eine
-	 *         bestimmte Datenart.<br> - [0] = Vergleichssensor oder
-	 *         <code>null</code>, wenn dieser nicht ermittelt werden konnte<br> -
-	 *         [1] = Vorgaengersensor oder <code>null</code>, wenn dieser
-	 *         nicht ermittelt werden konnte<br> - [2] = Nachfolgersensor oder
-	 *         <code>null</code>, wenn dieser nicht ermittelt werden konnte<br>
+	 *         bestimmte Datenart.<br>
+	 *         - [0] = Vergleichssensor oder <code>null</code>, wenn dieser
+	 *         nicht ermittelt werden konnte<br>
+	 *         - [1] = Vorgaengersensor oder <code>null</code>, wenn dieser
+	 *         nicht ermittelt werden konnte<br>
+	 *         - [2] = Nachfolgersensor oder <code>null</code>, wenn dieser
+	 *         nicht ermittelt werden konnte<br>
 	 */
-	private DUAUmfeldDatenSensor[] getSensoren(
-			final DUAUmfeldDatenMessStelle messStelle, final UmfeldDatenArt datenArt) {
+	private DUAUmfeldDatenSensor[] getSensoren(final DUAUmfeldDatenMessStelle messStelle,
+			final UmfeldDatenArt datenArt) {
 		final DUAUmfeldDatenSensor sensor = messStelle.getHauptSensor(datenArt);
 		DUAUmfeldDatenSensor sensorVor = null;
 		DUAUmfeldDatenSensor sensorNach = null;
@@ -162,8 +150,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		if (sensor != null) {
 			final SystemObject vorgaengerObjekt = sensor.getVorgaenger();
 			if (vorgaengerObjekt != null) {
-				final DUAUmfeldDatenMessStelle messStelleVorher = DUAUmfeldDatenMessStelle
-						.getInstanz(vorgaengerObjekt);
+				final DUAUmfeldDatenMessStelle messStelleVorher = DUAUmfeldDatenMessStelle.getInstanz(vorgaengerObjekt);
 				if (messStelleVorher != null) {
 					sensorVor = messStelleVorher.getHauptSensor(datenArt);
 					if (sensorVor == null) {
@@ -171,8 +158,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 						 * kein Hauptsensor: nehme ersten Nebensensor
 						 */
 						if (messStelleVorher.getNebenSensoren(datenArt).size() > 0) {
-							sensorVor = messStelleVorher.getNebenSensoren(
-									datenArt).iterator().next();
+							sensorVor = messStelleVorher.getNebenSensoren(datenArt).iterator().next();
 						}
 					}
 				}
@@ -189,8 +175,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 						 * kein Hauptsensor: nehme ersten Nebensensor
 						 */
 						if (messStelleNachher.getNebenSensoren(datenArt).size() > 0) {
-							sensorNach = messStelleNachher.getNebenSensoren(
-									datenArt).iterator().next();
+							sensorNach = messStelleNachher.getNebenSensoren(datenArt).iterator().next();
 						}
 					}
 				}
@@ -207,7 +192,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 
 	/**
 	 * Startet diese Applikation.
-	 * 
+	 *
 	 * @param argumente
 	 *            Argumente der Kommandozeile
 	 */
@@ -215,16 +200,12 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		StandardApplicationRunner.run(new VerwaltungPlLangzeitUFD(), argumente);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	public SWETyp getSWETyp() {
 		return SWETyp.SWE_PL_PRUEFUNG_LANGZEIT_UFD;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	public void update(final ResultData[] results) {
 		// Die Datenverarbeitung findet in den Submodulen statt
 	}

@@ -43,14 +43,14 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.AbstraktOnlineUfdSensor;
 /**
  * Abstrakter Umfelddatensensor fuer die PL-Pruefung Langzeit UFD mit aktuellen
  * Parametern und den Online-Daten der letzten 24 Stunden.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @param <G> Sensor
+ *
+ * @param <G>
+ *            Sensor
  */
-public abstract class AbstraktPlLangSensor<G> extends
-		AbstraktOnlineUfdSensor<ResultData> implements
-		IUniversalAtgUfdsLangzeitPLPruefungListener {
+public abstract class AbstraktPlLangSensor<G> extends AbstraktOnlineUfdSensor<ResultData>
+implements IUniversalAtgUfdsLangzeitPLPruefungListener {
 
 	/**
 	 * erste fuer diesen Umfelddatensensor empfangene Datenzeit.
@@ -71,7 +71,7 @@ public abstract class AbstraktPlLangSensor<G> extends
 	/**
 	 * Erfragt den aktuellen Vergleichswert, auf Basis der bis jetzt
 	 * (uebergebener Zeitstempel) eingetroffenen Daten.
-	 * 
+	 *
 	 * @param parameter
 	 *            aktuelle Pl-langzeit-Parameter des Sensor-Prueflings
 	 * @param aktuellerZeitStempel
@@ -81,40 +81,30 @@ public abstract class AbstraktPlLangSensor<G> extends
 	 *         dieser nicht errechnet werden konnte (weil noch keine Daten bzw.
 	 *         Parameter vorlagen)
 	 */
-	public abstract G getAktuellenVergleichsWert(
-			final UfdsLangZeitPlPruefungsParameter parameter,
+	public abstract G getAktuellenVergleichsWert(final UfdsLangZeitPlPruefungsParameter parameter,
 			final long aktuellerZeitStempel);
 
-	/**
-	 * {@inheritDoc}
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
-	 */
 	@Override
-	protected void initialisiere(final ClientDavInterface dav, final SystemObject objekt,
-			final Aspect aspekt) throws UmfeldDatenSensorUnbekannteDatenartException {
+	protected void initialisiere(final ClientDavInterface dav, final SystemObject objekt, final Aspect aspekt)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
 		super.initialisiere(dav, objekt, aspekt);
-		final UniversalAtgUfdsLangzeitPLPruefung parameter = new UniversalAtgUfdsLangzeitPLPruefung(
-				dav, objekt);
+		final UniversalAtgUfdsLangzeitPLPruefung parameter = new UniversalAtgUfdsLangzeitPLPruefung(dav, objekt);
 		parameter.addListener(this, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void berechneOnlineWert(final ResultData resultat) {
 		if (this.aktivSeit == Long.MIN_VALUE) {
 			this.aktivSeit = resultat.getDataTime();
 		}
 		this.onlineWert = resultat;
-		final HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(
-				resultat);
+		final HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
 		this.hitorie24.addDatum(historischerWert);
 	}
 
 	/**
 	 * Erfragt seit wann Daten fuer diesen Umfelddatensensor empfangen werden.
-	 * 
+	 *
 	 * @return seit wann Daten fuer diesen Umfelddatensensor empfangen werden
 	 */
 	public final long getAktivSeit() {
@@ -123,19 +113,15 @@ public abstract class AbstraktPlLangSensor<G> extends
 
 	/**
 	 * Erfragt die aktuellen Parameter dieses Sensors.
-	 * 
+	 *
 	 * @return die aktuellen Parameter dieses Sensors
 	 */
 	public final UfdsLangZeitPlPruefungsParameter getAktuelleParameter() {
 		return this.aktuelleParameter;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public void aktualisiereParameter(
-			final UfdsLangZeitPlPruefungsParameter aktuelleParameter1) {
+	public void aktualisiereParameter(final UfdsLangZeitPlPruefungsParameter aktuelleParameter1) {
 		this.aktuelleParameter = aktuelleParameter1;
 	}
 

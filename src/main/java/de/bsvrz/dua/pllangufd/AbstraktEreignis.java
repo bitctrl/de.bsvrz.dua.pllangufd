@@ -24,14 +24,12 @@
  * mailto: info@bitctrl.de
  */
 
-
-
 package de.bsvrz.dua.pllangufd;
 
 /**
  * Ein Ereignis ist eine Kumulation von DAV-Zustaenden wie sie innerhalb der SWE
  * PL-Pruefung langzeit UFD benoetigt wird.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public class AbstraktEreignis {
@@ -55,7 +53,7 @@ public class AbstraktEreignis {
 
 	/**
 	 * Standardkonstruktor.
-	 * 
+	 *
 	 * @param intervallBegin
 	 *            Begin des abgeschlossenen Intervalls, innerhalb dem die
 	 *            Zustaende dieses Ereignisses liegen.
@@ -65,11 +63,9 @@ public class AbstraktEreignis {
 	 * @param name
 	 *            der Name des Ereignisses.
 	 */
-	protected AbstraktEreignis(final int intervallBegin,
-			final int intervallEnde, final String name) {
+	protected AbstraktEreignis(final int intervallBegin, final int intervallEnde, final String name) {
 		if (intervallBegin > intervallEnde) {
-			throw new IllegalArgumentException(
-					"Intervallanfang darf nicht (echt) nach Intervallende liegen"); //$NON-NLS-1$
+			throw new IllegalArgumentException("Intervallanfang darf nicht (echt) nach Intervallende liegen"); //$NON-NLS-1$
 		}
 		this.intervallBegin = intervallBegin;
 		this.intervallEnde = intervallEnde;
@@ -79,20 +75,20 @@ public class AbstraktEreignis {
 	/**
 	 * Erfragt, ob ein bestimmter Zustand innerhalb des abgeschlossenen
 	 * Intervalls liegt, durch das dieses Ereignis beschrieben ist.
-	 * 
+	 *
 	 * @param zustand
 	 *            ein DAV-Zustand
 	 * @return ob ein bestimmter Zustand innerhalb des abgeschlossenen
 	 *         Intervalls liegt, durch das dieses Ereignis beschrieben ist
 	 */
 	public final boolean isZustandInEreignis(final int zustand) {
-		return this.intervallBegin <= zustand && zustand <= this.intervallEnde;
+		return (this.intervallBegin <= zustand) && (zustand <= this.intervallEnde);
 	}
 
 	/**
 	 * Erfragt den Begin des abgeschlossenen Intervalls, innerhalb dem die
 	 * Zustaende dieses Ereignisses liegen.
-	 * 
+	 *
 	 * @return der Begin des abgeschlossenen Intervalls, innerhalb dem die
 	 *         Zustaende dieses Ereignisses liegen
 	 */
@@ -103,7 +99,7 @@ public class AbstraktEreignis {
 	/**
 	 * Erfragt das Ende des abgeschlossenen Intervalls, innerhalb dem die
 	 * Zustaende dieses Ereignisses liegen.
-	 * 
+	 *
 	 * @return das Ende des abgeschlossenen Intervalls, innerhalb dem die
 	 *         Zustaende dieses Ereignisses liegen
 	 */
@@ -111,9 +107,6 @@ public class AbstraktEreignis {
 		return this.intervallEnde;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return this.name;

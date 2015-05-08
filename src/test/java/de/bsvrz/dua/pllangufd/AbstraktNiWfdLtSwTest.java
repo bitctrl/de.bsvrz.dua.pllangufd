@@ -27,7 +27,6 @@
 package de.bsvrz.dua.pllangufd;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 import com.bitctrl.Constants;
@@ -46,7 +45,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 /**
  * Abstrakter Test fuer die Pl-Pruefung langzeit UFD der UFD-Arten NI, WFD, LT
  * und SW.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
@@ -58,7 +57,7 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 
 	/**
 	 * Erfragt das Systemobjekt des Prueflings-Sensors.
-	 * 
+	 *
 	 * @return das Systemobjekt des Prueflings-Sensors
 	 * @throws Exception
 	 *             wird weitergereicht
@@ -67,7 +66,7 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 
 	/**
 	 * Erfragt das Systemobjekt des Vorgaenger-Sensors.
-	 * 
+	 *
 	 * @return das Systemobjekt des Vorgaenger-Sensors
 	 * @throws Exception
 	 *             wird weitergereicht
@@ -76,7 +75,7 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 
 	/**
 	 * Erfragt das Systemobjekt des Nachfolger-Sensors.
-	 * 
+	 *
 	 * @return das Systemobjekt des Nachfolger-Sensors
 	 * @throws Exception
 	 *             wird weitergereicht
@@ -85,7 +84,7 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 
 	/**
 	 * Erfragt den maximalen Abstand des Vergleichswertes im Test.
-	 * 
+	 *
 	 * @return den maximalen Abstand des Vergleichswertes im Test
 	 */
 	protected abstract long getMaxAbweichung();
@@ -93,7 +92,7 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 	/**
 	 * Erfragt die geordnete Menge von Betriebsmeldungen, die fuer diesen Test
 	 * erwartet werden.
-	 * 
+	 *
 	 * @return die geordnete Menge von Betriebsmeldungen, die fuer diesen Test
 	 *         erwartet werden
 	 * @throws Exception
@@ -101,54 +100,46 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 	 */
 	private String[] getBetriebsmeldungen() throws Exception {
 		return new String[] {
-				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$ 
+				"Der Wert " //$NON-NLS-1$
+						+ UmfeldDatenArt.getUmfeldDatenArtVon(
+								this.getPruefling()).toString()
+						+
 						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:00 - 01.01.1970 04:00 (1 Stunde) ab.", //$NON-NLS-1$ 
-				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$" +
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:15 - 01.01.1970 04:15 (1 Stunde) ab.", //$NON-NLS-1$
+				+ " weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:00 - 01.01.1970 04:00 (1 Stunde) ab.", //$NON-NLS-1$
+				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$ "
+																									//$NON-NLS-1$ +
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:15 - 01.01.1970 04:15 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:30 - 01.01.1970 04:30 (1 Stunde) ab.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 1.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:30 - 01.01.1970 04:30 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:00 - 01.01.1970 06:00 (1 Stunde) ab.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:00 - 01.01.1970 06:00 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:15 - 01.01.1970 06:15 (1 Stunde) ab.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:15 - 01.01.1970 06:15 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:30 - 01.01.1970 06:30 (1 Stunde) ab.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:30 - 01.01.1970 06:30 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 06:45 - 01.01.1970 07:45 (1 Stunde) ab.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 1.25 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 06:45 - 01.01.1970 07:45 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 1.67 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:00 - 01.01.1970 08:00 (1 Stunde) ab.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 1.67 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:00 - 01.01.1970 08:00 (1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:15 - 01.01.1970 08:15 (1 Stunde) ab.",
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:15 - 01.01.1970 08:15 (1 Stunde) ab.",
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
-						+ //$NON-NLS-1$
-						" weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:30 - 01.01.1970 08:30 (1 Stunde) ab.",				
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling)"
+				+ " weicht um 2.5 (>1.0) vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:30 - 01.01.1970 08:30 (1 Stunde) ab.",
 				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden,"
-						+ //$NON-NLS-1$
-						" da ein Vergleichswert nicht bestimmt werden konnte.", //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden,"
+				+ " da ein Vergleichswert nicht bestimmt werden konnte.", //$NON-NLS-1$
 				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden,"
-						+ //$NON-NLS-1$
-						" da ein Vergleichswert nicht bestimmt werden konnte." }; //$NON-NLS-1$
+				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden,"
+				+ " da ein Vergleichswert nicht bestimmt werden konnte." }; //$NON-NLS-1$
 	}
 
 	/**
@@ -156,13 +147,13 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 	 * Nachfolger in unterschiedlichen Intervallen Sensorwerte, die bestimmte
 	 * vordefinierte Nachrichten provozieren sollen. Die Parameter des Sensors
 	 * werden vorher automatisch eingestellt
-	 * 
+	 *
 	 * @throws Exception
 	 *             wird weitergereicht
 	 */
 	@Test
 	public void testAufLangzeitMessfehler() throws Exception {
-		bmZaehler = 0;
+		AbstraktNiWfdLtSwTest.bmZaehler = 0;
 
 		final ClientDavInterface dav = DAVTest.getDav();
 
@@ -176,8 +167,7 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 		final UfdSensorSender vSender = UfdSensorSender.getInstanz(vorgaengerNI);
 		final UfdSensorSender nSender = UfdSensorSender.getInstanz(nachfolgerNI);
 
-		LzParameterSender.getInstanz(dav, prueflingNI).setParameter(
-				StundenIntervallAnteil12h.STUNDEN_1,
+		LzParameterSender.getInstanz(dav, prueflingNI).setParameter(StundenIntervallAnteil12h.STUNDEN_1,
 				30 * Constants.MILLIS_PER_MINUTE, this.getMaxAbweichung());
 
 		final long i30min = 30L * Constants.MILLIS_PER_MINUTE;
@@ -192,221 +182,221 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		time += i15min;
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		// erste Stunde
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 4);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		time += i15min;
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 4);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		// 2. Stunde
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		time += i15min;
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		// 3. Stunde
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		time += i15min;
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 6);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		// 2. Stunde
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		time += i15min;
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		// 3. Stunde
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i30min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 6);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		time += i15min;
 		vDat = UfdSensorSender.getSensorDatum(vSender.getObjekt(), i15min, 1);
 		vSender.sende(new ResultData(vSender.getObjekt(),
-				getDatenBeschreibung(vSender.getObjekt()), time, vDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(vSender.getObjekt()), time, vDat));
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 6);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		// letzter Test auf die Nachricht, dass ein Messwert nicht ermittelt
 		// werden konnte. Fuer den Vorgaenger werden keine Daten mehr versendet
@@ -414,69 +404,63 @@ public abstract class AbstraktNiWfdLtSwTest implements IBmListener {
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		time += i15min;
 		pDat = UfdSensorSender.getSensorDatum(pSender.getObjekt(), i15min, 1);
 		pSender.sende(new ResultData(pSender.getObjekt(),
-				getDatenBeschreibung(pSender.getObjekt()), time, pDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(pSender.getObjekt()), time, pDat));
 
 		nDat = UfdSensorSender.getSensorDatum(nSender.getObjekt(), i30min, 1);
 		nSender.sende(new ResultData(nSender.getObjekt(),
-				getDatenBeschreibung(nSender.getObjekt()), time, nDat));
+				AbstraktNiWfdLtSwTest.getDatenBeschreibung(nSender.getObjekt()), time, nDat));
 
 		DAVTest.getDav().disconnect(false, "Ok.");
 	}
 
 	/**
 	 * Erfragt die Datenbeschreibung der Onlinedaten dieses Systemobjekts.
-	 * 
+	 *
 	 * @param objekt
 	 *            SystemObjekt
 	 * @return die DatenBeschreibung
 	 * @throws Exception
 	 *             wird weitergereicht
 	 */
-	public static final DataDescription getDatenBeschreibung(final SystemObject objekt)
-			throws Exception {
+	public static final DataDescription getDatenBeschreibung(final SystemObject objekt) throws Exception {
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
 
-		final DataDescription datenBeschreibung = new DataDescription(DAVTest
-				.getDav().getDataModel().getAttributeGroup(
-						"atg.ufds" + datenArt.getName()), //$NON-NLS-1$
-				DAVTest.getDav().getDataModel().getAspect(
-						DUAKonstanten.ASP_MESSWERTERSETZUNG));
+		final DataDescription datenBeschreibung = new DataDescription(
+				DAVTest.getDav().getDataModel().getAttributeGroup("atg.ufds" + datenArt.getName()), //$NON-NLS-1$
+						DAVTest.getDav().getDataModel().getAspect(DUAKonstanten.ASP_MESSWERTERSETZUNG));
 
 		return datenBeschreibung;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void aktualisiereBetriebsMeldungen(final SystemObject obj, final long zeit,
-			final String meldungsText) {
+	@Override
+	public void aktualisiereBetriebsMeldungen(final SystemObject obj, final long zeit, final String meldungsText) {
 		System.out.println(meldungsText);
 
 		try {
 			Assert.assertEquals("Falsche Betriebsmeldung empfangen", //$NON-NLS-1$
-					this.getBetriebsmeldungen()[bmZaehler], meldungsText);
+					this.getBetriebsmeldungen()[AbstraktNiWfdLtSwTest.bmZaehler], meldungsText);
 
-			bmZaehler++;
+			AbstraktNiWfdLtSwTest.bmZaehler++;
 
-			if (bmZaehler == this.getBetriebsmeldungen().length) {
+			if (AbstraktNiWfdLtSwTest.bmZaehler == this.getBetriebsmeldungen().length) {
 				BmClient.getInstanz(DAVTest.getDav()).removeListener(this);
 			}
 		} catch (final Exception e) {

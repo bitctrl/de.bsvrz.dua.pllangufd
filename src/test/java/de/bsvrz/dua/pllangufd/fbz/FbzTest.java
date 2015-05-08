@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.fbz;
 
 import org.junit.Ignore;
@@ -35,37 +34,25 @@ import de.bsvrz.dua.pllangufd.DAVTest;
 
 /**
  * Testet auf Versenden von Betriebsmeldungen fuer FBZ-Sensoren.
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
-@Ignore ("Testdatenverteiler prüfen")
+@Ignore("Testdatenverteiler prüfen")
 public class FbzTest extends AbstraktNsFbzTest {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getNachfolger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.nachfolger.fbz"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.nachfolger.fbz"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getPruefling() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.pruefling.fbz"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.pruefling.fbz"); //$NON-NLS-1$ ;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected SystemObject getVorgaenger() throws Exception {
-		return DAVTest.getDav().getDataModel().getObject(
-				"ufdSensor.vorgaenger.fbz"); //$NON-NLS-1$;
+		return DAVTest.getDav().getDataModel().getObject("ufdSensor.vorgaenger.fbz"); //$NON-NLS-1$ ;
 	}
 
 }

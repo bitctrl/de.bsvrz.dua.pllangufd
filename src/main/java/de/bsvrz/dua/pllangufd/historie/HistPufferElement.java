@@ -24,7 +24,6 @@
  * mailto: info@bitctrl.de
  */
 
-
 package de.bsvrz.dua.pllangufd.historie;
 
 import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
@@ -32,7 +31,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
 /**
  * Allgemeines <b>sortierbares</b> Objekt mit Zeitstempel (fuer die Klasse
  * <code>HistorischerDatenpuffer</code>).
- * 
+ *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public class HistPufferElement implements IZeitStempel {
@@ -44,7 +43,7 @@ public class HistPufferElement implements IZeitStempel {
 
 	/**
 	 * Standardkonstruktor.
-	 * 
+	 *
 	 * @param zeitStempel
 	 *            der Zeitstempel
 	 */
@@ -52,22 +51,16 @@ public class HistPufferElement implements IZeitStempel {
 		this.zeitStempel = zeitStempel;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	public int compareTo(final IZeitStempel that) {
-		return -new Long(this.getZeitStempel())
-				.compareTo(that.getZeitStempel());
+		return -new Long(this.getZeitStempel()).compareTo(that.getZeitStempel());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(final Object obj) {
 		boolean gleich = false;
 
-		if (obj != null && obj instanceof IZeitStempel) {
+		if ((obj != null) && (obj instanceof IZeitStempel)) {
 			final IZeitStempel that = (IZeitStempel) obj;
 			gleich = this.getZeitStempel() == that.getZeitStempel();
 		}
@@ -75,17 +68,12 @@ public class HistPufferElement implements IZeitStempel {
 		return gleich;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return new Long(this.zeitStempel).toString();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
 	public long getZeitStempel() {
 		return this.zeitStempel;
 	}

@@ -97,7 +97,7 @@ implements IUniversalAtgUfdsLangzeitPLPruefungListener {
 		if (this.aktivSeit == Long.MIN_VALUE) {
 			this.aktivSeit = resultat.getDataTime();
 		}
-		this.onlineWert = resultat;
+		setOnlineWert(resultat);
 		final HistorischerUfdsWert historischerWert = new HistorischerUfdsWert(resultat);
 		this.hitorie24.addDatum(historischerWert);
 	}

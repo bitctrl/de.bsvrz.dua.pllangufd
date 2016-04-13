@@ -63,17 +63,16 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 	@Override
 	protected void initialisiere() throws DUAInitialisierungsException {
 
-		UmfeldDatenArt.initialisiere(this.verbindung);
+		UmfeldDatenArt.initialisiere(getVerbindung());
 
-		this.objekte = DUAUtensilien
-				.getBasisInstanzen(this.verbindung.getDataModel().getType(DUAKonstanten.TYP_UFD_MESSSTELLE),
-						this.verbindung, this.getKonfigurationsBereiche())
-						.toArray(new SystemObject[0]);
+		setSystemObjekte(DUAUtensilien
+				.getBasisInstanzen(getVerbindung().getDataModel().getType(DUAKonstanten.TYP_UFD_MESSSTELLE),
+						getVerbindung(), this.getKonfigurationsBereiche()));
 
-		DUAUmfeldDatenMessStelle.initialisiere(this.verbindung, this.objekte);
+		DUAUmfeldDatenMessStelle.initialisiere(getVerbindung(), getSystemObjekte());
 
 		String infoStr = Constants.EMPTY_STRING;
-		for (final SystemObject obj : this.objekte) {
+		for (final SystemObject obj : getSystemObjekte()) {
 			infoStr += obj + "\n"; //$NON-NLS-1$
 		}
 		VerwaltungPlLangzeitUFD.LOGGER.config("---\nBetrachtete Objekte:\n" + infoStr + "---\n"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -92,7 +91,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 				if ((sensoren[0] != null) && (sensoren[1] != null) && (sensoren[2] != null)) {
 					final PlLangNiWfdLtSwSensorMenge sensorMenge = new PlLangNiWfdLtSwSensorMenge();
 					try {
-						sensorMenge.initialisiere(this.verbindung, messStelle, sensoren[0], sensoren[1], sensoren[2]);
+						sensorMenge.initialisiere(getVerbindung(), messStelle, sensoren[0], sensoren[1], sensoren[2]);
 					} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
 						VerwaltungPlLangzeitUFD.LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
 					}
@@ -103,7 +102,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 			if ((sensorenNS[0] != null) && (sensorenNS[1] != null) && (sensorenNS[2] != null)) {
 				final PlLangNsSensorMenge sensorMenge = new PlLangNsSensorMenge();
 				try {
-					sensorMenge.initialisiere(this.verbindung, messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
+					sensorMenge.initialisiere(getVerbindung(), messStelle, sensorenNS[0], sensorenNS[1], sensorenNS[2]);
 				} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
 					VerwaltungPlLangzeitUFD.LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());
 				}
@@ -113,7 +112,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 			if ((sensorenFBZ[0] != null) && (sensorenFBZ[1] != null) && (sensorenFBZ[2] != null)) {
 				final PlLangFbzSensorMenge sensorMenge = new PlLangFbzSensorMenge();
 				try {
-					sensorMenge.initialisiere(this.verbindung, messStelle, sensorenFBZ[0], sensorenFBZ[1],
+					sensorMenge.initialisiere(getVerbindung(), messStelle, sensorenFBZ[0], sensorenFBZ[1],
 							sensorenFBZ[2]);
 				} catch (final UmfeldDatenSensorUnbekannteDatenartException e) {
 					VerwaltungPlLangzeitUFD.LOGGER.warning("Messstelle '" + messStelle + "': " + e.getMessage());

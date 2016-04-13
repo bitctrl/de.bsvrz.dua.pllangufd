@@ -19,6 +19,9 @@ den Operator als Betriebsmeldung ausgegeben.
 Versionsgeschichte
 ==================
 
+1.4.0
+- Umstellung auf Funclib-BitCtrl-Dua
+
 1.3.0
 - Umstellung auf Maven-Build
 - Behandlung nicht unterstützter Sensorarten über die 'UmfeldDatenSensorUnbekannteDatenartException'

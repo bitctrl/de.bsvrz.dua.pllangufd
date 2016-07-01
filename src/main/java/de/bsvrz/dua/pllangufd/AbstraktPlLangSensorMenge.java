@@ -1,5 +1,5 @@
 /*
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 DatenÃ¼bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weißenfelser Straße 67<br>
+ * WeiÃŸenfelser StraÃŸe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -62,14 +62,14 @@ public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorLi
 	private static final DefaultBetriebsMeldungsIdKonverter KONVERTER = new DefaultBetriebsMeldungsIdKonverter();
 
 	/**
-	 * <code>Langzeit-Pl-Prüfung</code>.
+	 * <code>Langzeit-Pl-PrÃ¼fung</code>.
 	 */
-	protected static final String LZ_PL_PR = "Langzeit-Pl-Prüfung"; //$NON-NLS-1$
+	protected static final String LZ_PL_PR = "Langzeit-Pl-PrÃ¼fung"; //$NON-NLS-1$
 
 	/**
-	 * <code>Langzeit-Pl-Prüfung (24h)</code>.
+	 * <code>Langzeit-Pl-PrÃ¼fung (24h)</code>.
 	 */
-	protected static final String LZ_PL_PR24 = "Langzeit-Pl-Prüfung (24h)"; //$NON-NLS-1$
+	protected static final String LZ_PL_PR24 = "Langzeit-Pl-PrÃ¼fung (24h)"; //$NON-NLS-1$
 
 	/**
 	 * <code>Langzeitmessfehler Umfelddaten</code>.
@@ -140,7 +140,7 @@ public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorLi
 	 * @param sensorNachfolger
 	 *            sein Nachfolger
 	 * @throws UmfeldDatenSensorUnbekannteDatenartException
-	 *             die Datenart des übergebenen Sensors wird nicht unterstützt
+	 *             die Datenart des Ã¼bergebenen Sensors wird nicht unterstÃ¼tzt
 	 */
 	public final void initialisiere(final ClientDavInterface dav, final DUAUmfeldDatenMessStelle messStelle1,
 			final DUAUmfeldDatenSensor sensorSelbst, final DUAUmfeldDatenSensor sensorVorgaenger,
@@ -189,7 +189,7 @@ public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorLi
 								new Object[0]),
 						MessageType.APPLICATION_DOMAIN, null, MessageGrade.WARNING, objekt, MessageState.MESSAGE,
 						new MessageCauser(AbstraktPlLangSensorMenge.derDav.getLocalUser(), Constants.EMPTY_STRING,
-								"Pl-Prüfung langzeit UFD " + zusatz), //$NON-NLS-1$
+								"Pl-PrÃ¼fung langzeit UFD " + zusatz), //$NON-NLS-1$
 								nachricht);
 			}
 		}

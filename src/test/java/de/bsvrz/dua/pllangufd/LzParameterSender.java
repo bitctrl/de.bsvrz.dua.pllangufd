@@ -1,5 +1,5 @@
 /*
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 DatenÃ¼bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weißenfelser Straße 67<br>
+ * WeiÃŸenfelser StraÃŸe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -104,7 +104,7 @@ public final class LzParameterSender implements ClientSenderInterface {
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(obj);
 
 		final DataDescription dd = new DataDescription(
-				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPrÃ¼fung" + datenArt.getName()), //$NON-NLS-1$
 						dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_VORGABE));
 
 		try {
@@ -134,11 +134,11 @@ public final class LzParameterSender implements ClientSenderInterface {
 
 		final DataDescription dd = new DataDescription(
 				LzParameterSender.sDAV.getDataModel()
-						.getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName()), //$NON-NLS-1$
+						.getAttributeGroup("atg.ufdsLangzeitPLPrÃ¼fung" + datenArt.getName()), //$NON-NLS-1$
 						LzParameterSender.sDAV.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_VORGABE));
 
 		final Data nutzDatum = LzParameterSender.sDAV.createData(LzParameterSender.sDAV.getDataModel()
-				.getAttributeGroup("atg.ufdsLangzeitPLPrüfung" + datenArt.getName())); //$NON-NLS-1$
+				.getAttributeGroup("atg.ufdsLangzeitPLPrÃ¼fung" + datenArt.getName())); //$NON-NLS-1$
 		nutzDatum.getUnscaledValue("VergleichsIntervall").set(vergleichsIntervall.getCode()); //$NON-NLS-1$
 		nutzDatum.getTimeValue("maxAusfallZeit").setMillis(maxAusfallZeit); //$NON-NLS-1$
 		if (datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)) {

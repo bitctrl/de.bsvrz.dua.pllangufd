@@ -1,5 +1,5 @@
 /*
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 DatenÃ¼bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weißenfelser Straße 67<br>
+ * WeiÃŸenfelser StraÃŸe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -37,34 +37,34 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 
 /**
  * Wrapper-Klasse fuer die Daten aller Parameter-Attributgruppen
- * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
+ * <code>atg.ufdsLangzeitPLPrÃ¼fungXXX</code>.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  */
 public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer {
 
 	/**
-	 * Maximal zulässige Ausfallzeitdauer. Ist die Summer der Ausfallzeiten für
-	 * diesen Sensor, bei dem keine Daten im Vergleichszeitraum vorlagen, größer
-	 * als msxAusfallZeit, so wird für dieses Intervall keine PL-Langzeitprüfung
-	 * durchgeführt.
+	 * Maximal zulÃ¤ssige Ausfallzeitdauer. Ist die Summer der Ausfallzeiten fÃ¼r
+	 * diesen Sensor, bei dem keine Daten im Vergleichszeitraum vorlagen, grÃ¶ÃŸer
+	 * als msxAusfallZeit, so wird fÃ¼r dieses Intervall keine PL-LangzeitprÃ¼fung
+	 * durchgefÃ¼hrt.
 	 */
 	private long maxAusfallZeit = Long.MIN_VALUE;
 
 	/**
-	 * Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird.
+	 * Vergleichsintervall, fÃ¼r das die Langzeit-PL-PrÃ¼fung durchgefÃ¼hrt wird.
 	 */
 	private StundenIntervallAnteil12h vergleichsIntervall;
 
 	/**
-	 * Maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den
-	 * Nachbarsensoren über das Vergleichsintervall.
+	 * Maximal zulÃ¤ssige Abweichung der Werte des Sensors im Vergleich zu den
+	 * Nachbarsensoren Ã¼ber das Vergleichsintervall.
 	 */
 	private UmfeldDatenSensorWert maxAbweichung;
 
 	/**
-	 * Maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
-	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
+	 * Maximal zulÃ¤ssige (zeitliche) Abweichung der Werte des Sensors im
+	 * Vergleich zu den Nachbarsensoren Ã¼ber das Vergleichsintervall.
 	 */
 	private long maxAbweichungZeit = Long.MIN_VALUE;
 
@@ -73,7 +73,7 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	 * 
 	 * @param resultat
 	 *            ein Parameter-Datensart der Attributgruppe
-	 *            <code>atg.ufdsLangzeitPLPrüfungXXX</code>
+	 *            <code>atg.ufdsLangzeitPLPrÃ¼fungXXX</code>
 	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
 	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat) throws UmfeldDatenSensorUnbekannteDatenartException {
@@ -109,45 +109,45 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	}
 
 	/**
-	 * Erfragt die maximal zulässige Ausfallzeitdauer.<br>
-	 * Ist die Summer der Ausfallzeiten für diesen Sensor, bei dem keine Daten
-	 * im Vergleichszeitraum vorlagen, größer als msxAusfallZeit, so wird für
-	 * dieses Intervall keine PL-Langzeitprüfung durchgeführt.
+	 * Erfragt die maximal zulÃ¤ssige Ausfallzeitdauer.<br>
+	 * Ist die Summer der Ausfallzeiten fÃ¼r diesen Sensor, bei dem keine Daten
+	 * im Vergleichszeitraum vorlagen, grÃ¶ÃŸer als msxAusfallZeit, so wird fÃ¼r
+	 * dieses Intervall keine PL-LangzeitprÃ¼fung durchgefÃ¼hrt.
 	 * 
-	 * @return die maximal zulässige Ausfallzeitdauer
+	 * @return die maximal zulÃ¤ssige Ausfallzeitdauer
 	 */
 	public final long getMaxAusfallZeit() {
 		return this.maxAusfallZeit;
 	}
 
 	/**
-	 * Erfragt das Vergleichsintervall, für das die Langzeit-PL-Prüfung
-	 * durchgeführt wird.
+	 * Erfragt das Vergleichsintervall, fÃ¼r das die Langzeit-PL-PrÃ¼fung
+	 * durchgefÃ¼hrt wird.
 	 * 
-	 * @return das Vergleichsintervall, für das die Langzeit-PL-Prüfung
-	 *         durchgeführt wird.
+	 * @return das Vergleichsintervall, fÃ¼r das die Langzeit-PL-PrÃ¼fung
+	 *         durchgefÃ¼hrt wird.
 	 */
 	public final StundenIntervallAnteil12h getVergleichsIntervall() {
 		return this.vergleichsIntervall;
 	}
 
 	/**
-	 * Erfragt die maximal zulässige Abweichung der Werte des Sensors im
-	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
+	 * Erfragt die maximal zulÃ¤ssige Abweichung der Werte des Sensors im
+	 * Vergleich zu den Nachbarsensoren Ã¼ber das Vergleichsintervall.
 	 * 
-	 * @return maximal zulässige Abweichung der Werte des Sensors im Vergleich
-	 *         zu den Nachbarsensoren über das Vergleichsintervall
+	 * @return maximal zulÃ¤ssige Abweichung der Werte des Sensors im Vergleich
+	 *         zu den Nachbarsensoren Ã¼ber das Vergleichsintervall
 	 */
 	public final UmfeldDatenSensorWert getMaxAbweichung() {
 		return this.maxAbweichung;
 	}
 
 	/**
-	 * Erfragt die maximal zulässige (zeitliche) Abweichung der Werte des
-	 * Sensors im Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
+	 * Erfragt die maximal zulÃ¤ssige (zeitliche) Abweichung der Werte des
+	 * Sensors im Vergleich zu den Nachbarsensoren Ã¼ber das Vergleichsintervall.
 	 * 
-	 * @return maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
-	 *         Vergleich zu den Nachbarsensoren über das Vergleichsintervall
+	 * @return maximal zulÃ¤ssige (zeitliche) Abweichung der Werte des Sensors im
+	 *         Vergleich zu den Nachbarsensoren Ã¼ber das Vergleichsintervall
 	 *         (int ms)
 	 */
 	public final long getMaxAbweichungZeit() {

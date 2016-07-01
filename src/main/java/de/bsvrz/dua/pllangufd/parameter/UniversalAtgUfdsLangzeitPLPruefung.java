@@ -1,5 +1,5 @@
 /*
- * Segment 4 Daten¸bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Daten√ºbernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weiﬂenfelser Straﬂe 67<br>
+ * Wei√üenfelser Stra√üe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -44,7 +44,7 @@ import de.bsvrz.sys.funclib.debug.Debug;
 
 /**
  * Klasse zum Auslesen aller der Parameter-Attributgruppen
- * <code>atg.ufdsLangzeitPLPr¸fungXXX</code>.
+ * <code>atg.ufdsLangzeitPLPr√ºfungXXX</code>.
  *
  * @author BitCtrl Systems GmbH, Thierfelder
  */
@@ -75,7 +75,7 @@ public class UniversalAtgUfdsLangzeitPLPruefung implements ClientReceiverInterfa
 		final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(objekt);
 
 		final DataDescription parameterBeschreibung = new DataDescription(
-				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPr¸fung" + datenArt.getName()), //$NON-NLS-1$
+				dav.getDataModel().getAttributeGroup("atg.ufdsLangzeitPLPr√ºfung" + datenArt.getName()), //$NON-NLS-1$
 						dav.getDataModel().getAspect(DaVKonstanten.ASP_PARAMETER_SOLL));
 		dav.subscribeReceiver(this, objekt, parameterBeschreibung, ReceiveOptions.normal(), ReceiverRole.receiver());
 	}

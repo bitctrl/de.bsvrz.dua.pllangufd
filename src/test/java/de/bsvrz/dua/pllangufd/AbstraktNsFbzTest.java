@@ -1,5 +1,5 @@
 /*
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 DatenÃ¼bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weißenfelser Straße 67<br>
+ * WeiÃŸenfelser StraÃŸe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -96,45 +96,45 @@ public abstract class AbstraktNsFbzTest implements IBmListener {
 						+ UmfeldDatenArt.getUmfeldDatenArtVon(
 								this.getPruefling()).toString()
 						+
-						" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+						" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:00 - 01.01.1970 04:00(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:15 - 01.01.1970 04:15(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:30 - 01.01.1970 04:30(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 03:45 - 01.01.1970 04:45(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:00 - 01.01.1970 06:00(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:15 - 01.01.1970 06:15(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:30:00 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:30 - 01.01.1970 06:30(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 05:45 - 01.01.1970 06:45(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 06:30 - 01.01.1970 07:30(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 06:45 - 01.01.1970 07:45(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 07:00 - 01.01.1970 08:00(1 Stunde) ab.", //$NON-NLS-1$
 				"Der Wert " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) weicht um 00:22:30 (>00:15:00)"
 				+ " vom erwarteten Vergleichswert im Vergleichszeitbereich 01.01.1970 08:30 - 01.01.1970 09:30(1 Stunde) ab.", //$NON-NLS-1$
-				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-				" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden, da keine ausreichende Datenbasis vorlag", //$NON-NLS-1$
-				"Die Plausibilitätsprüfung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
-		" für die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgeführt werden, da keine ausreichende Datenbasis vorlag" }; //$NON-NLS-1$
+				"Die PlausibilitÃ¤tsprÃ¼fung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+				" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgefÃ¼hrt werden, da keine ausreichende Datenbasis vorlag", //$NON-NLS-1$
+				"Die PlausibilitÃ¤tsprÃ¼fung zur " + UmfeldDatenArt.getUmfeldDatenArtVon(this.getPruefling()).toString() + //$NON-NLS-1$
+		" fÃ¼r die Messstelle ufdMessSt.pruefling (ufdMessSt.pruefling) konnte nicht durchgefÃ¼hrt werden, da keine ausreichende Datenbasis vorlag" }; //$NON-NLS-1$
 	}
 
 	/**

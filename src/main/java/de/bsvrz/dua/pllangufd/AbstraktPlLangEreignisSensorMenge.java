@@ -1,5 +1,5 @@
 /*
- * Segment 4 Daten¸bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Daten√ºbernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weiﬂenfelser Straﬂe 67<br>
+ * Wei√üenfelser Stra√üe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -92,9 +92,9 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends AbstraktPlLangSe
 						if ((datum.getDataTime() - this.prueflingSensor.getAktivSeit()) >= parameter
 								.getVergleichsIntervall().getMillis()) {
 							this.sendeBetriebsmeldung(this.messStelle,
-									"Die Plausibilit‰tspr¸fung zur " + //$NON-NLS-1$
-											umfeldDatenArt + " f¸r die Messstelle " + //$NON-NLS-1$
-											this.messStelle + " konnte nicht durchgef¸hrt werden, da keine" + //$NON-NLS-1$
+									"Die Plausibilit√§tspr√ºfung zur " + //$NON-NLS-1$
+											umfeldDatenArt + " f√ºr die Messstelle " + //$NON-NLS-1$
+											this.messStelle + " konnte nicht durchgef√ºhrt werden, da keine" + //$NON-NLS-1$
 											" ausreichende Datenbasis vorlag", //$NON-NLS-1$
 									AbstraktPlLangSensorMenge.LZ_PL_PR, datum.getDataTime());
 						}
@@ -108,7 +108,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends AbstraktPlLangSe
 								// this.sendeBetriebsmeldung(this.messStelle,
 								// "Der Wert " + //$NON-NLS-1$
 								// UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt())
-								// + " f¸r die Messstelle " + //$NON-NLS-1$
+								// + " f√ºr die Messstelle " + //$NON-NLS-1$
 								// this.messStelle + " weicht um " +
 								// DUAUtensilien.runde(abweichung, 2) + " (>" +
 								// parameter.getMaxAbweichungZeit() +
@@ -126,7 +126,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends AbstraktPlLangSe
 								// LZMF_UFD, datum.getDataTime());
 								this.sendeBetriebsmeldung(this.messStelle,
 										"Der Wert " + //$NON-NLS-1$
-												umfeldDatenArt + " f¸r die Messstelle " + //$NON-NLS-1$
+												umfeldDatenArt + " f√ºr die Messstelle " + //$NON-NLS-1$
 												this.messStelle + " weicht um " //$NON-NLS-1$
 												+ AbstraktPlLangEreignisSensorMenge.ZEIT_FORMAT
 														.format(new Date((long) abweichung - Constants.MILLIS_PER_HOUR))
@@ -153,9 +153,9 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends AbstraktPlLangSe
 									.getMaxAusfallZeit())) {
 						if ((datum.getDataTime() - this.prueflingSensor.getAktivSeit()) >= Constants.MILLIS_PER_DAY) {
 							this.sendeBetriebsmeldung(this.messStelle,
-									"Die Plausibilit‰tspr¸fung zur " + //$NON-NLS-1$
-											umfeldDatenArt + " f¸r die Messstelle " + //$NON-NLS-1$
-											this.messStelle + " konnte nicht durchgef¸hrt werden, da keine" + //$NON-NLS-1$
+									"Die Plausibilit√§tspr√ºfung zur " + //$NON-NLS-1$
+											umfeldDatenArt + " f√ºr die Messstelle " + //$NON-NLS-1$
+											this.messStelle + " konnte nicht durchgef√ºhrt werden, da keine" + //$NON-NLS-1$
 											" ausreichende Datenbasis vorlag", //$NON-NLS-1$
 									AbstraktPlLangSensorMenge.LZ_PL_PR24, datum.getDataTime());
 						}
@@ -168,7 +168,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends AbstraktPlLangSe
 								// this.sendeBetriebsmeldung(this.messStelle,
 								// "Der Wert " + //$NON-NLS-1$
 								// UmfeldDatenArt.getUmfeldDatenArtVon(this.prueflingSensor.getObjekt())
-								// + " f¸r die Messstelle " + //$NON-NLS-1$
+								// + " f√ºr die Messstelle " + //$NON-NLS-1$
 								// this.messStelle + " weicht um " +
 								// DUAUtensilien.runde(abweichung, 2) + " (>" +
 								// parameter.getMaxAbweichungZeit() +
@@ -184,7 +184,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends AbstraktPlLangSe
 								// LZMF_UFD24, datum.getDataTime());
 								this.sendeBetriebsmeldung(this.messStelle,
 										"Der Wert " + //$NON-NLS-1$
-												umfeldDatenArt + " f¸r die Messstelle " + //$NON-NLS-1$
+												umfeldDatenArt + " f√ºr die Messstelle " + //$NON-NLS-1$
 												this.messStelle + " weicht um " //$NON-NLS-1$
 												+ AbstraktPlLangEreignisSensorMenge.ZEIT_FORMAT
 														.format(new Date((long) abweichung - Constants.MILLIS_PER_HOUR))

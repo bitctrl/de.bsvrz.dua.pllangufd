@@ -1,5 +1,5 @@
 /*
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 DatenÃ¼bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weißenfelser Straße 67<br>
+ * WeiÃŸenfelser StraÃŸe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -86,7 +86,7 @@ public final class UfdSensorSender implements ClientSenderInterface {
 		}
 
 		/**
-		 * Warte bis alle Anmeldungenen durchgeführt sind
+		 * Warte bis alle Anmeldungenen durchgefÃ¼hrt sind
 		 */
 		for (final UfdSensorSender sender : UfdSensorSender.instanzen.values()) {
 			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(sender.getObjekt());
@@ -226,13 +226,13 @@ public final class UfdSensorSender implements ClientSenderInterface {
 	 * @param intervall
 	 *            das Erfassungeintervall
 	 * @param sensor
-	 *            ein Umfelddatensensor, für den ein Messwert erzeugt werden
+	 *            ein Umfelddatensensor, fÃ¼r den ein Messwert erzeugt werden
 	 *            soll
 	 * @param wert
 	 *            der zu setzende Sensor-Wert
-	 * @return ein (ausgefüllter) Umfelddaten-Messwert der zum übergebenen
-	 *         Systemobjekt passt. Alle Pl-Prüfungs-Flags sind auf
-	 *         <code>NEIN</code> gesetzt. Der Daten-Intervall beträgt 1 min.
+	 * @return ein (ausgefÃ¼llter) Umfelddaten-Messwert der zum Ã¼bergebenen
+	 *         Systemobjekt passt. Alle Pl-PrÃ¼fungs-Flags sind auf
+	 *         <code>NEIN</code> gesetzt. Der Daten-Intervall betrÃ¤gt 1 min.
 	 * @throws Exception
 	 *             wird weitergereicht
 	 */
@@ -257,8 +257,8 @@ public final class UfdSensorSender implements ClientSenderInterface {
 		datum.getItem(datenArt.getName()).getItem("Status").getItem("MessWertErsetzung")
 				.getUnscaledValue("Interpoliert").set(DUAKonstanten.NEIN); //$NON-NLS-1$
 
-		datum.getItem(datenArt.getName()).getItem("Güte").getUnscaledValue("Index").set(10000); //$NON-NLS-1$ //$NON-NLS-2$
-		datum.getItem(datenArt.getName()).getItem("Güte").getUnscaledValue("Verfahren").set(0); //$NON-NLS-1$ //$NON-NLS-2$
+		datum.getItem(datenArt.getName()).getItem("GÃ¼te").getUnscaledValue("Index").set(10000); //$NON-NLS-1$ //$NON-NLS-2$
+		datum.getItem(datenArt.getName()).getItem("GÃ¼te").getUnscaledValue("Verfahren").set(0); //$NON-NLS-1$ //$NON-NLS-2$
 
 		return datum;
 	}

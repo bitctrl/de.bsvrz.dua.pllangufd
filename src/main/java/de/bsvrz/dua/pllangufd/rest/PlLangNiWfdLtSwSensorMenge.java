@@ -1,5 +1,5 @@
 /*
- * Segment 4 Daten¸bernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment 4 Daten√ºbernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
  *
  * Contact Information:<br>
  * BitCtrl Systems GmbH<br>
- * Weiﬂenfelser Straﬂe 67<br>
+ * Wei√üenfelser Stra√üe 67<br>
  * 04229 Leipzig<br>
  * Phone: +49 341-490670<br>
  * mailto: info@bitctrl.de
@@ -89,7 +89,7 @@ public class PlLangNiWfdLtSwSensorMenge extends AbstraktPlLangSensorMenge<Vergle
 										+ " (24 Stunden)"; //$NON-NLS-1$
 
 								this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " + //$NON-NLS-1$
-										umfeldDatenArt + " f¸r die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
+										umfeldDatenArt + " f√ºr die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
 										+ DUAUtensilien.runde(abweichung24, 2) + " (>" //$NON-NLS-1$
 										+ parameter.getMaxAbweichung().getSkaliertenWert()
 										+ ") vom erwarteten Vergleichswert im Vergleichszeitbereich " + ""
@@ -99,9 +99,9 @@ public class PlLangNiWfdLtSwSensorMenge extends AbstraktPlLangSensorMenge<Vergle
 						}
 					} else {
 						this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(),
-								"Die Plausibilit‰tspr¸fung zur " + //$NON-NLS-1$
-										umfeldDatenArt + " f¸r die Messstelle " + this.messStelle //$NON-NLS-1$
-										+ " konnte nicht durchgef¸hrt werden," + //$NON-NLS-1$
+								"Die Plausibilit√§tspr√ºfung zur " + //$NON-NLS-1$
+										umfeldDatenArt + " f√ºr die Messstelle " + this.messStelle //$NON-NLS-1$
+										+ " konnte nicht durchgef√ºhrt werden," + //$NON-NLS-1$
 										" da ein Vergleichswert nicht bestimmt werden konnte.",
 										AbstraktPlLangSensorMenge.LZ_PL_PR24, datum.getDataTime());
 					}
@@ -121,7 +121,7 @@ public class PlLangNiWfdLtSwSensorMenge extends AbstraktPlLangSensorMenge<Vergle
 							if ((datum.getDataTime() - this.prueflingSensor.getAktivSeit()) >= parameter
 									.getVergleichsIntervall().getMillis()) {
 								this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(), "Der Wert " + //$NON-NLS-1$
-										umfeldDatenArt + " f¸r die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
+										umfeldDatenArt + " f√ºr die Messstelle " + this.messStelle + " weicht um " //$NON-NLS-1$ //$NON-NLS-2$
 										+ DUAUtensilien.runde(abweichung, 2) + " (>" //$NON-NLS-1$
 										+ parameter.getMaxAbweichung().getSkaliertenWert()
 										+ ") vom erwarteten Vergleichswert im Vergleichszeitbereich " + ""
@@ -134,9 +134,9 @@ public class PlLangNiWfdLtSwSensorMenge extends AbstraktPlLangSensorMenge<Vergle
 					if ((datum.getDataTime() - this.prueflingSensor.getAktivSeit()) >= parameter
 							.getVergleichsIntervall().getMillis()) {
 						this.sendeBetriebsmeldung(this.prueflingSensor.getObjekt(),
-								"Die Plausibilit‰tspr¸fung zur " + //$NON-NLS-1$
-										umfeldDatenArt + " f¸r die Messstelle " + this.messStelle //$NON-NLS-1$
-										+ " konnte nicht durchgef¸hrt werden," + //$NON-NLS-1$
+								"Die Plausibilit√§tspr√ºfung zur " + //$NON-NLS-1$
+										umfeldDatenArt + " f√ºr die Messstelle " + this.messStelle //$NON-NLS-1$
+										+ " konnte nicht durchgef√ºhrt werden," + //$NON-NLS-1$
 										" da ein Vergleichswert nicht bestimmt werden konnte.",
 										AbstraktPlLangSensorMenge.LZ_PL_PR, datum.getDataTime());
 					}

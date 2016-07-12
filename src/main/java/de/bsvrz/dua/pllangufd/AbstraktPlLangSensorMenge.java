@@ -1,90 +1,81 @@
 /*
- * Segment 4 Datenübernahme und Aufbereitung (DUA), SWE 4.13 PL-Pruefung Langzeit UFD
+ * Segment Datenübernahme und Aufbereitung (DUA), SWE PL-Prüfung Langzeit UFD
  * Copyright (C) 2007-2015 BitCtrl Systems GmbH
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 51
- * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
- * Contact Information:<br>
- * BitCtrl Systems GmbH<br>
- * Weißenfelser Straße 67<br>
- * 04229 Leipzig<br>
- * Phone: +49 341-490670<br>
- * mailto: info@bitctrl.de
+ * Copyright 2016 by Kappich Systemberatung Aachen
+ * 
+ * This file is part of de.bsvrz.dua.pllangufd.
+ * 
+ * de.bsvrz.dua.pllangufd is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * de.bsvrz.dua.pllangufd is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with de.bsvrz.dua.pllangufd.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Contact Information:
+ * Kappich Systemberatung
+ * Martin-Luther-Straße 14
+ * 52062 Aachen, Germany
+ * phone: +49 241 4090 436 
+ * mail: <info@kappich.de>
  */
 
 package de.bsvrz.dua.pllangufd;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.bitctrl.Constants;
-
 import de.bsvrz.dav.daf.main.ClientDavInterface;
 import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.bsvrz.sys.funclib.bitctrl.daf.BetriebsmeldungDaten;
-import de.bsvrz.sys.funclib.bitctrl.daf.DefaultBetriebsMeldungsIdKonverter;
+import de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenMessStelle;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.DUAUmfeldDatenSensor;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.IOnlineUfdSensorListener;
-import de.bsvrz.sys.funclib.operatingMessage.MessageCauser;
+import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
 import de.bsvrz.sys.funclib.operatingMessage.MessageGrade;
-import de.bsvrz.sys.funclib.operatingMessage.MessageSender;
-import de.bsvrz.sys.funclib.operatingMessage.MessageState;
+import de.bsvrz.sys.funclib.operatingMessage.MessageTemplate;
 import de.bsvrz.sys.funclib.operatingMessage.MessageType;
+import de.bsvrz.sys.funclib.operatingMessage.OperatingMessage;
+
+import java.text.NumberFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 /**
  * Abstraktes Rohgeruest fuer eine Menge von Sensoren der Art:<br>
  * Hauptsensor (Pruefling), Vorgaenger, Nachfolger,<br>
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD ueberprueft wird.
- *
+ * 
  * @author BitCtrl Systems GmbH, Thierfelder
- *
+ * 
  * @param <G>
  *            Art
+ * 
+ * @version $Id$
  */
-public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorListener<ResultData> {
-
-	private static final DefaultBetriebsMeldungsIdKonverter KONVERTER = new DefaultBetriebsMeldungsIdKonverter();
-
-	/**
-	 * <code>Langzeit-Pl-Prüfung</code>.
-	 */
-	protected static final String LZ_PL_PR = "Langzeit-Pl-Prüfung"; //$NON-NLS-1$
+public abstract class AbstraktPlLangSensorMenge<G> implements
+		IOnlineUfdSensorListener<ResultData> {
 
 	/**
-	 * <code>Langzeit-Pl-Prüfung (24h)</code>.
+	 * Millisekunden in 24 Stunden
 	 */
-	protected static final String LZ_PL_PR24 = "Langzeit-Pl-Prüfung (24h)"; //$NON-NLS-1$
+	public static final long MILLIS_PER_DAY = (long) (24 * 60 * 60 * 1000);
 
 	/**
-	 * <code>Langzeitmessfehler Umfelddaten</code>.
+	 * Verbindung zum Datenverteiler.
 	 */
-	protected static final String LZMF_UFD = "Langzeitmessfehler Umfelddaten"; //$NON-NLS-1$
-
-	/**
-	 * <code>Langzeitmessfehler Umfelddaten (24h)</code>.
-	 */
-	protected static final String LZMF_UFD24 = "Langzeitmessfehler Umfelddaten (24h)"; //$NON-NLS-1$
-
-	/**
-	 * statische Verbindung zum Datenverteiler.
-	 */
-	protected static ClientDavInterface derDav = null;
+	protected ClientDavInterface _clientDavInterface = null;
 
 	/**
 	 * Vorgaenger-Sensor mit aktuellen Online-Daten.
@@ -106,29 +97,24 @@ public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorLi
 	 */
 	protected SystemObject messStelle = null;
 
-	/**
-	 * Bildet den Nachrichtenzusatz auf die letzte Datenzeit ab, fuer die eine
-	 * Nachricht mit diesem Zusatz publiziert worden ist.
-	 */
-	private final Map<String, Long> zusatzAufLetzteDatenzeit = Collections.synchronizedMap(new HashMap<String, Long>());
 
 	/**
 	 * Erfragt eine statische Instanz des Online-Sensors, der mit dem
 	 * uebergebenen Systemobjekt assoziiert ist.
-	 *
+	 * 
 	 * @param objekt
 	 *            ein Systemobjekt eines Umfelddatensensors
 	 * @return eine statische Instanz des Online-Sensors, der mit dem
 	 *         uebergebenen Systemobjekt assoziiert ist
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
-	protected abstract AbstraktPlLangSensor<G> getSensorInstanz(final SystemObject objekt)
-			throws UmfeldDatenSensorUnbekannteDatenartException;
+	protected abstract AbstraktPlLangSensor<G> getSensorInstanz(
+			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException;
 
 	/**
 	 * Initialisiert dieses Objekt (Instanziierung und Anmeldung der einzelnen
 	 * Sensoren auf Daten und Parameter usw.).
-	 *
+	 * 
 	 * @param dav
 	 *            Verbindung zum Datenverteiler
 	 * @param messStelle1
@@ -139,20 +125,22 @@ public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorLi
 	 *            sein Vorgaenger
 	 * @param sensorNachfolger
 	 *            sein Nachfolger
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException
-	 *             die Datenart des übergebenen Sensors wird nicht unterstützt
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
 	 */
-	public final void initialisiere(final ClientDavInterface dav, final DUAUmfeldDatenMessStelle messStelle1,
-			final DUAUmfeldDatenSensor sensorSelbst, final DUAUmfeldDatenSensor sensorVorgaenger,
+	public final void initialisiere(final ClientDavInterface dav,
+			final DUAUmfeldDatenMessStelle messStelle1,
+			final DUAUmfeldDatenSensor sensorSelbst,
+			final DUAUmfeldDatenSensor sensorVorgaenger,
 			final DUAUmfeldDatenSensor sensorNachfolger) throws UmfeldDatenSensorUnbekannteDatenartException {
-		if (AbstraktPlLangSensorMenge.derDav == null) {
-			AbstraktPlLangSensorMenge.derDav = dav;
-		}
+		
+		_clientDavInterface = dav;
 		this.messStelle = messStelle1.getObjekt();
 
 		this.prueflingSensor = this.getSensorInstanz(sensorSelbst.getObjekt());
-		this.vorgaengerSensor = this.getSensorInstanz(sensorVorgaenger.getObjekt());
-		this.nachfolgerSensor = this.getSensorInstanz(sensorNachfolger.getObjekt());
+		this.vorgaengerSensor = this.getSensorInstanz(sensorVorgaenger
+				.getObjekt());
+		this.nachfolgerSensor = this.getSensorInstanz(sensorNachfolger
+				.getObjekt());
 
 		this.prueflingSensor.addListener(this, true);
 		this.vorgaengerSensor.addListener(this, true);
@@ -160,39 +148,182 @@ public abstract class AbstraktPlLangSensorMenge<G> implements IOnlineUfdSensorLi
 	}
 
 	/**
-	 * Sendet eine Betriebsmeldung als Warnung an den Operator. <br>
-	 * <b>Achtung:</b> Es koennen nur zwei unterschiedliche Nachrichten in Folge
-	 * versendet werden (Zeitstempel)
-	 *
-	 * @param objekt
-	 *            das betroffene Systemobjekt
-	 * @param nachricht
-	 *            der Nachrichtentext
-	 * @param zusatz
-	 *            ein Nachrichtenzusatz
-	 * @param datenzeit
-	 *            der Zeitstempel des Datums, das diese Fehlermeldung provoziert
-	 *            hat
+	 * Betriebsmeldungs-Text für Abweichungs-Meldungen
 	 */
-	protected final void sendeBetriebsmeldung(final SystemObject objekt, final String nachricht, final String zusatz,
-			final long datenzeit) {
+	private final MessageTemplate TEMPLATE_ABW = new MessageTemplate(
+			MessageGrade.WARNING,
+	        MessageType.APPLICATION_DOMAIN,
+	        MessageTemplate.fixed("Der Wert "),
+	        MessageTemplate.variable("attr"),
+	        MessageTemplate.fixed(" für die Messstelle "),
+	        MessageTemplate.object(),
+	        MessageTemplate.fixed(" weicht um "),
+	        MessageTemplate.variable("abw"),
+	        MessageTemplate.fixed(" (> "),
+			MessageTemplate.variable("maxabw"),
+			MessageTemplate.fixed(") vom erwarteten Vergleichswert im Vergleichszeitbereich "),
+	        MessageTemplate.variable("range"),
+	        MessageTemplate.fixed(" ab. "),
+	        MessageTemplate.ids()
+	).withIdFactory(message -> message.getObject().getPidOrId() + " [DUA-PP-ULZ]");
 
-		synchronized (this.zusatzAufLetzteDatenzeit) {
-			if ((this.zusatzAufLetzteDatenzeit.get(zusatz) == null)
-					|| (this.zusatzAufLetzteDatenzeit.get(zusatz) != datenzeit)) {
+	/**
+	 * Betriebsmeldungs-Text falls kein Vergleichswert bestimmt werden konnte
+	 */
+	private final MessageTemplate TEMPLATE_NO_DATA = new MessageTemplate(
+			MessageGrade.WARNING,
+	        MessageType.APPLICATION_DOMAIN,
+	        MessageTemplate.fixed("Die Plausibilitätsprüfung des Attributs "),
+	        MessageTemplate.variable("attr"),
+	        MessageTemplate.fixed(" für die Messstelle "),
+	        MessageTemplate.object(),
+	        MessageTemplate.fixed(" konnte nicht durchgeführt werden, da (min.) einer der Vergleichswerte nicht bestimmt werden konnte. "),
+	        MessageTemplate.ids()
+	).withIdFactory(message -> message.getObject().getPidOrId() + " [DUA-PP-ULZ]");
 
-				this.zusatzAufLetzteDatenzeit.put(zusatz, datenzeit);
-				final MessageSender nachrichtenSender = MessageSender.getInstance();
-				nachrichtenSender.setApplicationLabel("PL-Langzeit UFD");
-				nachrichtenSender.sendMessage(
-						AbstraktPlLangSensorMenge.KONVERTER.konvertiere(new BetriebsmeldungDaten(objekt), null,
-								new Object[0]),
-						MessageType.APPLICATION_DOMAIN, null, MessageGrade.WARNING, objekt, MessageState.MESSAGE,
-						new MessageCauser(AbstraktPlLangSensorMenge.derDav.getLocalUser(), Constants.EMPTY_STRING,
-								"Pl-Prüfung langzeit UFD " + zusatz), //$NON-NLS-1$
-								nachricht);
-			}
-		}
+	/**
+	 * Datum- und Zeit-Format
+	 */
+	public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(Locale.GERMAN);
+
+	/**
+	 * Formatiert einen Wert
+	 * @param w Wert
+	 * @param suffixText Suffix (Einheit)
+	 * @return Wert
+	 */
+	private static String formatValue(final double w, final String suffixText) {
+		NumberFormat numberInstance = NumberFormat.getNumberInstance();
+		numberInstance.setGroupingUsed(false);
+		return numberInstance.format(w) + " " + suffixText;
 	}
 
+	/**
+	 * Formatiert eine Dauer
+	 * @param tmp Dauer in Millisekunden
+	 * @return Text wie "1 Stunde 5 Minuten"
+	 */
+	public static String formatDuration(long tmp) {
+		long ms = tmp % 1000;
+		tmp /= 1000;
+		long sec = tmp % 60;
+		tmp /= 60;
+		long min = tmp % 60;
+		tmp /= 60;
+		long h = tmp;
+		StringBuilder stringBuilder = new StringBuilder();
+		if(h >= 1){
+			if(h == 1){
+				stringBuilder.append("1 Stunde ");
+			}
+			else {
+				stringBuilder.append(h).append(" Stunden ");
+			}
+		}
+		if(min >= 1){
+			if(min == 1){
+				stringBuilder.append("1 Minute ");
+			}
+			else {
+				stringBuilder.append(min).append(" Minuten ");
+			}
+		}
+		if(sec >= 1){
+			if(sec == 1){
+				stringBuilder.append("1 Sekunde ");
+			}
+			else {
+				stringBuilder.append(sec).append(" Sekunden ");
+			}
+		}
+		if(ms >= 1){
+			if(ms == 1){
+				stringBuilder.append("1 Millisekunde ");
+			}
+			else {
+				stringBuilder.append(ms).append(" Millisekunden ");
+			}
+		}
+		stringBuilder.setLength(stringBuilder.length()-1);
+		return stringBuilder.toString();
+	}
+
+	/**
+	 * Sendet die Betriebsmeldung mit Abweichung
+	 * @param datum Implausibles Datum
+	 * @param umfeldDatenArt Umfelddatenart
+	 * @param parameter Aktueller Parameter
+	 * @param abweichung Bestehende Abweichung
+	 * @param testIntervall Prüfintervall (in Millisekunden)
+	 */
+	protected void sendMessage1(final ResultData datum, final UmfeldDatenArt umfeldDatenArt, final UfdsLangZeitPlPruefungsParameter parameter, final double abweichung, final long testIntervall) {
+		OperatingMessage message = TEMPLATE_ABW.newMessage(messStelle);
+		message.put("attr", umfeldDatenArt.getName() + " (" + umfeldDatenArt.getAbkuerzung() + ")");
+		String suffixText = datum.getData().getItem(umfeldDatenArt.getName()).getTextValue("Wert").getSuffixText();
+		UmfeldDatenSensorWert maxAbweichung = parameter.getMaxAbweichung();
+		if(maxAbweichung != null) {
+			message.put("abw", formatValue(abweichung, suffixText));
+			message.put("maxabw", formatValue(maxAbweichung.getSkaliertenWert(), suffixText));
+		}
+		else {
+			// Ereignis-Sensor, Abweichung ist Dauer
+			message.put("abw", formatDuration((long) abweichung));
+			message.put("maxabw", formatDuration(parameter.getMaxAbweichungZeit()));	
+		}
+		Duration duration = Duration.ofMillis(testIntervall);
+		Instant to = Instant.ofEpochMilli(datum.getDataTime());
+		Instant from = to.minus(duration);
+		message.put("range", DATE_TIME_FORMATTER.format(LocalDateTime.ofInstant(from, ZoneId.systemDefault())) + " - " + DATE_TIME_FORMATTER.format(LocalDateTime.ofInstant(to, ZoneId.systemDefault())) + " (" + formatDuration(duration.toMillis()) + ")");
+		switch(umfeldDatenArt.getAbkuerzung()){
+			case "NI":
+				message.addId("[DUA-PP-ULZ01]");
+				break;
+			case "WFD":
+				message.addId("[DUA-PP-ULZ03]");
+				break;
+			case "SW":
+				message.addId("[DUA-PP-ULZ05]");
+				break;
+			case "LT":
+				message.addId("[DUA-PP-ULZ07]");
+				break;
+			case "NS":
+				message.addId("[DUA-PP-ULZ09]");
+				break;
+			case "FBZ":
+				message.addId("[DUA-PP-ULZ11]");
+				break;
+		}
+		message.send();
+	}
+
+	/**
+	 * Sendet die Betriebsmeldung wenn der Vergleichswert nicht bestimmt werden konnte
+	 * @param umfeldDatenArt Umfelddatenart
+	 */
+	protected void sendMessage2(final UmfeldDatenArt umfeldDatenArt) {
+		OperatingMessage message = TEMPLATE_NO_DATA.newMessage(messStelle);
+		message.put("attr", umfeldDatenArt.getName() + " (" + umfeldDatenArt.getAbkuerzung() + ")");
+		switch(umfeldDatenArt.getAbkuerzung()){
+			case "NI":
+				message.addId("[DUA-PP-ULZ02]");
+				break;
+			case "WFD":
+				message.addId("[DUA-PP-ULZ04]");
+				break;
+			case "SW":
+				message.addId("[DUA-PP-ULZ06]");
+				break;
+			case "LT":
+				message.addId("[DUA-PP-ULZ08]");
+				break;
+			case "NS":
+				message.addId("[DUA-PP-ULZ10]");
+				break;
+			case "FBZ":
+				message.addId("[DUA-PP-ULZ12]");
+				break;
+		}
+		message.send();
+	}
 }

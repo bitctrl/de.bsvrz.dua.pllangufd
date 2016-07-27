@@ -44,7 +44,7 @@ import java.util.SortedSet;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @version $Id$
+ * @version $Id: AbstraktPlLangEreignisSensor.java 53837 2015-03-18 11:45:45Z peuker $
  */
 public abstract class AbstraktPlLangEreignisSensor extends
 		AbstraktPlLangSensor<VergleichsEreignisWerte> {

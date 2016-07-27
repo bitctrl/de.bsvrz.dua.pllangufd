@@ -36,7 +36,7 @@ package de.bsvrz.dua.pllangufd.parameter;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @version $Id$
+ * @version $Id: IUniversalAtgUfdsLangzeitPLPruefungListener.java 53825 2015-03-18 09:36:42Z peuker $
  */
 public interface IUniversalAtgUfdsLangzeitPLPruefungListener {
 

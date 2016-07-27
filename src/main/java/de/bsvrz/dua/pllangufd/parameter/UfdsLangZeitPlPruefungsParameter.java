@@ -43,7 +43,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @version $Id$
+ * @version $Id: UfdsLangZeitPlPruefungsParameter.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer {
 

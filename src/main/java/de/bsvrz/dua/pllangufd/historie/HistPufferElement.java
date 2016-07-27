@@ -37,7 +37,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @version $Id$
+ * @version $Id: HistPufferElement.java 53837 2015-03-18 11:45:45Z peuker $
  */
 public class HistPufferElement implements IZeitStempel {
 

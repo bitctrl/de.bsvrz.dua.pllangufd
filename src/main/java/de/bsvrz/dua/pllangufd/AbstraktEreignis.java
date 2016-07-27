@@ -36,7 +36,7 @@ package de.bsvrz.dua.pllangufd;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @version $Id$
+ * @version $Id: AbstraktEreignis.java 53825 2015-03-18 09:36:42Z peuker $
  */
 public class AbstraktEreignis {
 

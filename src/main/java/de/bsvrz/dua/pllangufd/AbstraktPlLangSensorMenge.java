@@ -62,7 +62,7 @@ import java.util.Locale;
  * @param <G>
  *            Art
  * 
- * @version $Id$
+ * @version $Id: AbstraktPlLangSensorMenge.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public abstract class AbstraktPlLangSensorMenge<G> implements
 		IOnlineUfdSensorListener<ResultData> {

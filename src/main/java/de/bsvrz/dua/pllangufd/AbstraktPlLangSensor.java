@@ -48,7 +48,7 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.AbstraktOnlineUfdSensor;
  * 
  * @param <G> Sensor
  * 
- * @version $Id$
+ * @version $Id: AbstraktPlLangSensor.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public abstract class AbstraktPlLangSensor<G> extends
 		AbstraktOnlineUfdSensor<ResultData> implements

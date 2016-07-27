@@ -44,7 +44,7 @@ import java.util.Set;
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
- * @version $Id$
+ * @version $Id: PlLangFbzSensor.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangFbzSensor extends AbstraktPlLangEreignisSensor {
 

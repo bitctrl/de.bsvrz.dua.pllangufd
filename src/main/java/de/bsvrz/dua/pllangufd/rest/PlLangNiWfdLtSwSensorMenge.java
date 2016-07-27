@@ -45,7 +45,7 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * Pl-Pruefung langzeit UFD ueberprueft wird.
  *
  * @author BitCtrl Systems GmbH, Thierfelder
- * @version $Id$
+ * @version $Id: PlLangNiWfdLtSwSensorMenge.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangNiWfdLtSwSensorMenge extends
 		AbstraktPlLangSensorMenge<VergleichsWert> {

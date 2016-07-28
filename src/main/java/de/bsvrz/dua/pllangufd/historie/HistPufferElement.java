@@ -29,6 +29,8 @@
 
 package de.bsvrz.dua.pllangufd.historie;
 
+import java.util.Objects;
+
 import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
 
 /**
@@ -42,7 +44,7 @@ public class HistPufferElement implements IZeitStempel {
 	/**
 	 * der Zeitstempel, nach dem dieses Element einsortiert wird.
 	 */
-	private long zeitStempel = Long.MIN_VALUE;
+	private final long zeitStempel;
 
 	/**
 	 * Standardkonstruktor.
@@ -71,6 +73,11 @@ public class HistPufferElement implements IZeitStempel {
 		return gleich;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(zeitStempel);
+	}
+	
 	@Override
 	public String toString() {
 		return new Long(this.zeitStempel).toString();

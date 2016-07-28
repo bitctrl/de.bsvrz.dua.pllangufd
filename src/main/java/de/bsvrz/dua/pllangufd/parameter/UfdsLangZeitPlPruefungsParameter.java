@@ -32,7 +32,6 @@ import java.util.Objects;
 
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.ResultData;
-import de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;

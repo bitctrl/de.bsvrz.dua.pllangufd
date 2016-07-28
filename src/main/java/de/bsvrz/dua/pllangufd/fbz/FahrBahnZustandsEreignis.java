@@ -40,8 +40,6 @@ import java.util.Set;
  * Pl-Pruefung langzeit UFD benoetigte Ereignisse ab.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: FahrBahnZustandsEreignis.java 53825 2015-03-18 09:36:42Z peuker $
  */
 public final class FahrBahnZustandsEreignis extends AbstraktEreignis {
 

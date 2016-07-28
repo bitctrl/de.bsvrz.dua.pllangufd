@@ -40,8 +40,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
  * sortierbar
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: HistorischerUfdsWert.java 53837 2015-03-18 11:45:45Z peuker $
  */
 public class HistorischerUfdsWert extends HistPufferElement {
 

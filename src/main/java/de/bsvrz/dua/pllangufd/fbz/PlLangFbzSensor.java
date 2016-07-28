@@ -43,8 +43,6 @@ import java.util.Set;
  * Sinne der Pl-Pruefung langzeit UFD verarbeitet.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: PlLangFbzSensor.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangFbzSensor extends AbstraktPlLangEreignisSensor {
 
@@ -70,9 +68,6 @@ public class PlLangFbzSensor extends AbstraktPlLangEreignisSensor {
 		return instanz;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return FahrBahnZustandsEreignis.getInstanzen();

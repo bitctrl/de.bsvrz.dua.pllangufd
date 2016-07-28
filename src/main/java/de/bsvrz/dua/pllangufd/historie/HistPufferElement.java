@@ -36,8 +36,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.schnittstellen.IZeitStempel;
  * <code>HistorischerDatenpuffer</code>).
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: HistPufferElement.java 53837 2015-03-18 11:45:45Z peuker $
  */
 public class HistPufferElement implements IZeitStempel {
 
@@ -56,17 +54,11 @@ public class HistPufferElement implements IZeitStempel {
 		this.zeitStempel = zeitStempel;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public int compareTo(final IZeitStempel that) {
 		return -new Long(this.getZeitStempel())
 				.compareTo(that.getZeitStempel());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(final Object obj) {
 		boolean gleich = false;
@@ -79,17 +71,11 @@ public class HistPufferElement implements IZeitStempel {
 		return gleich;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return new Long(this.zeitStempel).toString();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public long getZeitStempel() {
 		return this.zeitStempel;
 	}

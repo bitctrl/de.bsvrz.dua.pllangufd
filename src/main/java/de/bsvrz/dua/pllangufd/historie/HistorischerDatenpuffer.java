@@ -41,8 +41,6 @@ import java.util.*;
  * 
  * @param <G>
  *            Pufferelement
- * 
- * @version $Id: HistorischerDatenpuffer.java 53837 2015-03-18 11:45:45Z peuker $
  */
 public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 		Iterable<G> {
@@ -257,9 +255,6 @@ public class HistorischerDatenpuffer<G extends HistPufferElement> implements
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public Iterator<G> iterator() {
 		return this.puffer.iterator();
 	}

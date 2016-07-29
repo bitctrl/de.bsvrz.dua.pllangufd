@@ -47,8 +47,6 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.modell.AbstraktOnlineUfdSensor;
  * @author BitCtrl Systems GmbH, Thierfelder
  * 
  * @param <G> Sensor
- * 
- * @version $Id: AbstraktPlLangSensor.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public abstract class AbstraktPlLangSensor<G> extends
 		AbstraktOnlineUfdSensor<ResultData> implements
@@ -88,10 +86,6 @@ public abstract class AbstraktPlLangSensor<G> extends
 			final UfdsLangZeitPlPruefungsParameter parameter,
 			final long aktuellerZeitStempel);
 
-	/**
-	 * {@inheritDoc}
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
-	 */
 	@Override
 	protected void initialisiere(final ClientDavInterface dav, final SystemObject objekt,
 			final Aspect aspekt) throws UmfeldDatenSensorUnbekannteDatenartException {
@@ -101,9 +95,6 @@ public abstract class AbstraktPlLangSensor<G> extends
 		parameter.addListener(this, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void berechneOnlineWert(final ResultData resultat) {
 		if(resultat.hasData()) {
@@ -135,9 +126,6 @@ public abstract class AbstraktPlLangSensor<G> extends
 		return this.aktuelleParameter;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void aktualisiereParameter(
 			final UfdsLangZeitPlPruefungsParameter aktuelleParameter1) {

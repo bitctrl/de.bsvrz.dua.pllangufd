@@ -45,7 +45,6 @@ import de.bsvrz.sys.funclib.debug.Debug;
  * Pl-Pruefung langzeit UFD ueberprueft wird.
  *
  * @author BitCtrl Systems GmbH, Thierfelder
- * @version $Id: PlLangNiWfdLtSwSensorMenge.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangNiWfdLtSwSensorMenge extends
 		AbstraktPlLangSensorMenge<VergleichsWert> {
@@ -54,9 +53,6 @@ public class PlLangNiWfdLtSwSensorMenge extends
 
 	private long lastTestTime = Long.MIN_VALUE;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void aktualisiereDaten(final ResultData datum) {
 		UmfeldDatenArt umfeldDatenArt;
@@ -220,11 +216,6 @@ public class PlLangNiWfdLtSwSensorMenge extends
 		return abweichung;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException
-	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsWert> getSensorInstanz(
 			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {

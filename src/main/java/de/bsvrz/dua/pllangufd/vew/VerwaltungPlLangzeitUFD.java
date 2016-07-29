@@ -57,16 +57,11 @@ import java.util.Set;
  * aller Auswertungsmodule.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: VerwaltungPlLangzeitUFD.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 
 	private static final Debug LOGGER = Debug.getLogger();
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected void initialisiere() throws DUAInitialisierungsException {
 
@@ -220,16 +215,10 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 		StandardApplicationRunner.run(new VerwaltungPlLangzeitUFD(), argumente);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public SWETyp getSWETyp() {
 		return SWETyp.SWE_PL_PRUEFUNG_LANGZEIT_UFD;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public void update(final ResultData[] results) {
 		// Die Datenverarbeitung findet in den Submodulen statt
 	}

@@ -34,8 +34,6 @@ package de.bsvrz.dua.pllangufd;
  * S.108).
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: VergleichsWert.java 53837 2015-03-18 11:45:45Z peuker $
  */
 public class VergleichsWert {
 

@@ -39,8 +39,6 @@ import java.util.Map;
  * bereitsgestellt.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: VergleichsEreignisWerte.java 53825 2015-03-18 09:36:42Z peuker $
  */
 public class VergleichsEreignisWerte {
 

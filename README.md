@@ -23,7 +23,7 @@ Release-Datum: 28.07.2016
 de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter
 
 - die Klasse erweitert nicht mehr de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer
-- equals und hashCode sind konform implementiert
+- equals und hashCode werden nicht implementiert
 
 de.bsvrz.dua.pllangufd.historie.HistPufferElement
 - hashCode entsprechend equals-Funktion ergänzt

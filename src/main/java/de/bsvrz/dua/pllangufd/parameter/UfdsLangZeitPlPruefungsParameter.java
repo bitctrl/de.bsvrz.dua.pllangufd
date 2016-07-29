@@ -162,36 +162,4 @@ public class UfdsLangZeitPlPruefungsParameter {
 	public final boolean isValid() {
 		return vergleichsIntervall != null;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(maxAbweichung, maxAbweichungZeit, maxAusfallZeit, vergleichsIntervall);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UfdsLangZeitPlPruefungsParameter other = (UfdsLangZeitPlPruefungsParameter) obj;
-		if (maxAbweichung == null) {
-			if (other.maxAbweichung != null)
-				return false;
-		} else if (!maxAbweichung.equals(other.maxAbweichung))
-			return false;
-		if (maxAbweichungZeit != other.maxAbweichungZeit)
-			return false;
-		if (maxAusfallZeit != other.maxAusfallZeit)
-			return false;
-		if (vergleichsIntervall == null) {
-			if (other.vergleichsIntervall != null)
-				return false;
-		} else if (!vergleichsIntervall.equals(other.vergleichsIntervall))
-			return false;
-		return true;
-	}
-
 }

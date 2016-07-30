@@ -43,8 +43,6 @@ import java.util.Set;
  * der Pl-Pruefung langzeit UFD verarbeitet.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: PlLangNsSensor.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangNsSensor extends AbstraktPlLangEreignisSensor {
 
@@ -71,9 +69,6 @@ public class PlLangNsSensor extends AbstraktPlLangEreignisSensor {
 		return instanz;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return NiederschlagsEreignis.getInstanzen();

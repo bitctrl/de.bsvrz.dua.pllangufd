@@ -26,12 +26,12 @@
  * mail: <info@kappich.de>
  */
 
-
 package de.bsvrz.dua.pllangufd.parameter;
+
+import java.util.Objects;
 
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.ResultData;
-import de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorUnbekannteDatenartException;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.UmfeldDatenSensorWert;
 import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.StundenIntervallAnteil12h;
@@ -42,10 +42,8 @@ import de.bsvrz.sys.funclib.bitctrl.dua.ufd.typen.UmfeldDatenArt;
  * <code>atg.ufdsLangzeitPLPrüfungXXX</code>.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: UfdsLangZeitPlPruefungsParameter.java 54549 2015-04-17 13:40:51Z gieseler $
  */
-public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer {
+public class UfdsLangZeitPlPruefungsParameter {
 
 	/**
 	 * Maximal zulässige Ausfallzeitdauer. Ist die Summer der Ausfallzeiten für
@@ -53,24 +51,24 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	 * als msxAusfallZeit, so wird für dieses Intervall keine PL-Langzeitprüfung
 	 * durchgeführt.
 	 */
-	private long maxAusfallZeit = Long.MIN_VALUE;
+	private final long maxAusfallZeit;
 
 	/**
 	 * Vergleichsintervall, für das die Langzeit-PL-Prüfung durchgeführt wird.
 	 */
-	private StundenIntervallAnteil12h vergleichsIntervall;
+	private final StundenIntervallAnteil12h vergleichsIntervall;
 
 	/**
 	 * Maximal zulässige Abweichung der Werte des Sensors im Vergleich zu den
 	 * Nachbarsensoren über das Vergleichsintervall.
 	 */
-	private UmfeldDatenSensorWert maxAbweichung;
+	private final UmfeldDatenSensorWert maxAbweichung;
 
 	/**
 	 * Maximal zulässige (zeitliche) Abweichung der Werte des Sensors im
 	 * Vergleich zu den Nachbarsensoren über das Vergleichsintervall.
 	 */
-	private long maxAbweichungZeit = Long.MIN_VALUE;
+	private final long maxAbweichungZeit;
 
 	/**
 	 * Standardkonstruktor.
@@ -78,37 +76,33 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	 * @param resultat
 	 *            ein Parameter-Datensart der Attributgruppe
 	 *            <code>atg.ufdsLangzeitPLPrüfungXXX</code>
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
+	 * @throws UmfeldDatenSensorUnbekannteDatenartException
 	 */
-	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat) throws UmfeldDatenSensorUnbekannteDatenartException {
+	public UfdsLangZeitPlPruefungsParameter(final ResultData resultat)
+			throws UmfeldDatenSensorUnbekannteDatenartException {
 		if (resultat == null || resultat.getData() == null) {
 			vergleichsIntervall = null;
+			maxAusfallZeit = Long.MIN_VALUE;
+			maxAbweichungZeit = Long.MIN_VALUE;
+			maxAbweichung = null;
 		} else {
-			final UmfeldDatenArt datenArt = UmfeldDatenArt
-					.getUmfeldDatenArtVon(resultat.getObject());
+			final UmfeldDatenArt datenArt = UmfeldDatenArt.getUmfeldDatenArtVon(resultat.getObject());
 
 			final String attMaxAbweichungName = "maxAbweichung" + datenArt.getAbkuerzung(); //$NON-NLS-1$
 			final Data datum = resultat.getData();
 
 			this.vergleichsIntervall = StundenIntervallAnteil12h
-					.getZustand(datum
-							.getUnscaledValue("VergleichsIntervall").intValue()); //$NON-NLS-1$
-			this.maxAusfallZeit = datum
-					.getTimeValue("maxAusfallZeit").getMillis(); //$NON-NLS-1$
+					.getZustand(datum.getUnscaledValue("VergleichsIntervall").intValue()); //$NON-NLS-1$
+			this.maxAusfallZeit = datum.getTimeValue("maxAusfallZeit").getMillis(); //$NON-NLS-1$
 
-			if (datenArt.equals(UmfeldDatenArt.ns)
-					|| datenArt.equals(UmfeldDatenArt.fbz)) {
-				this.maxAbweichungZeit = datum.getTimeValue(
-						attMaxAbweichungName).getMillis();
+			if (datenArt.equals(UmfeldDatenArt.ns) || datenArt.equals(UmfeldDatenArt.fbz)) {
+				this.maxAbweichungZeit = datum.getTimeValue(attMaxAbweichungName).getMillis();
+				this.maxAbweichung = null;
 			} else {
 				this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
-				this.maxAbweichung.setWert(datum.getUnscaledValue(
-						attMaxAbweichungName).longValue());
+				this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
+				maxAbweichungZeit = Long.MIN_VALUE;
 			}
-
-			// this.maxAbweichung = new UmfeldDatenSensorWert(datenArt);
-			// this.maxAbweichung.setWert(datum.getUnscaledValue(attMaxAbweichungName).longValue());
-
 		}
 	}
 
@@ -168,5 +162,4 @@ public class UfdsLangZeitPlPruefungsParameter extends AllgemeinerDatenContainer 
 	public final boolean isValid() {
 		return vergleichsIntervall != null;
 	}
-
 }

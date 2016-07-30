@@ -44,23 +44,14 @@ import java.util.Set;
  * wobei der Hauptsensor im Sinne der Pl-Pruefung langzeit UFD ueberprueft wird.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: PlLangNsSensorMenge.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangNsSensorMenge extends AbstraktPlLangEreignisSensorMenge {
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	protected Set<? extends AbstraktEreignis> getEreignisInstanzen() {
 		return NiederschlagsEreignis.getInstanzen();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @throws UmfeldDatenSensorUnbekannteDatenartException 
-	 */
 	@Override
 	protected AbstraktPlLangSensor<VergleichsEreignisWerte> getSensorInstanz(
 			final SystemObject objekt) throws UmfeldDatenSensorUnbekannteDatenartException {

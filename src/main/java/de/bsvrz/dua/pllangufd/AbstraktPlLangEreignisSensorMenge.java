@@ -44,16 +44,12 @@ import java.util.Set;
  * Pl-Pruefung langzeit UFD ueberprueft wird
  *
  * @author BitCtrl Systems GmbH, Thierfelder
- * @version $Id: AbstraktPlLangEreignisSensorMenge.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public abstract class AbstraktPlLangEreignisSensorMenge extends
 		AbstraktPlLangSensorMenge<VergleichsEreignisWerte> {
 
 	private long lastTestTime = Long.MIN_VALUE;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void aktualisiereDaten(final ResultData datum) {
 		synchronized(this) {
@@ -187,7 +183,7 @@ public abstract class AbstraktPlLangEreignisSensorMenge extends
 	 * @param aktuellesSensorDatum     aktuelle Daten des Sensor-Prueflings
 	 * @param aktuellesVorgaengerDatum aktuelle Daten des Vorgaengers
 	 * @param aktuellesNachfolgerDatum aktuelle Daten des Nachfolgers
-	 * @return der Wert AbweichungXY (>= 0) auf Basis der aktuellen Vergleichswerte pro XY-Ereignis aller assoziierten Sensoren oder ein Wert < 0, wenn die
+	 * @return der Wert AbweichungXY (&gt;= 0) auf Basis der aktuellen Vergleichswerte pro XY-Ereignis aller assoziierten Sensoren oder ein Wert &lt; 0, wenn die
 	 * AbweichungXY nicht ermittelt werden konnte
 	 */
 	private double getAbweichung(final boolean intervall24,

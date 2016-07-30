@@ -35,8 +35,6 @@ package de.bsvrz.dua.pllangufd;
  * PL-Pruefung langzeit UFD benoetigt wird.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: AbstraktEreignis.java 53825 2015-03-18 09:36:42Z peuker $
  */
 public class AbstraktEreignis {
 
@@ -115,9 +113,6 @@ public class AbstraktEreignis {
 		return this.intervallEnde;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return this.name;

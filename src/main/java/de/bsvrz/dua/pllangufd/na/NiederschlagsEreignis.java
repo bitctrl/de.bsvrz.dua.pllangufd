@@ -40,8 +40,6 @@ import java.util.Set;
  * ab.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: NiederschlagsEreignis.java 53825 2015-03-18 09:36:42Z peuker $
  */
 public final class NiederschlagsEreignis extends AbstraktEreignis {
 

@@ -45,8 +45,6 @@ import java.util.SortedSet;
  * Vergleichswerten im Sinne der Pl-Pruefung langzeit UFD verarbeitet.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: PlLangNiWfdLtSwSensor.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public class PlLangNiWfdLtSwSensor extends
 		AbstraktPlLangSensor<VergleichsWert> {
@@ -73,9 +71,6 @@ public class PlLangNiWfdLtSwSensor extends
 		return instanz;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public VergleichsWert getAktuellenVergleichsWert(
 			final UfdsLangZeitPlPruefungsParameter parameter,

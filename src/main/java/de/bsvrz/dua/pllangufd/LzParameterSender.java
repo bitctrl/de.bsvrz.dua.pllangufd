@@ -42,8 +42,6 @@ import java.util.Map;
  * Sendet Parameter eines Sensors fuer die Pl-Pruefung langzeit UFD.
  * 
  * @author BitCtrl Systems GmbH, Thierfelder
- * 
- * @version $Id: LzParameterSender.java 54549 2015-04-17 13:40:51Z gieseler $
  */
 public final class LzParameterSender implements ClientSenderInterface {
 
@@ -170,17 +168,11 @@ public final class LzParameterSender implements ClientSenderInterface {
 		return erfolg;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public void dataRequest(final SystemObject object,
 			final DataDescription dataDescription, final byte state) {
 		// 		
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public boolean isRequestSupported(final SystemObject object,
 			final DataDescription dataDescription) {
 		return false;

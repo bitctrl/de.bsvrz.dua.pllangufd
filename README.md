@@ -16,6 +16,24 @@ den Operator als Betriebsmeldung ausgegeben.
 
 ## Versionsgeschichte
 
+### 2.0.2
+
+Release-Datum: 28.07.2016
+
+de.bsvrz.dua.pllangufd.parameter.UfdsLangZeitPlPruefungsParameter
+
+- die Klasse erweitert nicht mehr de.bsvrz.sys.funclib.bitctrl.dua.AllgemeinerDatenContainer
+- equals und hashCode werden nicht implementiert
+
+de.bsvrz.dua.pllangufd.historie.HistPufferElement
+- hashCode entsprechend equals-Funktion ergänzt
+
+de.bsvrz.dua.pllangufd.tests.DuAPlLangUfdTestBase
+- der Member "_pruefungLangzeitUfd" sollte nicht statisch sein, der er bei jedem Test neu initialisiert wird
+
+- Javadoc für Java8-Kompatibilität korrigiert
+- Obsolete inheritDoc-Kommentare entfernt
+
 ### 2.0.1
 
 Release-Datum: 22.07.2016

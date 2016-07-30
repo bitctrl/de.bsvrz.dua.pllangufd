@@ -38,7 +38,7 @@ import org.junit.Before;
  * @author Kappich Systemberatung
  */
 public class DuAPlLangUfdTestBase extends DuATestBase {
-	protected static VerwaltungPlLangzeitUFD _pruefungLangzeitUfd;
+	protected VerwaltungPlLangzeitUFD _pruefungLangzeitUfd;
 
 	protected static String[] getLveArgs() {
 		return new String[]{"-KonfigurationsBereichsPid=kb.duaTestUfd,kb.duaTestUfdUnknown"};

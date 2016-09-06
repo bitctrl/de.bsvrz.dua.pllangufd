@@ -16,7 +16,11 @@ den Operator als Betriebsmeldung ausgegeben.
 
 ## Versionsgeschichte
 
-### 2.0.2
+### Version 2.0.3
+
+- Applikationsname für MessageSender entsprechend NERZ-Vorgabe gesetzt
+
+### Version 2.0.2
 
 Release-Datum: 28.07.2016
 
@@ -34,12 +38,12 @@ de.bsvrz.dua.pllangufd.tests.DuAPlLangUfdTestBase
 - Javadoc für Java8-Kompatibilität korrigiert
 - Obsolete inheritDoc-Kommentare entfernt
 
-### 2.0.1
+### Version 2.0.1
 
 Release-Datum: 22.07.2016
 - Umpacketierung gemäß NERZ-Konvention
   
-### 2.0.0
+### Version 2.0.0
 
 Release-Datum: 31.05.2016
 
@@ -73,38 +77,38 @@ Folgende Fehler gegenüber vorhergehenden Versionen wurden korrigiert:
 - Verschiedene Fehlerkorrekturen und Anpassungen bei der Ermittlung des Vergleichsintervalls
   und bei der Ausgabe von skalierten Werten.
 
-### 1.5.0
+### Version 1.5.0
 
 - Umstellung auf Java 8 und UTF-8
 
-### 1.4.0
+### Version 1.4.0
 - Umstellung auf Funclib-BitCtrl-Dua
 
-### 1.3.0
+### Version 1.3.0
 
 - Umstellung auf Maven-Build
 - Behandlung nicht unterstützter Sensorarten über die 'UmfeldDatenSensorUnbekannteDatenartException'
 - benötigt SWE_de.bsvrz.sys.funclib.bitctrl_FREI_V1.2.3.zip oder höher 
 
-### 1.2.2
+### Version 1.2.2
 
 - Senden von reinen Betriebsmeldungen in DUA um die Umsetzung von Objekt-PID/ID nach
   Betriebsmeldungs-ID erweitert.  
 
-### 1.2.1
+### Version 1.2.1
 
 - Sämtliche Konstruktoren DataDescription(atg, asp, sim)
   ersetzt durch DataDescription(atg, asp)
 
-### 1.2.0
+### Version 1.2.0
 
 - Bash-Startskript hinzu
 
-### 1.1.0
+### Version 1.1.0
 
 - Hinzufuegen von Skripten zur Konsolenausfuehrung von JUnit-Tests
   
-### 1.0.0
+### Version 1.0.0
 
 - Erste Auslieferung
   

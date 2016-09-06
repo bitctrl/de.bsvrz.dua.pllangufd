@@ -65,7 +65,7 @@ public class VerwaltungPlLangzeitUFD extends AbstraktVerwaltungsAdapter {
 	@Override
 	protected void initialisiere() throws DUAInitialisierungsException {
 
-		MessageSender.getInstance().setApplicationLabel("PL-Langzeit UFD");
+		MessageSender.getInstance().setApplicationLabel("PLPruefung Langzeit UFD");
 
 		UmfeldDatenArt.initialisiere(this.verbindung);
 
